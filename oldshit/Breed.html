@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>World of Reos Breeding Roller</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/stylesheet.css">
+	<link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+	<script>
+		$(document).ready(function() {
+		    $('.js-example-basic-multiple').select2({
+					maximumSelectionLength: 8
+				});
+		});
+	</script>
+	<script src="scripts/main.js"></script>
+</head>
+
+<body>
+
+	<div id="title">World of Reos Breeding Roller</div>
+
+	<div class="sectionthird">
+		<h2>Sire</h2>
+		<div class="selections">
+			<div class="selblock">
+				<label for="dadpoliticalstatus"><h4>Political Status</h4></label>
+				<select id="dad0" name="dadpoliticalstatus">
+					<option value="Citizen" id="dadPoliticalStatusCitizen">Citizen</option>
+					<option value="Recognized" id="dadPoliticalStatusRecognized">Recognized</option>
+					<option value="Exemplar" id="dadPoliticalStatusExemplar">Exemplar</option>
+					<option value="Noble" id="dadPoliticalStatusNoble">Noble</option>
+					<option value="PARAMOUNT" id="dadPoliticalStatusParamount">PARAMOUNT</option>
+				</select>
+			</div>
+			<div class="selblock">
+				<label for="dadspecies"><h4>Species</h4></label>
+				<select id="dad1" name="dadspecies" onchange="replaceHtml(this);">
+					<option value="Vayron" id="dadSpeciesVayron">Vayron</option>
+					<option value="Tyrian" id="dadSpeciesTyrian">Tyrian</option>
+				</select>
+			</div>
+			<div class="selblock">
+				<label for="dadtype"><h4>Type</h4></label>
+				<select id="dad2" name="dadtype">
+					<option value="Runner" id="dadTypeRunner">Runner</option>
+					<option value="Chaser" id="dadTypeChaser">Chaser</option>
+					<option value="Puller" id="dadTypePuller">Puller</option>
+				</select>
+			</div>
+			<div class="selblock">
+				<label for="dadfur"><h4>Fur Type</h4></label>
+				<select id="dad3" name="dadfur">
+					<option value="Lisse" id="dadFurLisse">Lisse</option>
+					<option value="Friese" id="dadFurFriese">Friese</option>
+					<option value="Duveteux" id="dadFurDuveteux">Duveteux</option>
+					<option value="Angora" id="dadFurAngora">Angora</option>
+				</select>
+			</div>
+			<div class="selblock">
+				<label for="dadear"><h4>Ears Trait</h4></label>
+				<select id="dad4" name="dadear">
+					<optgroup label="Common">
+						<option class="common" value="Long" id="dadEarLong">Long</option>
+						<option class="common" value="Vulpes" id="dadEarVulpes">Vulpes</option>
+						<option class="common" value="Bear" id="dadEarBear">Bear</option>
+					</optgroup>
+					<optgroup label="Uncommon">
+						<option class="uncommon" value="Sonar" id="dadEarSonar">Sonar</option>
+						<option class="uncommon" value="Fluffed" id="dadEarFluffed">Fluffed</option>
+						<option class="uncommon" value="Silken" id="dadEarSilken">Silken</option>
+						<option class="uncommon" value="Loopy" id="dadEarLoopy">Loopy</option>
+						<option class="uncommon" value="Draco" id="dadEarDraco">Draco</option>
+					</optgroup>
+					<optgroup label="Rare">
+						<option class="rare" value="Long Loopy" id="dadEarLongLoopy">Long Loopy</option>
+						<option class="rare" value="Rodent" id="dadEarRodent">Rodent</option>
+						<option class="rare" value="Clipped" id="dadEarClipped">Clipped</option>
+						<option class="rare" value="Large Draco" id="dadEarLargeDraco">Large Draco</option>
+						<option class="rare" value="Dumbo" id="dadEarDumbo">Dumbo</option>
+					</optgroup>
+				</select>
+			</div>
+			<div class="selblock">
+				<label for="dadtail"><h4>Tail Trait</h4></label>
+				<select id="dad5" name="dadtail">
+					<optgroup label="Common">
+						<option class="common" value="Bob" id="dadTailBob">Bob</option>
+						<option class="common" value="Stump" id="dadTailStump">Stump</option>
+						<option class="common" value="Medium" id="dadTailMedium">Medium</option>
+						<option class="common" value="Short" id="dadTailShort">Short tuft</option>
+						<option class="common" value="Fox" id="dadTailFox">Fox</option>
+					</optgroup>
+					<optgroup label="Uncommon">
+						<option class="uncommon" value="Brush" id="dadTailBrush">Brush</option>
+						<option class="uncommon" value="Puff" id="dadTailPuff">Puff</option>
+						<option class="uncommon" value="Feline" id="dadTailFeline">Feline</option>
+						<option class="uncommon" value="No" id="dadTailNone">Tailless</option>
+					</optgroup>
+					<optgroup label="Rare">
+						<option class="rare" value="Large Puff" id="dadTailLargePuff">Large Puff</option>
+						<option class="rare" value="Equine" id="dadTailEquine">Equine</option>
+						<option class="rare" value="Long Tuft" id="dadTailLongTuft">Long Tuft</option>
+						<option class="rare" value="Base Brush" id="dadTailBaseBrush">Base Brush</option>
+						<option class="rare" value="Reptile" id="dadTailReptile">Reptile</option>
+					</optgroup>
+					<optgroup label="Very Rare">
+						<option class="veryrare" value="Papillon" id="dadTailPapillon">Papillon</option>
+						<option class="veryrare" value="Double Tuft" id="dadTailDoubleTuft">Double Tuft</option>
+						<option class="veryrare" value="Kitsune" id="dadTailKitsune">Kitsune</option>
+						<option class="veryrare" value="Spade" id="dadTailSpade">Spade</option>
+						<option class="veryrare" value="Whip" id="dadTailWhip">Whip</option>
+					</optgroup>
+				</select>
+			</div>
+			<div class="selblock">
+				<label for="dadeye"><h4>Eyes Trait</h4></label>
+				<select id="dad6" name="dadeye">
+					<optgroup label="Common">
+						<option class="common" value="Round" id="dadEyeRound">Round</option>
+						<option class="common" value="Feline" id="dadEyeFeline">Feline</option>
+					</optgroup>
+					<optgroup label="Uncommon">
+						<option class="uncommon" value="Goat" id="dadEyeGoat">Goat</option>
+						<option class="uncommon" value="Pupilless" id="dadEyeNoPupil">No pupil</option>
+					</optgroup>
+					<optgroup label="Rare">
+						<option class="rare" value="Shaped" id="dadEyeShaped">Shaped</option>
+						<option class="rare" value="Glowing" id="dadEyeGlow">Glowing</option>
+					</optgroup>
+				</select>
+			</div>
+			<!--<div class="selblock">
+				<label for="dadskill"><h4>Skill One</h4></label>
+				<select id="dad7" name="dadskill">
+					<optgroup label="None">
+							<option class="none" value="none" id="dadskillnone">None</option>
+					</optgroup>
+					<optgroup label="Common">
+						<option class="common" value="efooting" id="dadskillfooting">Even Footing</option>
+						<option class="common" value="forager" id="dadskillforager">Forager</option>
+						<option class="common" value="scavenger" id="dadskillscavenger">Scavenger</option>
+						<option class="common" value="hawkseye" id="dadskillhawkseye">Hawk's Eye</option>
+						<option class="common" value="tenacious" id="dadskilltenacious">Tenacious</option>
+					</optgroup>
+					<optgroup label="Uncommon">
+						<option class="uncommon" value="smithy" id="dadskillsmithy">Smithy</option>
+						<option class="uncommon" value="potionmaster" id="dadskillpotionmaster">Potion Master</option>
+						<option class="uncommon" value="crafty" id="dadskillcrafty">Crafty</option>
+						<option class="uncommon" value="finalstand" id="dadskillfinalstand">Final Stand</option>
+					</optgroup>
+					<optgroup label="Rare">
+						<option class="rare" value="partyanimal" id="dadskillpartyanimal">Party Animal</option>
+						<option class="rare" value="hoarder" id="dadskillhoarder">Hoarder</option>
+					</optgroup>
+				</select>
+			</div>-->
+		</div>
+		<div class="geno">
+			<div class="genopart">
+				<label for="dadgeno"><h4>Geno</h4></label>
+				<input type="text" name="dadgeno" id="dadgeno" class="genostyle" placeholder="   Place your genotype here!" onchange="genoEcho(this);">
+				<textarea rows="1" id="dadgenocheck" class="genostyle" readonly placeholder="   Genotype check"></textarea>
+			</div>
+		</div>
+	</div>
+
+	<div class="sectionthird">
+		<h2>Dam</h2>
+		<div class="selections">
+			<div class="selblock">
+				<label for="mumpoliticalstatus"><h4>Political Status</h4></label>
+				<select id="mum0" name="mumpoliticalstatus">
+					<option value="Citizen" id="mumPoliticalStatusCitizen">Citizen</option>
+					<option value="Recognized" id="mumPoliticalStatusRecognized">Recognized</option>
+					<option value="Exemplar" id="mumPoliticalStatusExemplar">Exemplar</option>
+					<option value="Noble" id="mumPoliticalStatusNoble">Noble</option>
+					<option value="PARAMOUNT" id="mumPoliticalStatusParamount">PARAMOUNT</option>
+				</select>
+			</div>
+			<div class="selblock">
+				<label for="mumspecies"><h4>Species</h4></label>
+				<select id="mum1" name="mumspecies" onchange="replaceHtml(this);">
+					<option value="Vayron" id="mumSpeciesVayron">Vayron</option>
+					<option value="Tyrian" id="mumSpeciesTyrian">Tyrian</option>
+				</select>
+			</div>
+			<div class="selblock">
+				<label for="mumtype"><h4>Type</h4></label>
+				<select id="mum2" name="mumtype">
+					<option value="Runner" id="dadTypeRunner">Runner</option>
+					<option value="Chaser" id="dadTypeChaser">Chaser</option>
+					<option value="Puller" id="dadTypePuller">Puller</option>
+				</select>
+			</div>
+			<div class="selblock">
+				<label for="mumfur"><h4>Fur Type</h4></label>
+				<select id="mum3" name="mumfur">
+					<option value="Lisse" id="mumFurLisse">Lisse</option>
+					<option value="Friese" id="mumFurFriese">Friese</option>
+					<option value="Duveteux" id="mumFurDuveteux">Duveteux</option>
+					<option value="Angora" id="mumFurAngora">Angora</option>
+				</select>
+			</div>
+			<div class="selblock">
+				<label for="mumear"><h4>Ears Trait</h4></label>
+				<select id="mum4" name="mumear">
+					<optgroup label="Common">
+						<option class="common" value="Long" id="mumEarLong">Long</option>
+						<option class="common" value="Vulpes" id="mumEarVulpes">Vulpes</option>
+						<option class="common" value="Bear" id="mumEarBear">Bear</option>
+					</optgroup>
+					<optgroup label="Uncommon">
+						<option class="uncommon" value="Sonar" id="mumEarSonar">Sonar</option>
+						<option class="uncommon" value="Fluffed" id="mumEarFluffed">Fluffed</option>
+						<option class="uncommon" value="Silken" id="mumEarSilken">Silken</option>
+						<option class="uncommon" value="Loopy" id="mumEarLoopy">Loopy</option>
+						<option class="uncommon" value="Draco" id="mumEarDraco">Draco</option>
+					</optgroup>
+					<optgroup label="Rare">
+						<option class="rare" value="Long Loopy" id="mumEarLongLoopy">Long Loopy</option>
+						<option class="rare" value="Rodent" id="mumEarRodent">Rodent</option>
+						<option class="rare" value="Clipped" id="mumEarClipped">Clipped</option>
+						<option class="rare" value="Large Draco" id="mumEarLargeDraco">Large Draco</option>
+						<option class="rare" value="Dumbo" id="mumEarDumbo">Dumbo</option>
+					</optgroup>
+				</select>
+			</div>
+			<div class="selblock">
+				<label for="mumtail"><h4>Tail Trait</h4></label>
+				<select id="mum5" name="mumtail">
+					<optgroup label="Common">
+						<option class="common" value="Bob" id="mumTailBob">Bob</option>
+						<option class="common" value="Stump" id="mumTailStump">Stump</option>
+						<option class="common" value="Medium" id="mumTailMedium">Medium</option>
+						<option class="common" value="Short" id="mumTailShort">Short tuft</option>
+						<option class="common" value="Fox" id="mumTailFox">Fox</option>
+					</optgroup>
+					<optgroup label="Uncommon">
+						<option class="uncommon" value="Brush" id="mumTailBrush">Brush</option>
+						<option class="uncommon" value="Puff" id="mumTailPuff">Puff</option>
+						<option class="uncommon" value="Feline" id="mumTailFeline">Feline</option>
+						<option class="uncommon" value="No" id="mumTailNone">Tailless</option>
+					</optgroup>
+					<optgroup label="Rare">
+						<option class="rare" value="Large Puff" id="mumTailLargePuff">Large Puff</option>
+						<option class="rare" value="Equine" id="mumTailEquine">Equine</option>
+						<option class="rare" value="Long Tuft" id="mumTailLongTuft">Long Tuft</option>
+						<option class="rare" value="Base Brush" id="mumTailBaseBrush">Base Brush</option>
+						<option class="rare" value="Reptile" id="mumTailReptile">Reptile</option>
+					</optgroup>
+					<optgroup label="Very Rare">
+						<option class="veryrare" value="Papillon" id="mumTailPapillon">Papillon</option>
+						<option class="veryrare" value="Double Tuft" id="mumTailDoubleTuft">Double Tuft</option>
+						<option class="veryrare" value="Kitsune" id="mumTailKitsune">Kitsune</option>
+						<option class="veryrare" value="Spade" id="mumTailSpade">Spade</option>
+						<option class="veryrare" value="Whip" id="mumTailWhip">Whip</option>
+					</optgroup>
+				</select>
+			</div>
+			<div class="selblock">
+				<label for="mumeye"><h4>Eyes Trait</h4></label>
+				<select id="mum6" name="mumeye">
+					<optgroup label="Common">
+						<option class="common" value="Round" id="mumEyeRound">Round</option>
+						<option class="common" value="Feline" id="mumEyeFeline">Feline</option>
+					</optgroup>
+					<optgroup label="Uncommon">
+						<option class="uncommon" value="Goat" id="mumEyeGoat">Goat</option>
+						<option class="uncommon" value="Pupilless" id="mumEyeNoPupil">No pupil</option>
+					</optgroup>
+					<optgroup label="Rare">
+						<option class="rare" value="Shaped" id="mumEyeShaped">Shaped</option>
+						<option class="rare" value="Glowing" id="mumEyeGlow">Glowing</option>
+					</optgroup>
+				</select>
+			</div>
+			<!--<div class="selblock">
+				<label for="mumskill"><h4>Skill One</h4></label>
+				<select id="mum7" name="mumskill">
+					<optgroup label="None">
+							<option class="none" value="none" id="mumskillnone">None</option>
+					</optgroup>
+					<optgroup label="Common">
+						<option class="common" value="efooting" id="mumskillfooting">Even Footing</option>
+						<option class="common" value="forager" id="mumskillforager">Forager</option>
+						<option class="common" value="scavenger" id="mumskillscavenger">Scavenger</option>
+						<option class="common" value="hawkseye" id="mumskillhawkseye">Hawk's Eye</option>
+						<option class="common" value="tenacious" id="mumskilltenacious">Tenacious</option>
+					</optgroup>
+					<optgroup label="Uncommon">
+						<option class="uncommon" value="smithy" id="mumskillsmithy">Smithy</option>
+						<option class="uncommon" value="potionmaster" id="mumskillpotionmaster">Potion Master</option>
+						<option class="uncommon" value="crafty" id="mumskillcrafty">Crafty</option>
+						<option class="uncommon" value="finalstand" id="mumskillfinalstand">Final Stand</option>
+					</optgroup>
+					<optgroup label="Rare">
+						<option class="rare" value="partyanimal" id="mumskillpartyanimal">Party Animal</option>
+						<option class="rare" value="hoarder" id="mumskillhoarder">Hoarder</option>
+					</optgroup>
+				</select>
+			</div>-->
+		</div>
+		<div class="geno">
+			<div class="genopart">
+				<label for="mumgeno"><h4>Geno</h4></label>
+				<input type="text" name="mumgeno" id="mumgeno" class="genostyle" placeholder="   Place your genotype here!" onchange="genoEcho(this);">
+				<textarea rows="1" id="mumgenocheck" class="genostyle" readonly placeholder="   Genotype check"></textarea>
+			</div>
+		</div>
+	</div>
+
+	<div class="sectionthird">
+		<h2>Litter</h2>
+		<div class="info">
+			<div class="infopart">
+				<label for="inbred">
+					<input type="checkbox" name="inbred" id="inbred">Inbreeding present
+				</label>
+			</div>
+
+		</div>
+		<div class="big button" id="littermaker" onclick="litterMaker()">
+			<span>Do the do!</span>
+		</div>
+		<textarea name="litter" id="litter" readonly="readonly" autocomplete="off"></textarea>
+		<div class="big button" id="copy" onclick="copyToClipboard();">
+			<span>
+				copy to clipboard!
+			</span>
+		</div>
+	</div>
+
+	<div id="clearform">
+		<a class="big button" href="javascript:window.location.href=window.location.href">Clear the form</a>
+	</div>
+
+	<footer>
+		<p>Coding by <a href="https://bonsain.deviantart.com" target="_blank">Bonsain</a> & design/CSS by <a href="https://pudingi.deviantart.com" target="_blank">Pudingi</a></br>
+		Maintenance and Updates provided by <a href="https://www.deviantart.com/livard" target="_blank">Livard</a><br>
+		This website and coding was created for <a href="https://www.deviantart.com/world-of-reos" target="_blank">World of Reos'</a> use only. All rights reserved.</br>
+		Current Version (1.1) Released 7.1.2019<br>
+	<a href="https://app.termly.io/document/terms-of-use-for-website/d6782dcf-ed11-464b-8623-cb82e53d5907" target="_blank">Terms of Use</a> | <a href="http://www.livard.com/privacy.html" target="_blank">Privacy Policy</a> | <a href="http://www.livard.com/contact.html" target="_blank">Contact</a</p>
+
+	</footer>
+
+</body>
+
+</html>

@@ -1,0 +1,230 @@
+@import url(https://fonts.googleapis.com/css?family=PT+Sans);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+@font-family: 'Gloria Hallelujah', cursive;
+@font-family: 'Abel', sans-serif;
+
+
+html, body{
+	height: 100%;
+	margin: 0;
+	padding 0;
+}
+
+body {
+	background-image: url("https://orig00.deviantart.net/2457/f/2017/255/f/9/bg_by_pudingi-dbn8yqd.png");			/* R E P L A C E */
+	background-repeat: repeat-y;
+	font-size: 10px;
+	margin: 0;
+	text-align: center;
+	font-family: "Open Sans", sans-serif;
+}
+
+h1, h2, h3, h4, .button, #title, .link{
+	text-shadow: 2px 2px 8px #090b19;
+	color: white;
+	font-family: "PT Sans", sans-serif;
+	font-weight: normal;
+	text-align: center;
+	font-size: 100%
+}
+
+h2 {
+	font-size: 2.5em;
+	font-family: 'Abel', sans-serif;
+	margin: 0;
+	padding-bottom: 2px;
+	border-bottom: 3px outset #405ea6;
+
+}
+
+h4 {
+	font-size: 1.5em;
+	font-family: 'Abel', sans-serif;
+	margin: 0 0 5px 0;
+	letter-spacing: 0.03em;
+}
+
+#title {
+	font-size: 4.5em;
+	font-family: 'Gloria Hallelujah', cursive;
+	color: white;
+	background-image: url("https://i.gyazo.com/6628e459e1bcc4d331f402ec606b7f29.png");			/* R E P L A C E */
+	margin: 0 0 10px 0;
+	padding: 0.3em 10px;
+	height: 100px;
+	border: 1px solid black;
+	outline-style: outset;
+	outline-color: #384189;
+
+}
+
+.sectionthird, .selblock{
+	display: inline-block;
+	vertical-align: top;
+	padding: 5px;
+}
+
+.sectionthird {
+	padding: 00 15px;
+	padding: 25px;
+	margin-top: 20px;
+	margin: 25px;
+	width: 350px;
+	border-radius: 1px;
+    box-shadow: 0px 0px 0px 5px rgba(0,0,0,0.3);
+	background: transparent\9;
+    background:rgba(0,0,0,0.4);
+}
+
+.sectionthird select {
+  background: #1f2e52;
+  font-family: 'Abel', sans-serif;
+  color: white;
+  width: 85px;
+  border: 1px solid #1f2e52;
+  height: 25px;
+  border-radius: 4px;
+}
+
+
+.sectionthird p{
+	margin: 0;
+}
+
+.button {
+	display: inline-block;
+	font-family: 'Abel', sans-serif;
+	background: #485c8d;
+	padding: 5px 10px;
+	cursor: pointer;
+	vertical-align: middle;
+	font-size: 1.3em;
+	letter-spacing: 0.03em;
+	border-radius: 4px;
+
+}
+
+.big{
+	font-size: 2.0em;
+	padding: 5px 1em;
+}
+
+.button:hover {
+	background: #313e60;
+	transition: background-color 0.2s;
+}
+
+#littermaker{
+	margin-bottom: 15px;
+}
+
+#clearform{
+	margin-top: 15px;
+}
+
+.genopart{
+	margin-top: 15px;
+}
+
+.info label{
+	display: block;
+	color: white;
+}
+
+.infopart{
+	margin: 10px 0 20px 0;
+}
+
+footer{
+	margin: 40px 0 20px 0;
+	padding-top: 5px;
+	border-top: 1px solid black;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+	font-weight: bold;
+}
+
+
+@media only screen and (max-width: 768px){
+
+	.sectionthird{
+		display: block;
+		width: auto;
+		max-width:none;
+	}
+
+	input[type="checkbox"] {
+		width:20px;
+		height:20px;
+	}
+}
+
+
+
+/* TEMP - TEMP - TEMP - TEMP - TEMP - TEMP - TEMP - TEMP - TEMP - TEMP - TEMP - TEMP - TEMP */
+
+.common{
+	background-color: #9bbb76;
+	font-family: 'Abel', sans-serif;
+}
+.uncommon{
+	background-color: #5e78cc;
+	font-family: 'Abel', sans-serif;
+}
+.rare{
+	background-color: #b2667f;
+	font-family: 'Abel', sans-serif;
+}
+.veryrare{
+	background-color: #e9d779;
+	font-family: 'Abel', sans-serif;
+}
+
+
+/* optgroup styling */
+select > [label="Common"]{
+	background-color: #9bbb76;
+	font-family: 'Abel', sans-serif;
+	font-size: 1.1em;
+}
+select > [label="Uncommon"]{
+	background-color: #5e78cc;
+	font-family: 'Abel', sans-serif;
+	font-size: 1.1em;
+}
+select > [label="Rare"]{
+	background-color: #b2667f;
+	font-family: 'Abel', sans-serif;
+	font-size: 1.1em;
+}
+select > [label="Very Rare"]{
+	background-color: #e9d779;
+	font-family: 'Abel', sans-serif;
+	font-size: 1.1em;
+}
+
+
+.sectionthird  #litter{
+	width: 100%;
+	height: 35em;
+	resize: none;
+	overflow: auto;
+	font-family: 'Abel', sans-serif;
+	background: #1f2e52;
+	border: 1px solid #11182c;
+	border-radius: 4px;
+	color: white;
+}
+
+.genostyle{
+	width: 85%;
+	resize: none;
+	font-family: 'Abel', sans-serif;
+	background: #1f2e52;
+	border: 1px solid #11182c;
+	height: 25px;
+	border-radius: 4px;
+}
