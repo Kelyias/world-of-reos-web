@@ -15,7 +15,7 @@ web:
     tls:
       - secretName: worldofreos-fusionhs-tls
         hosts:
-          - worldofreos.fusionhs.co
+          - worldofreos.fusionhs.com
 pullSecret: codefresh-generated-r.cfcr.io-fusionhs-docker-reg-world-of-reos
 service:
   type: ClusterIP

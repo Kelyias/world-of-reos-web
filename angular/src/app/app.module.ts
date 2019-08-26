@@ -8,6 +8,7 @@ import { LitterComponent } from './litter/litter.component';
 import { SupplementsComponent } from './supplements/supplements.component';
 import { RollerOptionsComponent } from './roller-options/roller-options.component';
 import {MDBBootstrapModulesPro, MDBSpinningPreloader} from 'ng-uikit-pro-standard';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import {MDBBootstrapModulesPro, MDBSpinningPreloader} from 'ng-uikit-pro-standar
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     MDBBootstrapModulesPro.forRoot(),
   ],
   providers: [
