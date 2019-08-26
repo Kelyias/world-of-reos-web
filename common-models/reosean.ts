@@ -19,7 +19,8 @@ export class Reosean {
     coatColour: CoatColour;
     traits: Trait[];
     genotype: Marking[][];
-    mutation: Mutation;
-    magicTrait: MagicTrait;
-    nonPassable: NonPassable;
+    glint?: CoatColour;
+    mutation?: Mutation;
+    magicTrait?: MagicTrait;
+    nonPassable?: NonPassable;
 }

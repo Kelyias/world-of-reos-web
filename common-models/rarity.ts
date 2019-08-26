@@ -3,5 +3,6 @@ export enum Rarity {
     UNCOMMON,
     RARE,
     VERY_RARE,
+    MODIFIER,
     SPECIAL
 }

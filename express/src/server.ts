@@ -1,5 +1,7 @@
 import express from "express";
 import {GenerateOffspringService} from "./service/generate-offspring.service";
+import {Rarity} from "../../common-models/rarity";
+import {Marking} from "../../common-models/marking";
 
 const app = express();
 const path = require('path');
@@ -18,7 +20,7 @@ app.use(express.static(path.join(__dirname, './')));
 app.get('/health', function (req, res) {
     return res.json({status: 'UP'});
 });
-// health check
+// generate
 app.get('/api/offspring', function (req, res) {
     return res.json(offspring.getOffspring());
 });
