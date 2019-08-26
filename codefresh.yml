@@ -1,0 +1,49 @@
+version: '1.0'
+steps:
+
+  GetBuildVersion:
+    title: Get Build Version
+    image: node:10.15.1-jessie
+    commands:
+      - cf_export BUILD_VERSION=$(node -e "console.log(require('./package.json').version);")
+
+  Compilation:
+    title: Compile/Unit test
+    image: node:10.15.1-jessie
+    commands:
+      - npm i && npm run build
+
+  BuildingDockerImageForWeb:
+    title: Building Docker Image
+    type: build
+    image_name: world-of-reos/world-of-reos-web
+    working_directory: ./
+    tag: '${{BUILD_VERSION}}-${{CF_SHORT_REVISION}}'
+
+  PushingToDockerRegistryForWeb:
+    title: Pushing to Docker Registry
+    type: push
+    candidate: '${{BuildingDockerImageForWeb}}'
+    tag: '${{BUILD_VERSION}}-${{CF_SHORT_REVISION}}'
+    registry: fusionhs-docker-reg
+
+  helm_push:
+    image: codefresh/cfstep-helm:2.9.1
+    environment:
+      - ACTION=push
+      - CHART_REF=./chart/world-of-reos-web
+      - CHART_VERSION=${{BUILD_VERSION}}
+
+  deploy:
+    image: codefresh/cfstep-helm:2.9.1
+    environment:
+      - CHART_REF=world-of-reos-web
+      - RELEASE_NAME=world-of-reos-web
+      - CHART_VERSION=${{BUILD_VERSION}}
+      - NAMESPACE=world-of-reos
+      - KUBE_CONTEXT=fusionhs-web-cluster@FusionHS-web
+      - VALUE_web_image_tag='${{BUILD_VERSION}}-${{CF_SHORT_REVISION}}'
+    when:
+      branch:
+        only:
+          - master

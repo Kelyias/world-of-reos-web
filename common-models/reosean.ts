@@ -9,10 +9,12 @@ import {Trait} from "./trait";
 import {Mutation} from "./mutation";
 import {MagicTrait} from "./magic-trait";
 import {NonPassable} from "./non-passable";
+import {PoliticalStatus} from "./political-status";
 
 export class Reosean {
     gender: Gender;
     species: Species;
+    politicalStatus: PoliticalStatus;
     bodyType: BodyType;
     healthStatus: HealthStatus;
     coatType: CoatType;

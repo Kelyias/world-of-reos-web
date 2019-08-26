@@ -1,0 +1,16 @@
+@import '../../fonts';
+
+.title {
+  font-family: $font-gloria;
+  color: white;
+  background-image: url("/assets/images/header.png");
+  padding-top: 2.1em;
+  height: 129px;
+  border: 1px solid black;
+  outline-style: outset;
+  outline-color: #384189;
+
+  h1 {
+    font-size: 3em;
+  }
+}

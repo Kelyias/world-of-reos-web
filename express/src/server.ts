@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 // Point static path to dist
-app.use(express.static(path.join(__dirname, './')));
+app.use(express.static(path.join(__dirname, './static')));
 
 // health check
 app.get('/health', function (req, res) {
@@ -27,7 +27,7 @@ app.get('/api/offspring', function (req, res) {
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, './static/index.html'));
 });
 
 // start the Express server

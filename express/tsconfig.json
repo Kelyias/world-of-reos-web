@@ -10,6 +10,7 @@
     "noImplicitAny": false,
     "strictNullChecks": true,
     "alwaysStrict": true,
+    "strictPropertyInitialization": false,
     /* Module Resolution Options */
     "moduleResolution": "node",
     "baseUrl": "./src",

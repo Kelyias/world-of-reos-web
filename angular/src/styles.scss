@@ -1,1 +1,32 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'variables';
+@import 'fonts';
+
+body, html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+body {
+  background-image: url("assets/images/background.png");
+  background-repeat: repeat-y;
+  text-align: center;
+  font-family: $font-open-sans;
+}
+
+p, span, h1, h2, h3, h4, h5, h6, div {
+  color: white;
+}
+
+.reos-block {
+  border-radius: 1px;
+  box-shadow: 0px 0px 0px 5px rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.4);
+  .title{
+    font-family: $font-abel;
+    border-bottom: 3px outset #405ea6;
+  }
+}
+

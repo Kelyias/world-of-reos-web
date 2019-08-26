@@ -1,0 +1,24 @@
+replicaCount: 1
+
+web:
+  name: world-of-reos-web
+  image:
+    repository: r.cfcr.io/fusionhs/world-of-reos/world-of-reos-web
+    tag: master
+    pullPolicy: Always
+  ingress:
+    issuer: letsencrypt-prod
+    domain: worldofreos.fusionhs.com
+    path: /
+    hosts:
+      - worldofreos.fusionhs.com
+    tls:
+      - secretName: worldofreos-fusionhs-tls
+        hosts:
+          - worldofreos.fusionhs.co
+pullSecret: codefresh-generated-r.cfcr.io-fusionhs-docker-reg-world-of-reos
+service:
+  type: ClusterIP
+  port: 8080
+
+
