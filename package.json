@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "concurrently --kill-others \"npm run dev-angular\" \"npm run dev-express\"",
-    "dev-angular": "pushd angular && ng serve --proxy-config proxy.conf.json && popd",
-    "dev-express": "pushd express && ts-node-dev --respawn --transpileOnly ./src/server.ts && popd",
+    "dev-angular": "cd angular && ng serve --proxy-config proxy.conf.json && cd ..",
+    "dev-express": "cd express && ts-node-dev --respawn --transpileOnly ./src/server.ts && cd ..",
     "build-angular": "pushd angular && ng build --prod && popd",
     "build-express": "pushd express && tsc && popd",
     "build": "npm run build-angular && npm run build-express",
