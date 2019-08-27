@@ -1,14 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {PoliticalStatus} from "../../../../common-models/political-status";
-import {Helpers} from "../utils/helpers";
-import {ReosOption} from "../models/reos-option";
-import {Species} from "../../../../common-models/species";
-import {BODY_TYPES} from "../../../../common-models/body";
-import {COAT_TYPES} from "../../../../common-models/coat-type";
-import {Trait, TRAITS} from "../../../../common-models/trait";
-import {TraitType} from "../../../../common-models/trait-type";
-import {Rarity} from "../../../../common-models/rarity";
-import {KeyValue} from "@angular/common";
+import {Component, Input, OnInit} from '@angular/core';
+import {PoliticalStatus} from '../../../../common-models/political-status';
+import {Helpers} from '../utils/helpers';
+import {ReosOption} from '../models/reos-option';
+import {Species} from '../../../../common-models/species';
+import {BODY_TYPES} from '../../../../common-models/body';
+import {COAT_TYPES} from '../../../../common-models/coat-type';
+import {Trait, TRAITS} from '../../../../common-models/trait';
+import {TraitType} from '../../../../common-models/trait-type';
+import {Rarity} from '../../../../common-models/rarity';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {GenoToken} from '../models/geno-token';
+import {COAT_COLOUR_WHEEL} from '../../../../common-models/coat-colour';
+import {MARKINGS} from '../../../../common-models/marking';
 
 @Component({
   selector: 'app-parent-block',
@@ -16,30 +19,57 @@ import {KeyValue} from "@angular/common";
   styleUrls: ['./parent-block.component.scss']
 })
 export class ParentBlockComponent implements OnInit {
-  politicalStatusOptions: Array<ReosOption> = Helpers.convertEnumToOptionsArray(PoliticalStatus);
+  reoseanForm: FormGroup;
+  @Input('parentTitle') title: string;
+  politicalStatusOptions: Array<ReosOption>;
   speciesOptions: Array<ReosOption>;
   coatTypeOptions: Array<ReosOption>;
+  bodyTypeOptions: Array<ReosOption>;
   earTraits: Array<Trait>;
   tailTrait: Array<Trait>;
   eyesTrait: Array<Trait>;
-
-  bodyTypeOptions: Array<ReosOption>;
   groupedEarTraitsOptionsByRarity: Map<Rarity, ReosOption>;
   groupedTailTraitOptionsByRarity: Map<Rarity, ReosOption>;
   groupedEyeTraitOptionsByRarity: Map<Rarity, ReosOption>;
+  public geno: string;
+  public genoError = false;
+  private genoRegexp = /(?<coatColour>[a-zA-Z]+)\+(?<markings>([a-zA-Z]+)+(\/[a-zA-Z]*)*)(\/(?<glintGene>(Gl|GG))-(?<glintColour>[a-zA-Z]+))?$/;
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
   }
 
+  keepOrder = (a, b) => a;
+
   ngOnInit() {
+
+    this.reoseanForm = this.fb.group({
+      species: ['', Validators.required],
+      politicalStatus: ['', Validators.required],
+      bodyType: ['', Validators.required],
+      coatType: ['', Validators.required],
+      eyeTrait: ['', Validators.required],
+      tailTrait: ['', Validators.required],
+      earTrait: ['', Validators.required],
+      genoType: ['', Validators.required]
+    });
+
     this.politicalStatusOptions = Helpers.convertEnumToOptionsArray(PoliticalStatus);
     this.speciesOptions = Helpers.convertEnumToOptionsArray(Species);
     this.coatTypeOptions = COAT_TYPES.map(value => Helpers.getReosOption(value.name, value.name));
+
     this.earTraits = TRAITS.filter(value => value.type == TraitType.EAR);
     this.tailTrait = TRAITS.filter(value => value.type == TraitType.TAIL);
     this.eyesTrait = TRAITS.filter(value => value.type == TraitType.EYE);
 
     this.updateSpeciesOptions(this.speciesOptions[0].value);
+
+
+    this.reoseanForm.patchValue({
+      politicalStatus: this.politicalStatusOptions[0].value,
+      species: this.speciesOptions[0].value,
+      coatType: this.coatTypeOptions[0].value,
+    });
+
   }
 
   updateSpeciesOptions(species) {
@@ -58,17 +88,91 @@ export class ParentBlockComponent implements OnInit {
     this.groupedEyeTraitOptionsByRarity = this.getRarityGroup(this.eyesTrait
       .filter(value => value.species == species)
       .map(value => Helpers.getReosOption(value.name, value.name, value.rarity)));
+
+
+    this.reoseanForm.patchValue({
+      bodyType: this.bodyTypeOptions[0].value,
+      earTrait: this.groupedEarTraitsOptionsByRarity.values().next().value[0].value,
+      tailTrait: this.groupedTailTraitOptionsByRarity.values().next().value[0].value,
+      eyeTrait: this.groupedEyeTraitOptionsByRarity.values().next().value[0].value,
+    });
   }
 
-  keyDescOrder = (a: KeyValue<Rarity, ReosOption>, b: KeyValue<Rarity, ReosOption>): number => {
-    return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
-  }
-  keepOrder = (a, b) => {
-    return a;
+  validateGeno(genoText: string) {
+    this.geno = '';
+    genoText = genoText.trim().replace(/ /g, '');
+    this.genoError = false;
+
+    const split = genoText.split('//');
+
+    if (split.length > 2) {
+      this.genoError = true;
+      this.geno = 'Invalid genotype!';
+      return;
+    }
+
+    split.forEach((value,i) => {
+
+
+      const matchArray = value.match(this.genoRegexp);
+
+      if (!matchArray) {
+        this.genoError = true;
+        this.geno = 'Invalid genotype!';
+        return;
+      }
+
+      const genoTokens: GenoToken[] = [];
+      const coatColour = new GenoToken(matchArray.groups.coatColour);
+      const markings = matchArray.groups.markings.split('/').map(value => new GenoToken(value));
+      genoTokens.push(coatColour, ...markings);
+
+      let glintGene;
+      let glintColour;
+      if (matchArray.groups.glintGene) {
+        glintGene = new GenoToken(matchArray.groups.glintGene);
+        glintColour = new GenoToken(matchArray.groups.glintColour);
+      }
+
+      genoTokens.push(coatColour, ...markings, glintGene, glintColour);
+
+      this.validateCoatColour([coatColour, glintColour]);
+      this.validateMarkings([...markings, glintGene]);
+
+      this.geno += `${i>0?' // ':''}${coatColour.genoText}+${markings.map(value => value.genoText).join('/')}${glintGene ? '/' + glintGene.genoText + '-' + glintColour.genoText : ''}`;
+
+    });
+    this.reoseanForm.patchValue({genoType: genoText});
   }
 
   private getRarityGroup(reosOptions: ReosOption[]) {
-    let map = Helpers.groupBy(reosOptions, item => item.rarity);
+    const map = Helpers.groupBy(reosOptions, item => item.rarity);
     return new Map([...map.entries()].sort((a, b) => a[0] - b[0]));
+  }
+
+  private validateCoatColour(colours: GenoToken[]) {
+    colours
+      .filter(value => value != null)
+      .forEach(value => {
+        if (!COAT_COLOUR_WHEEL.find(marking => marking.colourSymbol == value.genoText)) {
+          value.valid = false;
+          value.genoText = `<<${value.genoText}>>`;
+          this.genoError = true;
+        }
+      });
+  }
+
+  private validateMarkings(markings: GenoToken[]) {
+    markings
+      .filter(value => value != null)
+      .forEach(value => {
+        if (!MARKINGS.find(marking => marking.recessiveSymbol == value.genoText
+          || marking.dominateSymbol == value.genoText)) {
+          value.valid = false;
+          value.genoText = `<<${value.genoText}>>`;
+          this.genoError = true;
+        }
+      });
+
   }
 }
