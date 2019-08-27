@@ -8,6 +8,7 @@ import {COAT_TYPES} from "../../../../common-models/coat-type";
 import {Trait, TRAITS} from "../../../../common-models/trait";
 import {TraitType} from "../../../../common-models/trait-type";
 import {Rarity} from "../../../../common-models/rarity";
+import {KeyValue} from "@angular/common";
 
 @Component({
   selector: 'app-parent-block',
@@ -20,11 +21,12 @@ export class ParentBlockComponent implements OnInit {
   coatTypeOptions: Array<ReosOption>;
   earTraits: Array<Trait>;
   tailTrait: Array<Trait>;
-  groupedEyeTraitOptionsByRarity: Map<Rarity, ReosOption>;
+  eyesTrait: Array<Trait>;
 
   bodyTypeOptions: Array<ReosOption>;
   groupedEarTraitsOptionsByRarity: Map<Rarity, ReosOption>;
   groupedTailTraitOptionsByRarity: Map<Rarity, ReosOption>;
+  groupedEyeTraitOptionsByRarity: Map<Rarity, ReosOption>;
 
   constructor() {
   }
@@ -35,9 +37,8 @@ export class ParentBlockComponent implements OnInit {
     this.coatTypeOptions = COAT_TYPES.map(value => Helpers.getReosOption(value.name, value.name));
     this.earTraits = TRAITS.filter(value => value.type == TraitType.EAR);
     this.tailTrait = TRAITS.filter(value => value.type == TraitType.TAIL);
-    this.groupedEyeTraitOptionsByRarity = this.getRarityGroup(TRAITS
-      .filter(value => value.type == TraitType.EYE)
-      .map(value => Helpers.getReosOption(value.name, value.name, value.rarity)));
+    this.eyesTrait = TRAITS.filter(value => value.type == TraitType.EYE);
+
     this.updateSpeciesOptions(this.speciesOptions[0].value);
   }
 
@@ -53,9 +54,21 @@ export class ParentBlockComponent implements OnInit {
     this.groupedTailTraitOptionsByRarity = this.getRarityGroup(this.tailTrait
       .filter(value => value.species == species)
       .map(value => Helpers.getReosOption(value.name, value.name, value.rarity)));
+
+    this.groupedEyeTraitOptionsByRarity = this.getRarityGroup(this.eyesTrait
+      .filter(value => value.species == species)
+      .map(value => Helpers.getReosOption(value.name, value.name, value.rarity)));
+  }
+
+  keyDescOrder = (a: KeyValue<Rarity, ReosOption>, b: KeyValue<Rarity, ReosOption>): number => {
+    return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
+  }
+  keepOrder = (a, b) => {
+    return a;
   }
 
   private getRarityGroup(reosOptions: ReosOption[]) {
-    return Helpers.groupBy(reosOptions, item => item.rarity);
+    let map = Helpers.groupBy(reosOptions, item => item.rarity);
+    return new Map([...map.entries()].sort((a, b) => a[0] - b[0]));
   }
 }
