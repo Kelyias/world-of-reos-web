@@ -7,6 +7,7 @@ import {BODY_TYPES} from "../../../../common-models/body";
 import {COAT_TYPES} from "../../../../common-models/coat-type";
 import {Trait, TRAITS} from "../../../../common-models/trait";
 import {TraitType} from "../../../../common-models/trait-type";
+import {Rarity} from "../../../../common-models/rarity";
 
 @Component({
   selector: 'app-parent-block',
@@ -17,13 +18,13 @@ export class ParentBlockComponent implements OnInit {
   politicalStatusOptions: Array<ReosOption> = Helpers.convertEnumToOptionsArray(PoliticalStatus);
   speciesOptions: Array<ReosOption>;
   coatTypeOptions: Array<ReosOption>;
-  earTraitsOptions: Array<Trait>;
-  tailTraitOptions: Array<Trait>;
-  eyeTraitOptions: Array<ReosOption>;
+  earTraits: Array<Trait>;
+  tailTrait: Array<Trait>;
+  groupedEyeTraitOptionsByRarity: Map<Rarity, ReosOption>;
 
-  filteredBodyTypeOptions: Array<ReosOption>;
-  filteredEarTraitsOptions: Array<ReosOption>;
-  filteredTailTraitOptions: Array<ReosOption>;
+  bodyTypeOptions: Array<ReosOption>;
+  groupedEarTraitsOptionsByRarity: Map<Rarity, ReosOption>;
+  groupedTailTraitOptionsByRarity: Map<Rarity, ReosOption>;
 
   constructor() {
   }
@@ -32,24 +33,29 @@ export class ParentBlockComponent implements OnInit {
     this.politicalStatusOptions = Helpers.convertEnumToOptionsArray(PoliticalStatus);
     this.speciesOptions = Helpers.convertEnumToOptionsArray(Species);
     this.coatTypeOptions = COAT_TYPES.map(value => Helpers.getReosOption(value.name, value.name));
-    this.earTraitsOptions = TRAITS.filter(value => value.type == TraitType.EAR);
-    this.tailTraitOptions = TRAITS.filter(value => value.type == TraitType.TAIL);
-    this.eyeTraitOptions = TRAITS.filter(value => value.type == TraitType.EYE).map(value => Helpers.getReosOption(value.name, value.name));
-    this.updateSpecies(this.speciesOptions[0].value);
+    this.earTraits = TRAITS.filter(value => value.type == TraitType.EAR);
+    this.tailTrait = TRAITS.filter(value => value.type == TraitType.TAIL);
+    this.groupedEyeTraitOptionsByRarity = this.getRarityGroup(TRAITS
+      .filter(value => value.type == TraitType.EYE)
+      .map(value => Helpers.getReosOption(value.name, value.name, value.rarity)));
+    this.updateSpeciesOptions(this.speciesOptions[0].value);
   }
 
-  updateSpecies(species) {
-    console.log('species:', species);
-    this.filteredBodyTypeOptions = BODY_TYPES
+  updateSpeciesOptions(species) {
+    this.bodyTypeOptions = BODY_TYPES
       .filter(value => value.species == species)
       .map(value => Helpers.getReosOption(value.bodyType, value.bodyType));
 
-    this.filteredEarTraitsOptions = this.earTraitsOptions
+    this.groupedEarTraitsOptionsByRarity = this.getRarityGroup(this.earTraits
       .filter(value => value.species == species)
-      .map(value => Helpers.getReosOption(value.name, value.name));
+      .map(value => Helpers.getReosOption(value.name, value.name, value.rarity)));
 
-    this.filteredTailTraitOptions = this.tailTraitOptions
+    this.groupedTailTraitOptionsByRarity = this.getRarityGroup(this.tailTrait
       .filter(value => value.species == species)
-      .map(value => Helpers.getReosOption(value.name, value.name));
+      .map(value => Helpers.getReosOption(value.name, value.name, value.rarity)));
+  }
+
+  private getRarityGroup(reosOptions: ReosOption[]) {
+    return Helpers.groupBy(reosOptions, item => item.rarity);
   }
 }
