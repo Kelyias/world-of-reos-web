@@ -1,31 +1,24 @@
-export enum MagicTrait {
-    CHERUB = 'CHERUB',
-    BAT_WINGS = 'BAT WINGS',
-    FEATHERED = 'FEATHERED',
-    LICORNE = 'LICORNE',
-    PROPHET = 'PROPHET',
-    MISTWALKER = 'MISTWALKER',
-    SERAPH = 'SERAPH',
-    WHISKERS = 'WHISKERS'
+import {Species} from "./species";
+
+export class MagicTrait {
+    name: string;
+    species: Species;
 }
 
-export const vayronMagicalTraits: MagicTrait[] = [
-    MagicTrait.CHERUB,
-    MagicTrait.BAT_WINGS,
-    MagicTrait.FEATHERED,
-    MagicTrait.LICORNE,
-    MagicTrait.PROPHET,
-    MagicTrait.MISTWALKER,
-    MagicTrait.SERAPH,
-];
-export const tyrianMagicalTraits: MagicTrait[] = [
-    MagicTrait.CHERUB,
-    MagicTrait.BAT_WINGS,
-    MagicTrait.FEATHERED,
-    MagicTrait.LICORNE,
-    MagicTrait.PROPHET,
-    MagicTrait.MISTWALKER,
-    MagicTrait.SERAPH,
-    MagicTrait.WHISKERS,
-
+export const MAGICAl_traits: MagicTrait[] = [
+    {name: 'cherub', species: Species.VAYRON},
+    {name: 'bat wings', species: Species.VAYRON},
+    {name: 'feathered', species: Species.VAYRON},
+    {name: 'licorne', species: Species.VAYRON},
+    {name: 'prophet', species: Species.VAYRON},
+    {name: 'mistwalker', species: Species.VAYRON},
+    {name: 'seraph', species: Species.VAYRON},
+    {name: 'cherub', species: Species.TYRIAN},
+    {name: 'bat wings', species: Species.TYRIAN},
+    {name: 'feathered', species: Species.TYRIAN},
+    {name: 'licorne', species: Species.TYRIAN},
+    {name: 'prophet', species: Species.TYRIAN},
+    {name: 'mistwalker', species: Species.TYRIAN},
+    {name: 'seraph', species: Species.TYRIAN},
+    {name: 'whiskers', species: Species.TYRIAN},
 ];

@@ -28,28 +28,28 @@ export const TRAITS: Trait[] = [
     {name: 'Dumbo', species: Species.VAYRON, type: TraitType.EAR, rarity: Rarity.RARE},
 
     //VAYRON TAILS
-    {name: 'Bob Tail', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.COMMON},
-    {name: 'Stump Tail', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.COMMON},
-    {name: 'Medium Tail', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.COMMON},
-    {name: 'Short Tuft Tail', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.COMMON},
-    {name: 'Fox Tail', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.COMMON},
+    {name: 'Bob', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.COMMON},
+    {name: 'Stump', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.COMMON},
+    {name: 'Medium', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.COMMON},
+    {name: 'Short Tuft', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.COMMON},
+    {name: 'Fox', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.COMMON},
 
-    {name: 'Brush Tail', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.UNCOMMON},
-    {name: 'Puff Tail', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.UNCOMMON},
-    {name: 'Feline Tail', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.UNCOMMON},
+    {name: 'Brush', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.UNCOMMON},
+    {name: 'Puff', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.UNCOMMON},
+    {name: 'Feline', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.UNCOMMON},
     {name: 'Tailless', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.UNCOMMON},
 
-    {name: 'Large Puff Tail', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.RARE},
-    {name: 'Equine Tail', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.RARE},
-    {name: 'Long Tuft Tail', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.RARE},
-    {name: 'Base Brush Tail', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.RARE},
-    {name: 'Reptile Tail', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.RARE},
+    {name: 'Large Puff', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.RARE},
+    {name: 'Equine', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.RARE},
+    {name: 'Long Tuft', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.RARE},
+    {name: 'Base Brush', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.RARE},
+    {name: 'Reptile', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.RARE},
 
-    {name: 'Papillon Tail', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.VERY_RARE},
-    {name: 'Double Tuft Tail', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.VERY_RARE},
-    {name: 'Kitsune Tail', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.VERY_RARE},
-    {name: 'Spade Tail', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.VERY_RARE},
-    {name: 'Whip Tail', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.VERY_RARE},
+    {name: 'Papillon', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.VERY_RARE},
+    {name: 'Double Tuft', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.VERY_RARE},
+    {name: 'Kitsune', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.VERY_RARE},
+    {name: 'Spade', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.VERY_RARE},
+    {name: 'Whip', species: Species.VAYRON, type: TraitType.TAIL, rarity: Rarity.VERY_RARE},
 
     //VAYRON EYES
     {name: 'Round', species: Species.VAYRON, type: TraitType.EYE, rarity: Rarity.COMMON},
@@ -83,24 +83,24 @@ export const TRAITS: Trait[] = [
 
 
     //TYRIAN TAILS
-    {name: 'Tuft Tail', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.COMMON},
-    {name: 'Spear Tail', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.COMMON},
-    {name: 'Flap Tail', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.COMMON},
+    {name: 'Tuft', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.COMMON},
+    {name: 'Spear', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.COMMON},
+    {name: 'Flap', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.COMMON},
 
-    {name: 'Ribbed Tail', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.UNCOMMON},
-    {name: 'Ridged Tail', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.UNCOMMON},
-    {name: 'Quill Tail', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.UNCOMMON},
+    {name: 'Ribbed', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.UNCOMMON},
+    {name: 'Ridged', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.UNCOMMON},
+    {name: 'Quill', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.UNCOMMON},
 
-    {name: 'Persian Tail', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.RARE},
-    {name: 'Frilled Tail', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.RARE},
-    {name: 'Veil Tail', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.RARE},
+    {name: 'Persian', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.RARE},
+    {name: 'Frilled', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.RARE},
+    {name: 'Veil', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.RARE},
 
-    {name: 'Flat Tail', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.VERY_RARE},
-    {name: 'Bulb Tail', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.VERY_RARE},
-    {name: 'Cape Tail', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.VERY_RARE},
-    {name: 'Sprout Tail', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.VERY_RARE},
-    {name: 'Club Tail', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.VERY_RARE},
-    {name: 'Scorpion Tail', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.VERY_RARE},
+    {name: 'Flat', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.VERY_RARE},
+    {name: 'Bulb', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.VERY_RARE},
+    {name: 'Cape', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.VERY_RARE},
+    {name: 'Sprout', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.VERY_RARE},
+    {name: 'Club', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.VERY_RARE},
+    {name: 'Scorpion', species: Species.TYRIAN, type: TraitType.TAIL, rarity: Rarity.VERY_RARE},
 
 
     //TYRIAN EYES

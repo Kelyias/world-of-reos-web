@@ -3,7 +3,7 @@
   <div class="row block-content justify-content-center">
     <div class="col-md-4 py-0 px-1 mt-2">
       <label class="text-nowrap">Political Status</label>
-      <select class="">
+      <select #politicalStatusSelect (selectionChange)="updateSpecies($event)" class="">
         <ng-container *ngFor="let item of politicalStatusOptions">
           <option value="{{item.value}}">{{item.label | titlecase}}</option>
         </ng-container>
@@ -20,7 +20,7 @@
     <div class="col-md-4 py-0 px-1 mt-2">
       <label class="text-nowrap">Type</label>
       <select class="">
-        <ng-container *ngFor="let item of bodyTypeOptions">
+        <ng-container *ngFor="let item of filteredBodyTypeOptions">
           <option value="{{item.value}}">{{item.label | titlecase}}</option>
         </ng-container>
       </select>
@@ -36,7 +36,7 @@
     <div class="col-md-4 py-0 px-1 mt-2">
       <label class="text-nowrap">Ears Trait</label>
       <select class="">
-        <ng-container *ngFor="let item of earTraitsOptions">
+        <ng-container *ngFor="let item of filteredEarTraitsOptions">
           <option value="{{item.value}}">{{item.label | titlecase}}</option>
         </ng-container>
       </select>
@@ -44,7 +44,7 @@
     <div class="col-md-4 py-0 px-1 mt-2">
       <label class="text-nowrap">Tail Trait</label>
       <select class="">
-        <ng-container *ngFor="let item of tailTraitOptions">
+        <ng-container *ngFor="let item of filteredTailTraitOptions">
           <option value="{{item.value}}">{{item.label | titlecase}}</option>
         </ng-container>
       </select>

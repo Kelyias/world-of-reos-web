@@ -1,7 +1,7 @@
 import {Marking} from "./marking";
 import {Gender} from "./gender";
 import {Species} from "./species";
-import {BodyType} from "./body-type";
+import {Body} from "./body";
 import {HealthStatus} from "./health-status";
 import {CoatType} from "./coat-type";
 import {CoatColour} from "./coat-colour";
@@ -15,7 +15,7 @@ export class Reosean {
     gender: Gender;
     species: Species;
     politicalStatus: PoliticalStatus;
-    bodyType: BodyType;
+    bodyType: Body;
     healthStatus: HealthStatus;
     coatType: CoatType;
     coatColour: CoatColour;

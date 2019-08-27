@@ -3,9 +3,9 @@ import {PoliticalStatus} from "../../../../common-models/political-status";
 import {Helpers} from "../utils/helpers";
 import {ReosOption} from "../models/reos-option";
 import {Species} from "../../../../common-models/species";
-import {BodyType} from "../../../../common-models/body-type";
+import {BODY_TYPES} from "../../../../common-models/body";
 import {COAT_TYPES} from "../../../../common-models/coat-type";
-import {TRAITS} from "../../../../common-models/trait";
+import {Trait, TRAITS} from "../../../../common-models/trait";
 import {TraitType} from "../../../../common-models/trait-type";
 
 @Component({
@@ -15,17 +15,41 @@ import {TraitType} from "../../../../common-models/trait-type";
 })
 export class ParentBlockComponent implements OnInit {
   politicalStatusOptions: Array<ReosOption> = Helpers.convertEnumToOptionsArray(PoliticalStatus);
-  speciesOptions: Array<ReosOption> = Helpers.convertEnumToOptionsArray(Species);
-  bodyTypeOptions: Array<ReosOption> = Helpers.convertEnumToOptionsArray(BodyType);
-  coatTypeOptions: Array<ReosOption> = COAT_TYPES.map(value => Helpers.getReosOption(value.name,value.name));
-  earTraitsOptions: Array<ReosOption> = TRAITS.filter(value => value.type == TraitType.EAR).map(value => Helpers.getReosOption(value.name,value.name));
-  tailTraitOptions: Array<ReosOption> = TRAITS.filter(value => value.type == TraitType.TAIL).map(value => Helpers.getReosOption(value.name,value.name));
-  eyeTraitOptions: Array<ReosOption> =  TRAITS.filter(value => value.type == TraitType.EYE).map(value => Helpers.getReosOption(value.name,value.name));
+  speciesOptions: Array<ReosOption>;
+  coatTypeOptions: Array<ReosOption>;
+  earTraitsOptions: Array<Trait>;
+  tailTraitOptions: Array<Trait>;
+  eyeTraitOptions: Array<ReosOption>;
+
+  filteredBodyTypeOptions: Array<ReosOption>;
+  filteredEarTraitsOptions: Array<ReosOption>;
+  filteredTailTraitOptions: Array<ReosOption>;
 
   constructor() {
   }
 
   ngOnInit() {
+    this.politicalStatusOptions = Helpers.convertEnumToOptionsArray(PoliticalStatus);
+    this.speciesOptions = Helpers.convertEnumToOptionsArray(Species);
+    this.coatTypeOptions = COAT_TYPES.map(value => Helpers.getReosOption(value.name, value.name));
+    this.earTraitsOptions = TRAITS.filter(value => value.type == TraitType.EAR);
+    this.tailTraitOptions = TRAITS.filter(value => value.type == TraitType.TAIL);
+    this.eyeTraitOptions = TRAITS.filter(value => value.type == TraitType.EYE).map(value => Helpers.getReosOption(value.name, value.name));
+    this.updateSpecies(this.speciesOptions[0].value);
   }
 
+  updateSpecies(species) {
+    console.log('species:', species);
+    this.filteredBodyTypeOptions = BODY_TYPES
+      .filter(value => value.species == species)
+      .map(value => Helpers.getReosOption(value.bodyType, value.bodyType));
+
+    this.filteredEarTraitsOptions = this.earTraitsOptions
+      .filter(value => value.species == species)
+      .map(value => Helpers.getReosOption(value.name, value.name));
+
+    this.filteredTailTraitOptions = this.tailTraitOptions
+      .filter(value => value.species == species)
+      .map(value => Helpers.getReosOption(value.name, value.name));
+  }
 }
