@@ -12,6 +12,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GenoToken} from '../models/geno-token';
 import {COAT_COLOUR_WHEEL} from '../../../../common-models/coat-colour';
 import {MARKINGS} from '../../../../common-models/marking';
+import {GenotypeToken} from "../models/genotype-token";
 
 @Component({
   selector: 'app-parent-block',
@@ -33,7 +34,8 @@ export class ParentBlockComponent implements OnInit {
   groupedEyeTraitOptionsByRarity: Map<Rarity, ReosOption>;
   public geno: string;
   public genoError = false;
-  private genoRegexp = /(?<coatColour>[a-zA-Z]+)\+(?<markings>([a-zA-Z]+)+(\/[a-zA-Z]*)*)(\/(?<glintGene>(Gl|GG))-(?<glintColour>[a-zA-Z]+))?$/;
+  public genotypeTokens: GenotypeToken[] = [];
+  private genoRegexp = /(?<coatColour>[a-zA-Z]+)\+(?<markings>([a-zA-Z]+)+(\/[a-zA-Z]*)*)*(\/(?<glintGene>(Gl|GG))-(?<glintColour>[a-zA-Z]+))?$/;
 
   constructor(private fb: FormBuilder) {
   }
@@ -100,6 +102,7 @@ export class ParentBlockComponent implements OnInit {
 
   validateGeno(genoText: string) {
     this.geno = '';
+    this.genotypeTokens = [];
     genoText = genoText.trim().replace(/ /g, '');
     this.genoError = false;
 
@@ -111,8 +114,9 @@ export class ParentBlockComponent implements OnInit {
       return;
     }
 
-    split.forEach((value,i) => {
-
+    split.forEach((value, i) => {
+      let genotypeToken = new GenotypeToken(value);
+      this.genotypeTokens.push(genotypeToken);
 
       const matchArray = value.match(this.genoRegexp);
 
@@ -122,26 +126,31 @@ export class ParentBlockComponent implements OnInit {
         return;
       }
 
-      const genoTokens: GenoToken[] = [];
-      const coatColour = new GenoToken(matchArray.groups.coatColour);
-      const markings = matchArray.groups.markings.split('/').map(value => new GenoToken(value));
-      genoTokens.push(coatColour, ...markings);
-
-      let glintGene;
-      let glintColour;
-      if (matchArray.groups.glintGene) {
-        glintGene = new GenoToken(matchArray.groups.glintGene);
-        glintColour = new GenoToken(matchArray.groups.glintColour);
+      genotypeToken.coatColour = new GenoToken(matchArray.groups.coatColour);
+      if (matchArray.groups.markings) {
+        genotypeToken.markings = matchArray.groups.markings.split('/').map(value => new GenoToken(value));
       }
 
-      genoTokens.push(coatColour, ...markings, glintGene, glintColour);
 
-      this.validateCoatColour([coatColour, glintColour]);
-      this.validateMarkings([...markings, glintGene]);
+      if (matchArray.groups.glintGene) {
+        genotypeToken.glintGene = new GenoToken(matchArray.groups.glintGene);
+        genotypeToken.glintColour = new GenoToken(matchArray.groups.glintColour);
+      }
 
-      this.geno += `${i>0?' // ':''}${coatColour.genoText}+${markings.map(value => value.genoText).join('/')}${glintGene ? '/' + glintGene.genoText + '-' + glintColour.genoText : ''}`;
+      this.validateCoatColour([genotypeToken.coatColour, genotypeToken.glintColour]);
+      let markings = [genotypeToken.glintGene];
+      if (genotypeToken.markings) {
+        markings = markings.concat([...genotypeToken.markings]);
+      }
+      this.validateMarkings(markings);
+
+      this.geno += `${i > 0 ? ' // ' : ''}
+      ${genotypeToken.coatColour.genoText}+
+      ${genotypeToken.markings ? genotypeToken.markings.map(value => value.genoText).join('/') : ''}
+      ${genotypeToken.glintGene ? '/' + genotypeToken.glintGene.genoText + '-' + genotypeToken.glintColour.genoText : ''}`;
 
     });
+    console.log(this.genotypeTokens);
     this.reoseanForm.patchValue({genoType: genoText});
   }
 
@@ -154,10 +163,13 @@ export class ParentBlockComponent implements OnInit {
     colours
       .filter(value => value != null)
       .forEach(value => {
-        if (!COAT_COLOUR_WHEEL.find(marking => marking.colourSymbol == value.genoText)) {
+        let foundCoatColour = COAT_COLOUR_WHEEL.find(marking => marking.colourSymbol == value.genoText);
+        if (!foundCoatColour) {
           value.valid = false;
           value.genoText = `<<${value.genoText}>>`;
           this.genoError = true;
+        } else {
+          value.geno = foundCoatColour;
         }
       });
   }
@@ -166,11 +178,14 @@ export class ParentBlockComponent implements OnInit {
     markings
       .filter(value => value != null)
       .forEach(value => {
-        if (!MARKINGS.find(marking => marking.recessiveSymbol == value.genoText
-          || marking.dominateSymbol == value.genoText)) {
+        let foundMarking = MARKINGS.find(marking => marking.recessiveSymbol == value.genoText
+          || marking.dominateSymbol == value.genoText);
+        if (!foundMarking) {
           value.valid = false;
           value.genoText = `<<${value.genoText}>>`;
           this.genoError = true;
+        } else {
+          value.geno = foundMarking;
         }
       });
 
