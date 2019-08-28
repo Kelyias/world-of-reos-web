@@ -1,7 +1,7 @@
 export enum PoliticalStatus {
-    CITIZEN='citizen',
-    RECOGNIZED='recognized',
-    EXEMPLAR='exemplar',
-    NOBLE='noble',
-    PARAMOUNT='paramount'
+    CITIZEN='CITIZEN',
+    RECOGNIZED='RECOGNIZED',
+    EXEMPLAR='EXEMPLAR',
+    NOBLE='NOBLE',
+    PARAMOUNT='PARAMOUNT'
 }

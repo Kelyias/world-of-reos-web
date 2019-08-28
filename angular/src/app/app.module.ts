@@ -10,6 +10,7 @@ import {RollerOptionsComponent} from './roller-options/roller-options.component'
 import {MDBBootstrapModulesPro, MDBSpinningPreloader} from 'ng-uikit-pro-standard';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {ClipboardModule} from "ngx-clipboard";
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    ClipboardModule,
     ReactiveFormsModule,
     MDBBootstrapModulesPro.forRoot(),
   ],

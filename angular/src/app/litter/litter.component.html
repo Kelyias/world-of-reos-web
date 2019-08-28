@@ -1,4 +1,6 @@
 <div class="reos-block px-5 py-3">
   <h2 class="title">Litter</h2>
-  <div></div>
+  <div><a mdbBtn type="button" class="reo-button" mdbWavesEffect (click)="triggerRoll()">Do the Do!</a></div>
+  <div class="py-3"><textarea class="litter-output" readonly="readonly" autocomplete="off" (click)="copyToClipboard()">{{litterText}}</textarea></div>
+  <div><a mdbBtn type="button" class="reo-button" mdbWavesEffect (click)="copyToClipboard()">Copy to Clipboard</a></div>
 </div>

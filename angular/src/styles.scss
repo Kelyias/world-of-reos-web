@@ -58,3 +58,19 @@ select > [label="Very Rare"]{
   color: red;
 }
 
+.reo-button {
+   font-family: $font-abel;
+   background: #485c8d;
+   padding: 5px 10px !important;
+   vertical-align: middle;
+   letter-spacing: 0.03em;
+   border-radius: 4px !important;
+
+ }
+
+
+.reo-button:hover {
+  background: #313e60;
+  transition: background-color 0.2s;
+}
+

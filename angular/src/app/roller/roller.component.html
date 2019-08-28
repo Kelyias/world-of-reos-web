@@ -11,10 +11,10 @@
       <div class="col-md-8">
         <div class="row">
           <div class="col-md px-4">
-            <app-parent-block [parentTitle]="'Sire'"></app-parent-block>
+            <app-parent-block [parentTitle]="'Sire'" #sireParent></app-parent-block>
           </div>
           <div class="col-md px-4">
-            <app-parent-block [parentTitle]="'Dam'"></app-parent-block>
+            <app-parent-block [parentTitle]="'Dam'" #dameParent></app-parent-block>
           </div>
         </div>
         <div class="row pt-4">
@@ -31,7 +31,7 @@
       <div class="col-md-4">
         <div class="row">
           <div class="col-md px-4">
-            <app-litter></app-litter>
+            <app-litter (trigger)="roll()" #litterBlock></app-litter>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
 export enum Species {
-    VAYRON='vayron',
-    TYRIAN='tyrian'
+    VAYRON='VAYRON',
+    TYRIAN='TYRIAN'
 }

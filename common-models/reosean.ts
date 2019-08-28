@@ -1,4 +1,4 @@
-import {Marking} from "./marking";
+import {MarkingGene} from "./marking";
 import {Gender} from "./gender";
 import {Species} from "./species";
 import {Body} from "./body";
@@ -20,8 +20,8 @@ export class Reosean {
     coatType: CoatType;
     coatColour: CoatColour;
     traits: Trait[];
-    genotype: Marking[][];
-    glint?: CoatColour;
+    genotype: MarkingGene[][];
+    glint?: CoatColour[];
     mutation?: Mutation;
     magicTrait?: MagicTrait;
     nonPassable?: NonPassable;

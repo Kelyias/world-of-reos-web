@@ -1,4 +1,8 @@
 <div class="reos-block px-5 py-3">
   <h2 class="title">Supplements</h2>
-  <div></div>
+  <div class="row text-left">
+    <div class="col-md-4 mt-3" *ngFor="let supplement of supplements">
+      <mdb-checkbox>{{supplement.name}}</mdb-checkbox>
+    </div>
+  </div>
 </div>

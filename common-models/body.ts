@@ -6,10 +6,10 @@ export class Body {
 }
 
 export enum BodyType {
-    EMPYRIAN='empyrian',
-    RUNNER='runner',
-    CHASER='chaser',
-    PULLER='puller'
+    EMPYRIAN='EMPYRIAN',
+    RUNNER='RUNNER',
+    CHASER='CHASER',
+    PULLER='PULLER'
 }
 
 export const BODY_TYPES: Body[] = [

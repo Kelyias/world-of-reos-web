@@ -1,7 +1,14 @@
 import {Rarity} from "./rarity";
 import {MarkingSort} from "./marking-sort";
+import {GeneType} from "./gene-type";
 
 export class Marking {
+    markingGene: MarkingGene;
+    geneType: GeneType;
+
+}
+
+export class MarkingGene {
     phenotype: string;
     dominateSymbol: string;
     recessiveSymbol: string;
@@ -9,7 +16,7 @@ export class Marking {
     sorting: MarkingSort;
 }
 
-export const MARKINGS: Marking[] = [
+export const MARKINGS: MarkingGene[] = [
     {rarity: Rarity.COMMON, phenotype: "Barred", recessiveSymbol: "nBa", dominateSymbol: "BaBa", sorting: -1},
     {rarity: Rarity.COMMON, phenotype: "Blanket", recessiveSymbol: "Bl", dominateSymbol: "BlBl", sorting: 1},
     {rarity: Rarity.COMMON, phenotype: "Bleached", recessiveSymbol: "nBe", dominateSymbol: "BeBe", sorting: -1},

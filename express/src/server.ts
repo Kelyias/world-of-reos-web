@@ -1,7 +1,7 @@
 import express from "express";
 import {GenerateOffspringService} from "./service/generate-offspring.service";
 import {Rarity} from "../../common-models/rarity";
-import {Marking} from "../../common-models/marking";
+import {MarkingGene} from "../../common-models/marking";
 
 const app = express();
 const path = require('path');
