@@ -14,8 +14,8 @@ export class Helpers {
     });
   }
 
-  public static getReosOption(key: string | number, label: any, rarity?: Rarity): ReosOption {
-    return {value: key, label: label, rarity: rarity};
+  public static getReosOption(value: any, label: any, rarity?: Rarity): ReosOption {
+    return {value: value, label: label, rarity: rarity};
   }
 
   public static groupBy(list, keyGetter) {

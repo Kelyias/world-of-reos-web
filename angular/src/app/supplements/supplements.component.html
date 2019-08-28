@@ -1,8 +1,10 @@
 <div class="reos-block px-5 py-3">
   <h2 class="title">Supplements</h2>
   <div class="row text-left">
-    <div class="col-md-4 mt-3" *ngFor="let supplement of supplements">
-      <mdb-checkbox>{{supplement.name}}</mdb-checkbox>
-    </div>
+    <form>
+      <div class="col-md-12 mt-3" *ngFor="let supplement of supplements; let i = index">
+        <mdb-checkbox (change)="toggleSupplement($event,i)">{{supplement.name}}</mdb-checkbox>
+      </div>
+    </form>
   </div>
 </div>

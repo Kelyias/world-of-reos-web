@@ -11,6 +11,7 @@ import {MDBBootstrapModulesPro, MDBSpinningPreloader} from 'ng-uikit-pro-standar
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ClipboardModule} from "ngx-clipboard";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {ClipboardModule} from "ngx-clipboard";
     BrowserAnimationsModule,
     FormsModule,
     ClipboardModule,
+    HttpClientModule,
     ReactiveFormsModule,
     MDBBootstrapModulesPro.forRoot(),
   ],

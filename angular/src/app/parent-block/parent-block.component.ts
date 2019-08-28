@@ -3,7 +3,7 @@ import {PoliticalStatus} from '../../../../common-models/political-status';
 import {Helpers} from '../utils/helpers';
 import {ReosOption} from '../models/reos-option';
 import {Species} from '../../../../common-models/species';
-import {BODY_TYPES, BodyType} from '../../../../common-models/body';
+import {BODY_TYPES} from '../../../../common-models/body';
 import {COAT_TYPES} from '../../../../common-models/coat-type';
 import {Trait, TRAITS} from '../../../../common-models/trait';
 import {TraitType} from '../../../../common-models/trait-type';
@@ -11,9 +11,10 @@ import {Rarity} from '../../../../common-models/rarity';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GenoToken} from '../models/geno-token';
 import {COAT_COLOUR_WHEEL, CoatColour} from '../../../../common-models/coat-colour';
-import {MarkingGene, MARKINGS} from '../../../../common-models/marking';
+import {Marking, MarkingGene, MARKINGS} from '../../../../common-models/marking';
 import {GenotypeToken} from '../models/genotype-token';
 import {Reosean} from '../../../../common-models/reosean';
+import {GeneType} from "../../../../common-models/gene-type";
 
 @Component({
   selector: 'app-parent-block',
@@ -38,6 +39,7 @@ export class ParentBlockComponent implements OnInit {
   public geno: string;
   public genoError = false;
   public genotypeTokens: GenotypeToken[] = [];
+  private genotype: MarkingGene;
   private genoRegexp = /(?<coatColour>[a-zA-Z]+)\+(?<markings>([a-zA-Z]+)+(\/[a-zA-Z]*)*)*(\/(?<glintGene>(Gl|GG))-(?<glintColour>[a-zA-Z]+))?$/;
 
   constructor(private fb: FormBuilder) {
@@ -59,7 +61,7 @@ export class ParentBlockComponent implements OnInit {
 
     this.politicalStatusOptions = Helpers.convertEnumToOptionsArray(PoliticalStatus);
     this.speciesOptions = Helpers.convertEnumToOptionsArray(Species);
-    this.coatTypeOptions = COAT_TYPES.map(value => Helpers.getReosOption(value.name, value.name));
+    this.coatTypeOptions = COAT_TYPES.map(value => Helpers.getReosOption(value, value.name));
 
     this.earTraits = TRAITS.filter(value => value.type == TraitType.EAR);
     this.tailTrait = TRAITS.filter(value => value.type == TraitType.TAIL);
@@ -83,38 +85,20 @@ export class ParentBlockComponent implements OnInit {
   public getReosean(): Reosean {
     const reosean = new Reosean();
 
-    reosean.politicalStatus = PoliticalStatus[this.reoseanForm.get('politicalStatus').value as string];
-    reosean.species = Species[this.reoseanForm.get('species').value as string];
-    reosean.coatType = COAT_TYPES.find(value => value.name == this.reoseanForm.get('coatType').value);
+    reosean.politicalStatus = this.reoseanForm.get('politicalStatus').value;
+    reosean.species = this.reoseanForm.get('species').value;
+    reosean.coatType = this.reoseanForm.get('coatType').value;
+    reosean.bodyType = this.reoseanForm.get('bodyType').value;
+    reosean.coatColour = this.genotypeTokens[0].coatColour.geno as CoatColour;
 
-    reosean.bodyType = BODY_TYPES
-      .filter(value => value.species == reosean.species)
-      .find(value => value.bodyType == BodyType[this.reoseanForm.get('bodyType').value as string]);
-
-    reosean.traits = [
-      TRAITS.filter(value => value.type == TraitType.EAR)
-        .filter(value => value.species == reosean.species)
-        .find(value => value.name == this.reoseanForm.get('earTrait').value),
-      TRAITS.filter(value => value.type == TraitType.TAIL)
-        .filter(value => value.species == reosean.species)
-        .find(value => value.name == this.reoseanForm.get('tailTrait').value),
-      TRAITS.filter(value => value.type == TraitType.EYE)
-        .filter(value => value.species == reosean.species)
-        .find(value => value.name == this.reoseanForm.get('eyeTrait').value)
+    reosean.traits = [this.reoseanForm.get('earTrait').value,
+      this.reoseanForm.get('tailTrait').value,
+      this.reoseanForm.get('eyeTrait').value
     ];
 
-    reosean.coatColour = this.genotypeTokens[0].coatColour.geno as CoatColour;
-    reosean.genotype =
-      this.genotypeTokens
-        .map(value => value.markings)
-        .map(value => value
-          .map(token => token.geno as MarkingGene)
-        );
-    this.genotypeTokens.forEach((value, i) => {
-      if (value.glintGene) {
-        reosean.genotype[i].push(value.glintGene.geno as MarkingGene);
-      }
-    });
+    reosean.genotype = this.getGenotype();
+
+    this.addGlintGene(reosean);
 
     return reosean;
   }
@@ -122,19 +106,19 @@ export class ParentBlockComponent implements OnInit {
   updateSpeciesOptions(species) {
     this.bodyTypeOptions = BODY_TYPES
       .filter(value => value.species == species)
-      .map(value => Helpers.getReosOption(value.bodyType, value.bodyType));
+      .map(value => Helpers.getReosOption(value, value.bodyType));
 
     this.groupedEarTraitsOptionsByRarity = this.getRarityGroup(this.earTraits
       .filter(value => value.species == species)
-      .map(value => Helpers.getReosOption(value.name, value.name, value.rarity)));
+      .map(value => Helpers.getReosOption(value, value.name, value.rarity)));
 
     this.groupedTailTraitOptionsByRarity = this.getRarityGroup(this.tailTrait
       .filter(value => value.species == species)
-      .map(value => Helpers.getReosOption(value.name, value.name, value.rarity)));
+      .map(value => Helpers.getReosOption(value, value.name, value.rarity)));
 
     this.groupedEyeTraitOptionsByRarity = this.getRarityGroup(this.eyesTrait
       .filter(value => value.species == species)
-      .map(value => Helpers.getReosOption(value.name, value.name, value.rarity)));
+      .map(value => Helpers.getReosOption(value, value.name, value.rarity)));
 
 
     this.reoseanForm.patchValue({
@@ -160,43 +144,70 @@ export class ParentBlockComponent implements OnInit {
     }
 
     split.forEach((value, i) => {
-      const genotypeToken = new GenotypeToken(value);
-      this.genotypeTokens.push(genotypeToken);
-
-      const matchArray = value.match(this.genoRegexp);
-
-      if (!matchArray) {
-        this.genoError = true;
-        this.geno = 'Invalid genotype!';
-        return;
-      }
-
-      genotypeToken.coatColour = new GenoToken(matchArray.groups.coatColour);
-      if (matchArray.groups.markings) {
-        genotypeToken.markings = matchArray.groups.markings.split('/').map(value => new GenoToken(value));
-      }
-
-
-      if (matchArray.groups.glintGene) {
-        genotypeToken.glintGene = new GenoToken(matchArray.groups.glintGene);
-        genotypeToken.glintColour = new GenoToken(matchArray.groups.glintColour);
-      }
-
-      this.validateCoatColour([genotypeToken.coatColour, genotypeToken.glintColour]);
-      let markings = [genotypeToken.glintGene];
-      if (genotypeToken.markings) {
-        markings = markings.concat([...genotypeToken.markings]);
-      }
-      this.validateMarkings(markings);
-
-      this.geno += `${i > 0 ? ' // ' : ''}
-      ${genotypeToken.coatColour.genoText}`+
-      `${genotypeToken.markings ? genotypeToken.markings.map(value => value.genoText).join('/') : ''}`+
-      `${genotypeToken.glintGene ? '/' + genotypeToken.glintGene.genoText + '-' + genotypeToken.glintColour.genoText : ''}`;
+      this.processGeno(value, i);
 
     });
-    console.log(this.genotypeTokens);
-    console.log(this.getReosean());
+  }
+
+  private addGlintGene(reosean) {
+    this.genotypeTokens.forEach((value, i) => {
+      if (value.glintGene) {
+        let marking = new Marking();
+        marking.markingGene = value.glintGene.geno as MarkingGene;
+        marking.geneType = (value.glintGene.genoText == marking.markingGene.dominateSymbol ? GeneType.DOMINATE : GeneType.RECESSIVE)
+        reosean.genotype[i].push(marking);
+      }
+    });
+  }
+
+  private getGenotype() {
+    return this.genotypeTokens
+      .map(value => value.markings)
+      .map(value => value
+        .map(token => {
+
+          let marking = new Marking();
+          marking.markingGene = token.geno as MarkingGene;
+          marking.geneType = (token.genoText == marking.markingGene.dominateSymbol ? GeneType.DOMINATE : GeneType.RECESSIVE)
+          return marking;
+        })
+      );
+  }
+
+  private processGeno(geno, i) {
+    const genotypeToken = new GenotypeToken(geno);
+    this.genotypeTokens.push(genotypeToken);
+
+    const matchArray = geno.match(this.genoRegexp);
+
+    if (!matchArray) {
+      this.genoError = true;
+      this.geno = 'Invalid genotype!';
+      return;
+    }
+
+    genotypeToken.coatColour = new GenoToken(matchArray.groups.coatColour);
+    if (matchArray.groups.markings) {
+      genotypeToken.markings = matchArray.groups.markings.split('/').map(value => new GenoToken(value));
+    }
+
+
+    if (matchArray.groups.glintGene) {
+      genotypeToken.glintGene = new GenoToken(matchArray.groups.glintGene);
+      genotypeToken.glintColour = new GenoToken(matchArray.groups.glintColour);
+    }
+
+    this.validateCoatColour([genotypeToken.coatColour, genotypeToken.glintColour]);
+    let markings = [genotypeToken.glintGene];
+    if (genotypeToken.markings) {
+      markings = markings.concat([...genotypeToken.markings]);
+    }
+    this.validateMarkings(markings);
+
+    this.geno += `${i > 0 ? ' // ' : ''}
+      ${genotypeToken.coatColour.genoText}+` +
+      `${genotypeToken.markings ? genotypeToken.markings.map(value => value.genoText).join('/') : ''}` +
+      `${genotypeToken.glintGene ? '/' + genotypeToken.glintGene.genoText + '-' + genotypeToken.glintColour.genoText : ''}`;
   }
 
   private getRarityGroup(reosOptions: ReosOption[]) {

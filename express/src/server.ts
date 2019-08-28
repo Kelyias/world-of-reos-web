@@ -2,6 +2,8 @@ import express from "express";
 import {GenerateOffspringService} from "./service/generate-offspring.service";
 import {Rarity} from "../../common-models/rarity";
 import {MarkingGene} from "../../common-models/marking";
+import {RollReoseanResponse} from "../../common-models/rest/roll-reosean-response";
+import {RollReoseanRequest} from "../../common-models/rest/roll-reosean-request";
 
 const app = express();
 const path = require('path');
@@ -21,8 +23,10 @@ app.get('/health', function (req, res) {
     return res.json({status: 'UP'});
 });
 // generate
-app.get('/api/offspring', function (req, res) {
-    return res.json(offspring.getOffspring());
+app.post('/api/roll', function (req, res) {
+    let request = req.body as RollReoseanRequest;
+    let response = offspring.getOffspring(request);
+    return res.json(response);
 });
 
 // Catch all other routes and return the index file

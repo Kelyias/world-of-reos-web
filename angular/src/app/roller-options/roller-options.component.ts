@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-roller-options',
@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./roller-options.component.scss']
 })
 export class RollerOptionsComponent implements OnInit {
+  inbredChecked: boolean;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
+  }
+
+  public getInbred(): boolean {
+    return this.inbredChecked;
   }
 
 }
