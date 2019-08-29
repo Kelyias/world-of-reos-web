@@ -57,11 +57,16 @@
         </select>
       </div>
 
-      <div class="col-md-4 py-0 px-1 mt-2">
+      <div class="col-md-8 py-0 px-1 mt-2">
         <label class="text-nowrap">Skills</label>
-        <mdb-select [customClass]="'multi-select'" [enableSelectAll]="false" [filterEnabled]="true"
-                    [highlightFirst]="false" [multiple]="true"
+        <mdb-select [customClass]="'multi-select'"
+                    [enableSelectAll]="false"
+                    [filterEnabled]="true"
+                    [highlightFirst]="false"
+                    [multiple]="true"
+                    [optionHeight]="20"
                     [options]="skillMultiOptions"
+                    [visibleOptions]="15"
                     formControlName="skills"
                     placeholder="None"></mdb-select>
       </div>

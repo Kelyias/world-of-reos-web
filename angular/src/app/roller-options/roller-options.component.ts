@@ -6,7 +6,7 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./roller-options.component.scss']
 })
 export class RollerOptionsComponent implements OnInit {
-  inbredChecked: boolean;
+  inbredChecked: boolean = false;
 
   constructor() {
   }

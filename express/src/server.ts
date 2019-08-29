@@ -22,7 +22,7 @@ app.get('/health', function (req, res) {
 // generate
 app.post('/api/roll', function (req, res) {
     let request = req.body as RollReoseanRequest;
-    // console.log(request);
+    console.log(request);
     let response = offspring.getOffspring(request);
     return res.json(response);
 });

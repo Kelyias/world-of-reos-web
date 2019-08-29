@@ -126,7 +126,7 @@ export class ParentBlockComponent implements OnInit {
   updateSpeciesOptions(species) {
     this.bodyTypeOptions = BODY_TYPES
       .filter(value => value.species == species)
-      .map(value => Helpers.getReosOption(value, value.bodyType));
+      .map(value => Helpers.getReosOption(value, value.type));
 
     this.groupedEarTraitsOptionsByRarity = this.getRarityGroup(this.earTraits
       .filter(value => value.species == species)
