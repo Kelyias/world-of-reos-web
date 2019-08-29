@@ -3,7 +3,7 @@ import {GenoToken} from "./geno-token";
 export class GenotypeToken {
   genotypeText: string;
   coatColour: GenoToken;
-  markings: GenoToken[];
+  markings: GenoToken[] = [];
   glintGene: GenoToken;
   glintColour: GenoToken;
 

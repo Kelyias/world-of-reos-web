@@ -15,6 +15,8 @@ import {Marking, MarkingGene, MARKINGS} from '../../../../common-models/marking'
 import {GenotypeToken} from '../models/genotype-token';
 import {Reosean} from '../../../../common-models/reosean';
 import {GeneType} from "../../../../common-models/gene-type";
+import {SKILLS} from "../../../../common-models/skill";
+import {IOption} from "ng-uikit-pro-standard";
 
 @Component({
   selector: 'app-parent-block',
@@ -32,13 +34,14 @@ export class ParentBlockComponent implements OnInit {
   earTraits: Array<Trait>;
   tailTrait: Array<Trait>;
   eyesTrait: Array<Trait>;
-  groupedEarTraitsOptionsByRarity: Map<Rarity, ReosOption>;
-  groupedTailTraitOptionsByRarity: Map<Rarity, ReosOption>;
-  groupedEyeTraitOptionsByRarity: Map<Rarity, ReosOption>;
+  groupedEarTraitsOptionsByRarity: Map<Rarity, ReosOption[]>;
+  groupedTailTraitOptionsByRarity: Map<Rarity, ReosOption[]>;
+  groupedEyeTraitOptionsByRarity: Map<Rarity, ReosOption[]>;
 
   public geno: string;
   public genoError = false;
   public genotypeTokens: GenotypeToken[] = [];
+  skillMultiOptions: Array<IOption>;
   private genotype: MarkingGene;
   private genoRegexp = /(?<coatColour>[a-zA-Z]+)\+(?<markings>([a-zA-Z]+)+(\/[a-zA-Z]*)*)*(\/(?<glintGene>(Gl|GG))-(?<glintColour>[a-zA-Z]+))?$/;
 
@@ -48,6 +51,21 @@ export class ParentBlockComponent implements OnInit {
   keepOrder = (a, b) => a;
 
   ngOnInit() {
+    this.skillMultiOptions = [];
+    this.getRarityGroup(SKILLS.map(value => Helpers.getReosOption(value, value.name, value.rarity)))
+      .forEach((values, key) => {
+        this.skillMultiOptions.push({
+          label: key,
+          value: '',
+          group: true,
+          icon: ''
+        });
+        values.forEach(value => this.skillMultiOptions.push({
+          label: value.label,
+          value: value.value,
+          icon: ''
+        }));
+      });
 
     this.reoseanForm = this.fb.group({
       species: ['', Validators.required],
@@ -56,7 +74,8 @@ export class ParentBlockComponent implements OnInit {
       coatType: ['', Validators.required],
       eyeTrait: ['', Validators.required],
       tailTrait: ['', Validators.required],
-      earTrait: ['', Validators.required]
+      earTrait: ['', Validators.required],
+      skills: ['', Validators.required]
     });
 
     this.politicalStatusOptions = Helpers.convertEnumToOptionsArray(PoliticalStatus);
@@ -89,6 +108,7 @@ export class ParentBlockComponent implements OnInit {
     reosean.species = this.reoseanForm.get('species').value;
     reosean.coatType = this.reoseanForm.get('coatType').value;
     reosean.bodyType = this.reoseanForm.get('bodyType').value;
+    reosean.skills = this.reoseanForm.get('skills').value;
     reosean.coatColour = this.genotypeTokens[0].coatColour.geno as CoatColour;
 
     reosean.traits = [this.reoseanForm.get('earTrait').value,
@@ -210,7 +230,7 @@ export class ParentBlockComponent implements OnInit {
       `${genotypeToken.glintGene ? '/' + genotypeToken.glintGene.genoText + '-' + genotypeToken.glintColour.genoText : ''}`;
   }
 
-  private getRarityGroup(reosOptions: ReosOption[]) {
+  private getRarityGroup(reosOptions: ReosOption[]): Map<Rarity, ReosOption[]> {
     const map = Helpers.groupBy(reosOptions, item => item.rarity);
     return new Map([...map.entries()].sort((a, b) => a[0] - b[0]));
   }

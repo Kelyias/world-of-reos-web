@@ -1,4 +1,4 @@
-import {Marking, MarkingGene} from "./marking";
+import {Marking} from "./marking";
 import {Gender} from "./gender";
 import {Species} from "./species";
 import {Body} from "./body";
@@ -10,6 +10,7 @@ import {Mutation} from "./mutation";
 import {MagicTrait} from "./magic-trait";
 import {NonPassable} from "./non-passable";
 import {PoliticalStatus} from "./political-status";
+import {Skill} from "./skill";
 
 export class Reosean {
     gender: Gender;
@@ -22,6 +23,7 @@ export class Reosean {
     traits: Trait[];
     genotype: Marking[][];
     glint?: CoatColour[];
+    skills: Skill[];
     mutation?: Mutation;
     magicTrait?: MagicTrait;
     nonPassable?: NonPassable;

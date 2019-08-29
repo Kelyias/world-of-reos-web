@@ -29,7 +29,7 @@ export class GenerateOffspringService {
         this.rollTraits(offspring, sire, dam);
         this.rollSkills(offspring, sire, dam);
 
-
+        rollReoseanResponse.offspring = offspring;
         return rollReoseanResponse;
     }
 
@@ -37,6 +37,8 @@ export class GenerateOffspringService {
         let nonCitizens = [sire, dam].filter(value => value.politicalStatus != PoliticalStatus.CITIZEN);
         if (nonCitizens.length > 1) {
             return true;
+        } else if (nonCitizens.length == 0) {
+            return this.checkMateChanceWithCitizen(PoliticalStatus.CITIZEN);
         } else {
             return this.checkMateChanceWithCitizen(nonCitizens[0].politicalStatus);
         }
