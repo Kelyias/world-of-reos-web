@@ -5,6 +5,7 @@ import {GeneType} from "./gene-type";
 export class Marking {
     markingGene: MarkingGene;
     geneType: GeneType;
+    processed: boolean;
 
 }
 

@@ -6,6 +6,10 @@ import {SpeciesRoller} from "../rollers/species-roller";
 import {HealthStatusRoller} from "../rollers/health-status-roller";
 import {GenderRoller} from "../rollers/gender-roller";
 import {BodyTypeRoller} from "../rollers/body-type-roller";
+import {NonPassableRoller} from "../rollers/non-passable-roller";
+import {GlintRoller} from "../rollers/glint-roller";
+import {CoatColourRoller} from "../rollers/coat-colour-roller";
+import {MarkingsRoller} from "../rollers/markings-roller";
 
 export class GenerateOffspringService {
     public getOffspring(request: RollReoseanRequest): RollReoseanResponse {
@@ -23,10 +27,10 @@ export class GenerateOffspringService {
         GenderRoller.rollGender(offspring);
         HealthStatusRoller.rollHealthStatus(offspring, request.inbred);
         BodyTypeRoller.rollBodyType(offspring, sire, dam);
-        this.rollCoatColour(offspring, sire, dam);
-        this.rollMarkings(offspring, sire, dam);
-        this.rollGlint(offspring);
-        this.rollNonPassables(offspring);
+        NonPassableRoller.rollNonPassables(offspring);
+        CoatColourRoller.rollCoatColour(offspring, sire, dam);
+        MarkingsRoller.rollMarkings(offspring, sire, dam);
+        GlintRoller.rollGlint(offspring);
         this.rollTraits(offspring, sire, dam);
         this.rollSkills(offspring, sire, dam);
 
@@ -36,21 +40,8 @@ export class GenerateOffspringService {
 
 
 
-    private rollCoatColour(offspring: Reosean[], sire: Reosean, dam: Reosean) {
 
-    }
 
-    private rollMarkings(offspring: Reosean[], sire: Reosean, dam: Reosean) {
-
-    }
-
-    private rollGlint(offspring: Reosean[]) {
-
-    }
-
-    private rollNonPassables(offspring: Reosean[]) {
-
-    }
 
     private rollTraits(offspring: Reosean[], sire: Reosean, dam: Reosean) {
 

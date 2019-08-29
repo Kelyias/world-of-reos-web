@@ -5,7 +5,7 @@ export class MagicTrait {
     species: Species;
 }
 
-export const MAGICAl_traits: MagicTrait[] = [
+export const MAGICAl_TRAITS: MagicTrait[] = [
     {name: 'cherub', species: Species.VAYRON},
     {name: 'bat wings', species: Species.VAYRON},
     {name: 'feathered', species: Species.VAYRON},
