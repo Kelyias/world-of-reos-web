@@ -5,6 +5,7 @@ import {PoliticalStatus} from "../../../common-models/political-status";
 import {Species} from "../../../common-models/species";
 import {Gender} from "../../../common-models/gender";
 import {HealthStatus} from "../../../common-models/health-status";
+import crypto from "crypto";
 
 export class GenerateOffspringService {
     public getOffspring(request: RollReoseanRequest): RollReoseanResponse {
@@ -123,15 +124,15 @@ export class GenerateOffspringService {
     }
 
     private secureRandom(): number {
-        return 1;
+        return parseInt(crypto.randomBytes(4).toString('hex'), 16) / (4_294_967_295);
     }
 
     private secureCheckRoll(targetPassPercentage: number): boolean {
-        return true;
+        return this.secureRandom() <= targetPassPercentage;
     }
 
     private secureRangeRoll(min: number, max: number): number {
-        return 0;
+        return Math.floor(this.secureRandom() * (max - min + 1)) + min;
     }
 
     private rollInbred(): HealthStatus {

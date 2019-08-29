@@ -6,4 +6,5 @@ export class RollReoseanRequest {
     dam: Reosean;
     supplements: Supplement[];
     inbred: boolean;
+    rollerId: string;
 }

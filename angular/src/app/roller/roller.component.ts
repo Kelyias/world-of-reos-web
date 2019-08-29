@@ -5,7 +5,7 @@ import {SupplementsComponent} from '../supplements/supplements.component';
 import {RollerOptionsComponent} from '../roller-options/roller-options.component';
 import {RollReoseanRequest} from '../../../../common-models/rest/roll-reosean-request';
 import {RollerService} from '../services/roller.service';
-import {response} from "express";
+import {v4 as uuid} from 'uuid';
 
 @Component({
   selector: 'app-roller',
@@ -21,6 +21,9 @@ export class RollerComponent implements OnInit {
   @ViewChild('rollerOptionsComponent', {static: false}) rollerOptionsComponent: RollerOptionsComponent;
 
   constructor(private rollerService: RollerService) {
+    if (!localStorage.getItem('rollerId')) {
+      localStorage.setItem('rollerId', uuid());
+    }
   }
 
   ngOnInit() {
@@ -34,6 +37,7 @@ export class RollerComponent implements OnInit {
         sire: this.sireParent.getReosean(),
         supplements: this.supplementsComponent.getSupplements(),
         inbred: this.rollerOptionsComponent.getInbred(),
+        rollerId: localStorage.getItem('rollerId')
       };
       this.rollerService.rollReosean(request).subscribe(response => console.log(response));
     }

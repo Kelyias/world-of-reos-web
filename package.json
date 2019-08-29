@@ -26,6 +26,7 @@
     "@angular/router": "~8.2.3",
     "@fortawesome/fontawesome-free": "^5.10.2",
     "@types/chart.js": "^2.8.4",
+    "@types/uuid": "^3.4.5",
     "animate.css": "^3.7.2",
     "body-parser": "^1.19.0",
     "chart.js": "^2.8.0",
@@ -39,8 +40,10 @@
     "ngx-clipboard": "^12.2.1",
     "rxjs": "~6.5.2",
     "screenfull": "^4.2.1",
+    "secure-random": "^1.1.2",
     "ts-node-dev": "^1.0.0-pre.42",
     "tslib": "^1.10.0",
+    "uuid": "^3.3.3",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

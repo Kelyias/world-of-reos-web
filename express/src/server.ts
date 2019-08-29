@@ -1,8 +1,5 @@
 import express from "express";
 import {GenerateOffspringService} from "./service/generate-offspring.service";
-import {Rarity} from "../../common-models/rarity";
-import {MarkingGene} from "../../common-models/marking";
-import {RollReoseanResponse} from "../../common-models/rest/roll-reosean-response";
 import {RollReoseanRequest} from "../../common-models/rest/roll-reosean-request";
 
 const app = express();
@@ -25,6 +22,7 @@ app.get('/health', function (req, res) {
 // generate
 app.post('/api/roll', function (req, res) {
     let request = req.body as RollReoseanRequest;
+    // console.log(request);
     let response = offspring.getOffspring(request);
     return res.json(response);
 });
