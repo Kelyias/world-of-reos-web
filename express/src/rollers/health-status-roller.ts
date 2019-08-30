@@ -24,9 +24,10 @@ export class HealthStatusRoller {
 
         this.inbredHealthPassRates.forEach(passRate => {
 
-            if (prevPassRate < roll && roll <= passRate.passRate) {
+            if (prevPassRate < roll && roll <= prevPassRate + passRate.passRate) {
                 healthStatus = passRate.healthStatus;
             }
+            prevPassRate += passRate.passRate;
         });
         return healthStatus;
     }

@@ -15,6 +15,8 @@ export class SkillsRoller {
 
     private static rollSkillForChild(child: Reosean, sire: Reosean, dam: Reosean) {
         child.skills = [];
+        if (!sire.skills) sire.skills = [];
+        if (!dam.skills) dam.skills = [];
         sire.skills.concat(dam.skills).forEach(skill => {
 
             let passRates = this.skillPassRates.find(passRate => passRate.rarity == skill.rarity)!.passRate;

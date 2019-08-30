@@ -7,37 +7,37 @@ export class BodyTypeRoller {
 
     private static speciesRollChanges: SpeciesRollChances[] = [
         {
-            parents: [BodyType.RUNNER, BodyType.RUNNER],
+            parentsSet: new Set<BodyType>().add(BodyType.RUNNER).add(BodyType.RUNNER),
             successChance: 1,
             successResult: BodyType.RUNNER,
             failResult: BodyType.RUNNER
         },
         {
-            parents: [BodyType.RUNNER, BodyType.CHASER],
+            parentsSet: new Set<BodyType>().add(BodyType.RUNNER).add(BodyType.CHASER),
             successChance: 0.7,
             successResult: BodyType.RUNNER,
             failResult: BodyType.CHASER
         },
         {
-            parents: [BodyType.RUNNER, BodyType.PULLER],
+            parentsSet: new Set<BodyType>().add(BodyType.RUNNER).add(BodyType.PULLER),
             successChance: .6,
             successResult: BodyType.RUNNER,
             failResult: BodyType.PULLER
         },
         {
-            parents: [BodyType.CHASER, BodyType.CHASER],
+            parentsSet: new Set<BodyType>().add(BodyType.CHASER).add(BodyType.CHASER),
             successChance: 0.8,
             successResult: BodyType.CHASER,
             failResult: BodyType.RUNNER
         },
         {
-            parents: [BodyType.CHASER, BodyType.PULLER],
+            parentsSet: new Set<BodyType>().add(BodyType.CHASER).add(BodyType.PULLER),
             successChance: 0.6,
             successResult: BodyType.CHASER,
             failResult: BodyType.RUNNER
         },
         {
-            parents: [BodyType.PULLER, BodyType.PULLER],
+            parentsSet: new Set<BodyType>().add(BodyType.PULLER).add(BodyType.PULLER),
             successChance: .1,
             successResult: BodyType.PULLER,
             failResult: BodyType.RUNNER
@@ -63,14 +63,19 @@ export class BodyTypeRoller {
     }
 
     private static getSpeciesRollChances(sireBodyType: BodyType, damBodyType: BodyType): SpeciesRollChances {
-        return this.speciesRollChanges.find(value => (value.parents[0] == sireBodyType && value.parents[1] == damBodyType)
-            || (value.parents[1] == sireBodyType && value.parents[0] == damBodyType))!;
+
+
+        let speciesSet = new Set<BodyType>().add(sireBodyType).add(damBodyType);
+        speciesSet.delete(BodyType.EMPYRIAN);
+        return this.speciesRollChanges.find(value => this.isSetsEqual(speciesSet, value.parentsSet))!;
     }
+
+    private static isSetsEqual = (a, b) => a.size === b.size && [...a].every(value => b.has(value));
 }
 
 export interface SpeciesRollChances {
 
-    parents: BodyType[],
+    parentsSet: Set<BodyType>,
     successChance: number,
     successResult: BodyType,
     failResult: BodyType

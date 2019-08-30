@@ -21,7 +21,7 @@ export class Reosean {
     earTrait: Trait;
     tailTrait: Trait;
     eyeTrait: Trait;
-    genotype: Genotype[];
+    genotypes: Genotype[];
     skills: Skill[];
     mutation?: Mutation;
     magicTrait?: MagicTrait;

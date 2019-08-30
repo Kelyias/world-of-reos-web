@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Supplement, SupplementRule, SUPPLEMENTS} from "../../../../common-models/supplement";
-import {MdbCheckboxChange} from "ng-uikit-pro-standard";
-import {COAT_COLOUR_WHEEL, CoatColour} from "../../../../common-models/coat-colour";
-import {BODY_TYPES, BodyType} from "../../../../common-models/body";
-import {Species} from "../../../../common-models/species";
+import {Supplement, SupplementRule, SUPPLEMENTS} from '../../../../common-models/supplement';
+import {MdbCheckboxChange} from 'ng-uikit-pro-standard';
+import {COAT_COLOUR_WHEEL, CoatColour} from '../../../../common-models/coat-colour';
+import {BODY_TYPES, BodyType} from '../../../../common-models/body';
+import {Species} from '../../../../common-models/species';
+import {Helpers} from "../utils/helpers";
 
 @Component({
   selector: 'app-supplements',
@@ -28,7 +29,7 @@ export class SupplementsComponent implements OnInit {
     this.coatColourOptions = COAT_COLOUR_WHEEL.map(value => {
       return {
         label: value.colourName,
-        value: value,
+        value,
         icon: ''
       };
     });
@@ -36,8 +37,8 @@ export class SupplementsComponent implements OnInit {
       .filter(value => value.species == Species.VAYRON)
       .map(value => {
         return {
-          label: value.type,
-          value: value,
+          label: Helpers.toTitleCase(value.type),
+          value,
           icon: ''
         };
       });
@@ -53,11 +54,56 @@ export class SupplementsComponent implements OnInit {
   }
 
   public getSupplements(): Supplement[] {
-    return this.toggledSupplements.map(value => this.supplements[value]);
+    return this.toggledSupplements.map(value => {
+      const supplement = this.supplements[value];
+      this.applyTarget(supplement);
+      return supplement;
+    });
+  }
+
+  public isValid(): boolean {
+    return this.testSupplements(this.getSupplements());
   }
 
   public isSupplementToggled(index: number): boolean {
     return this.toggledSupplements.findIndex(value => value == index) >= 0;
+  }
+
+  private applyTarget(supplement: Supplement) {
+    switch (supplement.rule) {
+      case SupplementRule.TARGET_BODY_TYPE:
+        supplement.target = this.supplementTargetBodyType;
+        break;
+      case SupplementRule.TARGET_COAT_COLOUR:
+        supplement.target = this.supplementTargetCoatColour;
+        break;
+      case SupplementRule.TARGET_GLINT:
+        supplement.target = this.supplementTargetGlintColour;
+        break;
+    }
+  }
+
+  private testSupplements(testSupplements: Supplement[]): boolean {
+    let supplementRules = testSupplements.map(value => value.rule);
+    let valid = true;
+    if (supplementRules.indexOf(SupplementRule.ALL_FEMALE) >= 0 && supplementRules.indexOf(SupplementRule.ALL_MALE) >= 0) {
+      valid = false;
+    }
+    testSupplements.forEach(value => {
+      switch (value.rule) {
+        case SupplementRule.TARGET_BODY_TYPE:
+          if (!value.target) valid = false;
+          break;
+        case SupplementRule.TARGET_COAT_COLOUR:
+          if (!value.target) valid = false;
+          break;
+        case SupplementRule.TARGET_GLINT:
+          if (!value.target) valid = false;
+          break;
+      }
+    });
+
+    return valid;
   }
 }
 

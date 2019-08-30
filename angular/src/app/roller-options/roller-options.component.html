@@ -3,7 +3,7 @@
   <div>
     <mdb-checkbox [(ngModel)]="inbredChecked">Inbreeding present</mdb-checkbox>
     <div [hidden]="!inbredChecked" class="md-form form-sm">
-      <input class="form-control form-control-sm" id="form1" mdbInput type="text">
+      <input [(ngModel)]="inbredReason" class="form-control form-control-sm" id="form1" mdbInput type="text">
       <label class="" for="form1">Reason for inbreeding</label>
     </div>
   </div>

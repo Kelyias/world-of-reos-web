@@ -30,16 +30,17 @@ export class RollerComponent implements OnInit {
   }
 
   roll() {
-    if (this.sireParent.isValid() && this.dameParent.isValid()) {
+    if (this.sireParent.isValid() && this.dameParent.isValid() && this.supplementsComponent.isValid()) {
 
       const request: RollReoseanRequest = {
         dam: this.dameParent.getReosean(),
         sire: this.sireParent.getReosean(),
         supplements: this.supplementsComponent.getSupplements(),
         inbred: this.rollerOptionsComponent.getInbred(),
+        inbredReason: this.rollerOptionsComponent.getInbredReason(),
         rollerId: localStorage.getItem('rollerId')
       };
-      this.rollerService.rollReosean(request).subscribe(response => console.log(response));
+      this.rollerService.rollReosean(request).subscribe(response => this.litterBlock.displayResults(response));
     }
   }
 }

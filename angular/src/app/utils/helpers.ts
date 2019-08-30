@@ -32,4 +32,7 @@ export class Helpers {
     return map;
   }
 
+  public static toTitleCase(text: string): string {
+    return text.toLocaleLowerCase().replace(/\b\w/g, first => first.toLocaleUpperCase())
+  }
 }

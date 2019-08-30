@@ -12,6 +12,8 @@ import {CoatColourRoller} from "../rollers/coat-colour-roller";
 import {MarkingsRoller} from "../rollers/markings-roller";
 import {TraitsRoller} from "../rollers/traits-roller";
 import {SkillsRoller} from "../rollers/skills-roller";
+import {SecureRandom} from "../security/secure-random";
+import {CoatTypeRoller} from "../rollers/coat-type-roller";
 
 export class GenerateOffspringService {
     public getOffspring(request: RollReoseanRequest): RollReoseanResponse {
@@ -24,14 +26,16 @@ export class GenerateOffspringService {
             rollReoseanResponse.additionalFeedback = 'Empty litter';
             return rollReoseanResponse;
         }
+        this.filterChimeraGenotype(sire, dam);
         let offspring: Reosean[] = SpeciesRoller.generateLitterBySpecies(sire, dam);
 
         GenderRoller.rollGender(offspring);
         HealthStatusRoller.rollHealthStatus(offspring, request.inbred);
         BodyTypeRoller.rollBodyType(offspring, sire, dam);
         NonPassableRoller.rollNonPassables(offspring);
-        CoatColourRoller.rollCoatColour(offspring, sire, dam);
         MarkingsRoller.rollMarkings(offspring, sire, dam);
+        CoatTypeRoller.rollCoatType(offspring, sire, dam);
+        CoatColourRoller.rollCoatColour(offspring, sire, dam);
         GlintRoller.rollGlint(offspring);
         TraitsRoller.rollTraits(offspring, sire, dam);
         SkillsRoller.rollSkills(offspring, sire, dam);
@@ -41,4 +45,8 @@ export class GenerateOffspringService {
     }
 
 
+    private filterChimeraGenotype(sire: Reosean, dam: Reosean) {
+        sire.genotypes = [sire.genotypes[SecureRandom.secureRangeRoll(0, sire.genotypes.length - 1)]];
+        dam.genotypes = [dam.genotypes[SecureRandom.secureRangeRoll(0, dam.genotypes.length - 1)]];
+    }
 }

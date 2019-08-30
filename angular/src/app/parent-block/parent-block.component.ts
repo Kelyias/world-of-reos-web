@@ -114,9 +114,8 @@ export class ParentBlockComponent implements OnInit {
     reosean.tailTrait = this.reoseanForm.get('tailTrait').value;
     reosean.eyeTrait = this.reoseanForm.get('eyeTrait').value;
 
-    reosean.genotype = this.getGenotype();
+    reosean.genotypes = this.getGenotype();
 
-    console.log(reosean);
     return reosean;
   }
 
@@ -172,14 +171,11 @@ export class ParentBlockComponent implements OnInit {
     this.genotypeTokens.forEach(token => {
       let genotype: Genotype = new Genotype();
       genotype.coatColour = token.coatColour.geno as CoatColour;
-      genotype.glint = token.glintColour.geno as CoatColour;
 
-      // if (token.glintGene) {
-      //   const marking = new Marking();
-      //   marking.markingGene = token.glintGene.geno as MarkingGene;
-      //   marking.geneType = (token.glintGene.genoText == marking.markingGene.dominateSymbol ? GeneType.DOMINATE : GeneType.RECESSIVE);
-      //   token.markings.push(marking);
-      // }
+      if (token.glintGene) {
+        token.markings.push(token.glintGene);
+        genotype.glint = token.glintColour.geno as CoatColour;
+      }
 
       genotype.markings = token.markings.map(token => {
         const marking = new Marking();
