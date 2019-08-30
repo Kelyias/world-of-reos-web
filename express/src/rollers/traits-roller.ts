@@ -1,7 +1,5 @@
 import {Reosean} from "../../../common-models/reosean";
 import {Rarity} from "../../../common-models/rarity";
-import {Trait, TRAITS} from "../../../common-models/trait";
-import {SecureRandom} from "../security/secure-random";
 
 export class TraitsRoller {
 
@@ -89,29 +87,29 @@ export class TraitsRoller {
 
     public static rollTraits(offspring: Reosean[], sire: Reosean, dam: Reosean) {
         offspring.forEach(child => {
-            child.traits = Array(3)
-                .fill(null)
-                .map((trait, i) => TraitsRoller.rollTrait(child, sire, dam, i));
+            // child.traits = Array(3)
+            //     .fill(null)
+            //     .map((trait, i) => TraitsRoller.rollTrait(child, sire, dam, i));
 
         })
     }
 
-    private static rollTrait(child: Reosean, sire: Reosean, dam: Reosean, traitPos: number): Trait {
-        let traitRaritySet = new Set<Rarity>().add(sire.traits[traitPos].rarity).add(dam.traits[traitPos].rarity);
-        let traitPassRate = this.traitPassRates.find(value => this.isSetsEqual(traitRaritySet, value))!;
-        let roll = SecureRandom.secureRandom();
-
-        let prevPasChance = 0.0;
-        let rarity;
-        traitPassRate.rollChance.forEach(value => {
-            if (prevPasChance < roll && roll <= value.passRate) {
-                rarity = value.rarity;
-            }
-        });
-
-        let possibleTraits = TRAITS.filter(trait => trait.rarity == rarity && trait.species == child.species);
-        return possibleTraits[SecureRandom.secureRangeRoll(0, possibleTraits.length - 1)];
-    }
+    // private static rollTrait(child: Reosean, sire: Reosean, dam: Reosean, traitPos: number): Trait {
+    //     let traitRaritySet = new Set<Rarity>().add(sire.traits[traitPos].rarity).add(dam.traits[traitPos].rarity);
+    //     let traitPassRate = this.traitPassRates.find(value => this.isSetsEqual(traitRaritySet, value))!;
+    //     let roll = SecureRandom.secureRandom();
+    //
+    //     let prevPasChance = 0.0;
+    //     let rarity;
+    //     traitPassRate.rollChance.forEach(value => {
+    //         if (prevPasChance < roll && roll <= value.passRate) {
+    //             rarity = value.rarity;
+    //         }
+    //     });
+    //
+    //     let possibleTraits = TRAITS.filter(trait => trait.rarity == rarity && trait.species == child.species);
+    //     return possibleTraits[SecureRandom.secureRangeRoll(0, possibleTraits.length - 1)];
+    // }
 
     private static isSetsEqual = (a, b) => a.size === b.size && [...a].every(value => b.has(value));
 

@@ -7,6 +7,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class RollerOptionsComponent implements OnInit {
   inbredChecked: boolean = false;
+  inbredReason: string = '';
 
   constructor() {
   }
@@ -16,6 +17,10 @@ export class RollerOptionsComponent implements OnInit {
 
   public getInbred(): boolean {
     return this.inbredChecked;
+  }
+
+  public getInbredReason(): string {
+    return this.inbredReason;
   }
 
 }

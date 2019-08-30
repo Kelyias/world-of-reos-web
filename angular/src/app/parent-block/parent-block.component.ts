@@ -10,7 +10,7 @@ import {TraitType} from '../../../../common-models/trait-type';
 import {Rarity} from '../../../../common-models/rarity';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GenoToken} from '../models/geno-token';
-import {COAT_COLOUR_WHEEL, CoatColour} from '../../../../common-models/coat-colour';
+import {COAT_COLOUR_WHEEL} from '../../../../common-models/coat-colour';
 import {Marking, MarkingGene, MARKINGS} from '../../../../common-models/marking';
 import {GenotypeToken} from '../models/genotype-token';
 import {Reosean} from '../../../../common-models/reosean';
@@ -109,14 +109,14 @@ export class ParentBlockComponent implements OnInit {
     reosean.coatType = this.reoseanForm.get('coatType').value;
     reosean.bodyType = this.reoseanForm.get('bodyType').value;
     reosean.skills = this.reoseanForm.get('skills').value;
-    reosean.coatColour = this.genotypeTokens[0].coatColour.geno as CoatColour;
-
-    reosean.traits = [this.reoseanForm.get('earTrait').value,
-      this.reoseanForm.get('tailTrait').value,
-      this.reoseanForm.get('eyeTrait').value
-    ];
-
-    reosean.genotype = this.getGenotype();
+    // reosean.coatColour = this.genotypeTokens[0].coatColour.geno as CoatColour;
+    //
+    // reosean.traits = [this.reoseanForm.get('earTrait').value,
+    //   this.reoseanForm.get('tailTrait').value,
+    //   this.reoseanForm.get('eyeTrait').value
+    // ];
+    //
+    // reosean.genotype = this.getGenotype();
 
     this.addGlintGene(reosean);
 

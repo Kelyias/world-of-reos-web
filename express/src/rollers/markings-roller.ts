@@ -42,14 +42,14 @@ export class MarkingsRoller {
 
     public static rollMarkings(offspring: Reosean[], sire: Reosean, dam: Reosean) {
         offspring.forEach(child => child.genotype = []);
-        offspring.forEach(child => child.genotype[0] = MarkingsRoller.rollMarkingSet(sire, dam))
+        // offspring.forEach(child => child.genotype[0] = MarkingsRoller.rollMarkingSet(sire, dam))
     }
 
     private static rollMarkingSet(sire: Reosean, dam: Reosean): Marking[] {
         let markings: Marking[] = [];
 
-        MarkingsRoller.genePoolTrip(sire.genotype[0], dam.genotype[0]);
-        MarkingsRoller.genePoolTrip(dam.genotype[0], sire.genotype[0]);
+        // MarkingsRoller.genePoolTrip(sire.genotype[0], dam.genotype[0]);
+        // MarkingsRoller.genePoolTrip(dam.genotype[0], sire.genotype[0]);
 
         return markings
     }

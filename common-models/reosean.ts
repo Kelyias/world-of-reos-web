@@ -1,16 +1,15 @@
-import {Marking} from "./marking";
 import {Gender} from "./gender";
 import {Species} from "./species";
 import {ReoseanBody} from "./body";
 import {HealthStatus} from "./health-status";
 import {CoatType} from "./coat-type";
-import {CoatColour} from "./coat-colour";
 import {Trait} from "./trait";
 import {Mutation} from "./mutation";
 import {MagicTrait} from "./magic-trait";
 import {NonPassable} from "./non-passable";
 import {PoliticalStatus} from "./political-status";
 import {Skill} from "./skill";
+import {Genotype} from "./genotype";
 
 export class Reosean {
     gender: Gender;
@@ -19,10 +18,10 @@ export class Reosean {
     bodyType: ReoseanBody;
     healthStatus: HealthStatus;
     coatType: CoatType;
-    coatColour: CoatColour;
-    traits: Trait[];
-    genotype: Marking[][];
-    glint?: CoatColour[];
+    earTrait: Trait;
+    tailTrait: Trait;
+    eyeTrait: Trait;
+    genotype: Genotype[] = Array(2);
     skills: Skill[];
     mutation?: Mutation;
     magicTrait?: MagicTrait;
