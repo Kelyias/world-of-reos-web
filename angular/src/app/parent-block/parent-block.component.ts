@@ -10,13 +10,14 @@ import {TraitType} from '../../../../common-models/trait-type';
 import {Rarity} from '../../../../common-models/rarity';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GenoToken} from '../models/geno-token';
-import {COAT_COLOUR_WHEEL} from '../../../../common-models/coat-colour';
+import {COAT_COLOUR_WHEEL, CoatColour} from '../../../../common-models/coat-colour';
 import {Marking, MarkingGene, MARKINGS} from '../../../../common-models/marking';
 import {GenotypeToken} from '../models/genotype-token';
 import {Reosean} from '../../../../common-models/reosean';
-import {GeneType} from "../../../../common-models/gene-type";
-import {SKILLS} from "../../../../common-models/skill";
-import {IOption} from "ng-uikit-pro-standard";
+import {GeneType} from '../../../../common-models/gene-type';
+import {SKILLS} from '../../../../common-models/skill';
+import {IOption} from 'ng-uikit-pro-standard';
+import {Genotype} from "../../../../common-models/genotype";
 
 @Component({
   selector: 'app-parent-block',
@@ -109,17 +110,13 @@ export class ParentBlockComponent implements OnInit {
     reosean.coatType = this.reoseanForm.get('coatType').value;
     reosean.bodyType = this.reoseanForm.get('bodyType').value;
     reosean.skills = this.reoseanForm.get('skills').value;
-    // reosean.coatColour = this.genotypeTokens[0].coatColour.geno as CoatColour;
-    //
-    // reosean.traits = [this.reoseanForm.get('earTrait').value,
-    //   this.reoseanForm.get('tailTrait').value,
-    //   this.reoseanForm.get('eyeTrait').value
-    // ];
-    //
-    // reosean.genotype = this.getGenotype();
+    reosean.earTrait = this.reoseanForm.get('earTrait').value;
+    reosean.tailTrait = this.reoseanForm.get('tailTrait').value;
+    reosean.eyeTrait = this.reoseanForm.get('eyeTrait').value;
 
-    this.addGlintGene(reosean);
+    reosean.genotype = this.getGenotype();
 
+    console.log(reosean);
     return reosean;
   }
 
@@ -169,29 +166,31 @@ export class ParentBlockComponent implements OnInit {
     });
   }
 
-  private addGlintGene(reosean) {
-    this.genotypeTokens.forEach((value, i) => {
-      if (value.glintGene) {
-        let marking = new Marking();
-        marking.markingGene = value.glintGene.geno as MarkingGene;
-        marking.geneType = (value.glintGene.genoText == marking.markingGene.dominateSymbol ? GeneType.DOMINATE : GeneType.RECESSIVE)
-        reosean.genotype[i].push(marking);
-      }
+
+  private getGenotype(): Genotype[] {
+    let genotypes: Genotype[] = [];
+    this.genotypeTokens.forEach(token => {
+      let genotype: Genotype = new Genotype();
+      genotype.coatColour = token.coatColour.geno as CoatColour;
+      genotype.glint = token.glintColour.geno as CoatColour;
+
+      // if (token.glintGene) {
+      //   const marking = new Marking();
+      //   marking.markingGene = token.glintGene.geno as MarkingGene;
+      //   marking.geneType = (token.glintGene.genoText == marking.markingGene.dominateSymbol ? GeneType.DOMINATE : GeneType.RECESSIVE);
+      //   token.markings.push(marking);
+      // }
+
+      genotype.markings = token.markings.map(token => {
+        const marking = new Marking();
+        marking.markingGene = token.geno as MarkingGene;
+        marking.geneType = (token.genoText == marking.markingGene.dominateSymbol ? GeneType.DOMINATE : GeneType.RECESSIVE);
+        return marking;
+      });
+      genotypes.push(genotype);
+
     });
-  }
-
-  private getGenotype() {
-    return this.genotypeTokens
-      .map(value => value.markings)
-      .map(value => value
-        .map(token => {
-
-          let marking = new Marking();
-          marking.markingGene = token.geno as MarkingGene;
-          marking.geneType = (token.genoText == marking.markingGene.dominateSymbol ? GeneType.DOMINATE : GeneType.RECESSIVE)
-          return marking;
-        })
-      );
+    return genotypes;
   }
 
   private processGeno(geno, i) {
