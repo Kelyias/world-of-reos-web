@@ -17,7 +17,7 @@ export class SkillsRoller {
         child.skills = [];
         sire.skills.concat(dam.skills).forEach(skill => {
 
-            let passRates = this.skillPassRates.filter(passRate => passRate.rarity == skill.rarity)[0].passRate;
+            let passRates = this.skillPassRates.find(passRate => passRate.rarity == skill.rarity)!.passRate;
             if (SecureRandom.secureCheckRoll(passRates)) {
                 child.skills.push(skill);
             }

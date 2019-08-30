@@ -14,13 +14,13 @@ export class NonPassableRoller {
 
     public static rollNonPassables(offspring: Reosean[]) {
         offspring.forEach(child => {
-            if (SecureRandom.secureRandom() <= this.MUTATION_CHANCE) {
+            if (SecureRandom.secureCheckRoll(this.MUTATION_CHANCE)) {
                 NonPassableRoller.rollMutation(child);
             }
-            if (SecureRandom.secureRandom() <= this.MAGIC_TRAIT_CHANCE) {
+            if (SecureRandom.secureCheckRoll(this.MAGIC_TRAIT_CHANCE)) {
                 NonPassableRoller.rollMagicTrait(child);
             }
-            if (SecureRandom.secureRandom() <= this.SPECIAL_CHANCE) {
+            if (SecureRandom.secureCheckRoll(this.SPECIAL_CHANCE)) {
                 NonPassableRoller.rollSpecial(child);
             }
         })

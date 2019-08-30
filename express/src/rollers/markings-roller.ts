@@ -16,7 +16,6 @@ export class MarkingsRoller {
         {geneType: GeneType.DOMINATE, rarity: Rarity.UNCOMMON, passRate: 0.7},
         {geneType: GeneType.DOMINATE, rarity: Rarity.MODIFIER, passRate: 1},
         {geneType: GeneType.DOMINATE, rarity: Rarity.RARE, passRate: 0.4},
-
     ];
 
     private static doubleDonorPassRates: DoubleDonorPassRate[] = [
@@ -90,7 +89,7 @@ export class MarkingsRoller {
             geneType: GeneType.RECESSIVE,
             processed: false
         };
-        return SecureRandom.secureRandom() <= singleDonorPassRate.passRate ? newMarking : null;
+        return SecureRandom.secureCheckRoll(singleDonorPassRate.passRate) ? newMarking : null;
     }
 
     private static rollForGenes(marking: Marking, partnerMarking: Marking): Marking | null {
@@ -101,7 +100,7 @@ export class MarkingsRoller {
             .filter(rate => rate.geneTypes[1] == partnerMarking.geneType)[0];
         let newMarking: Marking = {
             markingGene: marking.markingGene,
-            geneType: SecureRandom.secureRandom() <= doubleDonorPassRate.domPassRate ? GeneType.DOMINATE : GeneType.RECESSIVE,
+            geneType: SecureRandom.secureCheckRoll(doubleDonorPassRate.domPassRate) ? GeneType.DOMINATE : GeneType.RECESSIVE,
             processed: false
         };
         return Math.min(SecureRandom.secureRandom(), SecureRandom.secureRandom()) <= doubleDonorPassRate.passRate ? newMarking : null;

@@ -4,6 +4,12 @@ import {SecureRandom} from "../security/secure-random";
 
 export class HealthStatusRoller {
 
+    private static inbredHealthPassRates: HealthPassRate[] = [
+        {healthStatus: HealthStatus.HEALTHY, passRate: 0.1},
+        {healthStatus: HealthStatus.STILLBORN, passRate: 0.4},
+        {healthStatus: HealthStatus.BLIND, passRate: 0.3},
+        {healthStatus: HealthStatus.INFERTILE, passRate: 0.2},
+    ];
 
     public static rollHealthStatus(offspring: Reosean[], inbred: boolean) {
         offspring.forEach(child => {
@@ -13,14 +19,20 @@ export class HealthStatusRoller {
 
     private static rollInbred(): HealthStatus {
         let roll = SecureRandom.secureRandom();
-        if (roll <= 0.1) {
-            return HealthStatus.HEALTHY
-        } else if (roll <= 0.5) {
-            return HealthStatus.STILLBORN
-        } else if (roll <= 0.8) {
-            return HealthStatus.BLIND
-        } else {
-            return HealthStatus.INFERTILE
-        }
+        let prevPassRate = 0.0;
+        let healthStatus = HealthStatus.HEALTHY;
+
+        this.inbredHealthPassRates.forEach(passRate => {
+
+            if (prevPassRate < roll && roll <= passRate.passRate) {
+                healthStatus = passRate.healthStatus;
+            }
+        });
+        return healthStatus;
     }
+}
+
+interface HealthPassRate {
+    healthStatus: HealthStatus;
+    passRate: number
 }

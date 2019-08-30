@@ -98,7 +98,7 @@ export class TraitsRoller {
 
     private static rollTrait(child: Reosean, sire: Reosean, dam: Reosean, traitPos: number): Trait {
         let traitRaritySet = new Set<Rarity>().add(sire.traits[traitPos].rarity).add(dam.traits[traitPos].rarity);
-        let traitPassRate = this.traitPassRates.filter(value => this.isSetsEqual(traitRaritySet, value))[0];
+        let traitPassRate = this.traitPassRates.find(value => this.isSetsEqual(traitRaritySet, value))!;
         let roll = SecureRandom.secureRandom();
 
         let prevPasChance = 0.0;

@@ -48,7 +48,7 @@ export class BodyTypeRoller {
     public static rollBodyType(offspring: Reosean[], sire: Reosean, dam: Reosean) {
         offspring.forEach(child => {
             if (child.species == Species.TYRIAN) {
-                child.bodyType = BODY_TYPES.filter(value => value.type == BodyType.EMPYRIAN && value.species == Species.TYRIAN)[0];
+                child.bodyType = BODY_TYPES.find(value => value.type == BodyType.EMPYRIAN && value.species == Species.TYRIAN)!;
             } else if (child.species == Species.VAYRON) {
                 child.bodyType = BodyTypeRoller.getVayronBodyType(sire.bodyType.type, dam.bodyType.type);
             }
@@ -58,13 +58,13 @@ export class BodyTypeRoller {
     private static getVayronBodyType(sireBodyType: BodyType, damBodyType: BodyType): ReoseanBody {
         const rollEntry = BodyTypeRoller.getSpeciesRollChances(sireBodyType, damBodyType);
 
-        let bodyType = SecureRandom.secureRandom() <= rollEntry.successChance ? rollEntry.successResult : rollEntry.failResult;
-        return BODY_TYPES.filter(value => value.type == bodyType && value.species == Species.VAYRON)[0];
+        let bodyType = SecureRandom.secureCheckRoll(rollEntry.successChance) ? rollEntry.successResult : rollEntry.failResult;
+        return BODY_TYPES.find(value => value.type == bodyType && value.species == Species.VAYRON)!;
     }
 
     private static getSpeciesRollChances(sireBodyType: BodyType, damBodyType: BodyType): SpeciesRollChances {
-        return this.speciesRollChanges.filter(value => (value.parents[0] == sireBodyType && value.parents[1] == damBodyType)
-            || (value.parents[1] == sireBodyType && value.parents[0] == damBodyType))[0]
+        return this.speciesRollChanges.find(value => (value.parents[0] == sireBodyType && value.parents[1] == damBodyType)
+            || (value.parents[1] == sireBodyType && value.parents[0] == damBodyType))!;
     }
 }
 
