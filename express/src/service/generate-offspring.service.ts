@@ -10,6 +10,8 @@ import {NonPassableRoller} from "../rollers/non-passable-roller";
 import {GlintRoller} from "../rollers/glint-roller";
 import {CoatColourRoller} from "../rollers/coat-colour-roller";
 import {MarkingsRoller} from "../rollers/markings-roller";
+import {TraitsRoller} from "../rollers/traits-roller";
+import {SkillsRoller} from "../rollers/skills-roller";
 
 export class GenerateOffspringService {
     public getOffspring(request: RollReoseanRequest): RollReoseanResponse {
@@ -31,24 +33,11 @@ export class GenerateOffspringService {
         CoatColourRoller.rollCoatColour(offspring, sire, dam);
         MarkingsRoller.rollMarkings(offspring, sire, dam);
         GlintRoller.rollGlint(offspring);
-        this.rollTraits(offspring, sire, dam);
-        this.rollSkills(offspring, sire, dam);
+        TraitsRoller.rollTraits(offspring, sire, dam);
+        SkillsRoller.rollSkills(offspring, sire, dam);
 
         rollReoseanResponse.offspring = offspring;
         return rollReoseanResponse;
-    }
-
-
-
-
-
-
-    private rollTraits(offspring: Reosean[], sire: Reosean, dam: Reosean) {
-
-    }
-
-    private rollSkills(offspring: Reosean[], sire: Reosean, dam: Reosean) {
-
     }
 
 
