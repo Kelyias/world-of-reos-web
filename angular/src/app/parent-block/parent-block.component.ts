@@ -18,6 +18,7 @@ import {GeneType} from '../../../../common-models/gene-type';
 import {SKILLS} from '../../../../common-models/skill';
 import {IOption} from 'ng-uikit-pro-standard';
 import {Genotype} from "../../../../common-models/genotype";
+import {RollerService} from "../services/roller.service";
 
 @Component({
   selector: 'app-parent-block',
@@ -43,10 +44,9 @@ export class ParentBlockComponent implements OnInit {
   public genoError = false;
   public genotypeTokens: GenotypeToken[] = [];
   skillMultiOptions: Array<IOption>;
-  private genotype: MarkingGene;
   private genoRegexp = /(?<coatColour>[a-zA-Z]+)\+(?<markings>([a-zA-Z]+)+(\/[a-zA-Z]*)*)*(\/(?<glintGene>(Gl|GG))-(?<glintColour>[a-zA-Z]+))?$/;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private rollerService: RollerService) {
   }
 
   keepOrder = (a, b) => a;
@@ -99,7 +99,11 @@ export class ParentBlockComponent implements OnInit {
   }
 
   public isValid(): boolean {
-    return !this.genoError && this.genotypeTokens != null && this.genotypeTokens.length > 0;
+    let valid = !this.genoError && this.genotypeTokens != null && this.genotypeTokens.length > 0;
+    if (!valid) {
+      this.rollerService.addFeedback(this.title + ' is invalid');
+    }
+    return valid;
   }
 
   public getReosean(): Reosean {
@@ -146,6 +150,7 @@ export class ParentBlockComponent implements OnInit {
   }
 
   validateGeno(genoText: string) {
+    this.rollerService.resetColourRange(this.title);
     this.geno = '';
     this.genotypeTokens = [];
     genoText = genoText.trim().replace(/ /g, '');
@@ -161,10 +166,8 @@ export class ParentBlockComponent implements OnInit {
 
     split.forEach((value, i) => {
       this.processGeno(value, i);
-
     });
   }
-
 
   private getGenotype(): Genotype[] {
     let genotypes: Genotype[] = [];
@@ -172,10 +175,6 @@ export class ParentBlockComponent implements OnInit {
       let genotype: Genotype = new Genotype();
       genotype.coatColour = token.coatColour.geno as CoatColour;
 
-      if (token.glintGene) {
-        token.markings.push(token.glintGene);
-        genotype.glint = token.glintColour.geno as CoatColour;
-      }
 
       genotype.markings = token.markings.map(token => {
         const marking = new Marking();
@@ -183,6 +182,17 @@ export class ParentBlockComponent implements OnInit {
         marking.geneType = (token.genoText == marking.markingGene.dominateSymbol ? GeneType.DOMINATE : GeneType.RECESSIVE);
         return marking;
       });
+
+      if (token.glintGene) {
+
+        const marking = new Marking();
+        marking.markingGene = token.glintGene.geno as MarkingGene;
+        marking.geneType = (token.glintGene.genoText == marking.markingGene.dominateSymbol ? GeneType.DOMINATE : GeneType.RECESSIVE);
+
+        genotype.markings.push(marking);
+        genotype.glint = token.glintColour.geno as CoatColour;
+      }
+
       genotypes.push(genotype);
 
     });
@@ -206,7 +216,6 @@ export class ParentBlockComponent implements OnInit {
       genotypeToken.markings = matchArray.groups.markings.split('/').map(value => new GenoToken(value));
     }
 
-
     if (matchArray.groups.glintGene) {
       genotypeToken.glintGene = new GenoToken(matchArray.groups.glintGene);
       genotypeToken.glintColour = new GenoToken(matchArray.groups.glintColour);
@@ -218,6 +227,8 @@ export class ParentBlockComponent implements OnInit {
       markings = markings.concat([...genotypeToken.markings]);
     }
     this.validateMarkings(markings);
+
+    this.rollerService.addToColourRange(this.title, genotypeToken.coatColour.geno as CoatColour);
 
     this.geno += `${i > 0 ? ' // ' : ''}
       ${genotypeToken.coatColour.genoText}+` +

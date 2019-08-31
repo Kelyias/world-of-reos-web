@@ -11,10 +11,13 @@ export class HealthStatusRoller {
         {healthStatus: HealthStatus.INFERTILE, passRate: 0.2},
     ];
 
-    public static rollHealthStatus(offspring: Reosean[], inbred: boolean) {
+    public static rollHealthStatus(offspring: Reosean[], inbred: boolean, inbredReason: string | undefined, additionalFeedback: string[]) {
         offspring.forEach(child => {
             child.healthStatus = !inbred ? HealthStatus.HEALTHY : HealthStatusRoller.rollInbred();
         });
+        if (inbred) {
+            additionalFeedback.push('Inbreed reason: ' + inbredReason);
+        }
     }
 
     private static rollInbred(): HealthStatus {

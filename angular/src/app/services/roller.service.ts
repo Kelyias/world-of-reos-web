@@ -1,20 +1,38 @@
 import {Injectable} from '@angular/core';
-import {RollReoseanRequest} from "../../../../common-models/rest/roll-reosean-request";
-import {Observable} from "rxjs";
-import {RollReoseanResponse} from "../../../../common-models/rest/roll-reosean-response";
-import {HttpClient} from "@angular/common/http";
+import {CoatColour} from "../../../../common-models/coat-colour";
+import {BehaviorSubject, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RollerService {
 
-  private rollUrl = '/api/roll';
+  private errorFeedback: string[] = [];
+  private colourRangeByParent: Map<string, CoatColour[]> = new Map<string, CoatColour[]>();
+  private colourRange: BehaviorSubject<Map<string, CoatColour[]>> = new BehaviorSubject<Map<string, CoatColour[]>>(this.colourRangeByParent);
+  public $colourRange: Observable<Map<string, CoatColour[]>> = this.colourRange.asObservable();
 
-  constructor(private http: HttpClient) {
+  constructor() {
   }
 
-  public rollReosean(request: RollReoseanRequest): Observable<RollReoseanResponse> {
-    return this.http.post<RollReoseanResponse>(this.rollUrl, request);
+  resetFeedback() {
+    this.errorFeedback = [];
+  }
+
+  getErrorFeedback() {
+    return this.errorFeedback.join('\n');
+  }
+
+  addFeedback(s: string) {
+    this.errorFeedback.push(s);
+  }
+
+  addToColourRange(parent: string, coatColour: CoatColour) {
+    this.colourRangeByParent.get(parent).push(coatColour);
+    this.colourRange.next(this.colourRangeByParent);
+  }
+
+  resetColourRange(parent: string) {
+    this.colourRangeByParent.set(parent, []);
   }
 }

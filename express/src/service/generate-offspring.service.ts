@@ -26,21 +26,23 @@ export class GenerateOffspringService {
             rollReoseanResponse.additionalFeedback = 'Empty litter';
             return rollReoseanResponse;
         }
+        let additionalFeedback: string[] = [];
         this.filterChimeraGenotype(sire, dam);
-        let offspring: Reosean[] = SpeciesRoller.generateLitterBySpecies(sire, dam);
+        let offspring: Reosean[] = SpeciesRoller.generateLitterBySpecies(sire, dam, request.supplements, additionalFeedback);
 
-        GenderRoller.rollGender(offspring);
-        HealthStatusRoller.rollHealthStatus(offspring, request.inbred);
-        BodyTypeRoller.rollBodyType(offspring, sire, dam);
+        GenderRoller.rollGender(offspring, request.supplements, additionalFeedback);
+        HealthStatusRoller.rollHealthStatus(offspring, request.inbred, request.inbredReason, additionalFeedback);
+        BodyTypeRoller.rollBodyType(offspring, sire, dam, request.supplements, additionalFeedback);
         NonPassableRoller.rollNonPassables(offspring);
         MarkingsRoller.rollMarkings(offspring, sire, dam);
         CoatTypeRoller.rollCoatType(offspring, sire, dam);
-        CoatColourRoller.rollCoatColour(offspring, sire, dam);
-        GlintRoller.rollGlint(offspring);
+        CoatColourRoller.rollCoatColour(offspring, sire, dam, request.supplements, additionalFeedback);
+        GlintRoller.rollGlint(offspring, request.supplements, additionalFeedback);
         TraitsRoller.rollTraits(offspring, sire, dam);
         SkillsRoller.rollSkills(offspring, sire, dam);
 
         rollReoseanResponse.offspring = offspring;
+        rollReoseanResponse.additionalFeedback = additionalFeedback.join('\n');
         return rollReoseanResponse;
     }
 

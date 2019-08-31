@@ -2,6 +2,7 @@ import {Reosean} from "../../../common-models/reosean";
 import {Species} from "../../../common-models/species";
 import {BODY_TYPES, BodyType, ReoseanBody} from "../../../common-models/body";
 import {SecureRandom} from "../security/secure-random";
+import {Supplement, SupplementRule} from "../../../common-models/supplement";
 
 export class BodyTypeRoller {
 
@@ -45,17 +46,28 @@ export class BodyTypeRoller {
     ];
 
 
-    public static rollBodyType(offspring: Reosean[], sire: Reosean, dam: Reosean) {
+    public static rollBodyType(offspring: Reosean[], sire: Reosean, dam: Reosean, supplements: Supplement[], additionalFeedback: string[]) {
         offspring.forEach(child => {
             if (child.species == Species.TYRIAN) {
                 child.bodyType = BODY_TYPES.find(value => value.type == BodyType.EMPYRIAN && value.species == Species.TYRIAN)!;
             } else if (child.species == Species.VAYRON) {
-                child.bodyType = BodyTypeRoller.getVayronBodyType(sire.bodyType.type, dam.bodyType.type);
+                child.bodyType = BodyTypeRoller.getVayronBodyType(sire.bodyType.type, dam.bodyType.type, supplements, additionalFeedback);
             }
         });
+
+        let supplement = supplements.find(value => value.rule == SupplementRule.TARGET_BODY_TYPE);
+        if (supplement) {
+            additionalFeedback.push(supplement.name + ' was consumed!');
+        }
     }
 
-    private static getVayronBodyType(sireBodyType: BodyType, damBodyType: BodyType): ReoseanBody {
+    private static getVayronBodyType(sireBodyType: BodyType, damBodyType: BodyType, supplements: Supplement[], additionalFeedback: string[]): ReoseanBody {
+
+        let supplement = supplements.find(value => value.rule == SupplementRule.TARGET_BODY_TYPE);
+        if (supplement) {
+            return supplement.target as ReoseanBody
+        }
+
         const rollEntry = BodyTypeRoller.getSpeciesRollChances(sireBodyType, damBodyType);
 
         let bodyType = SecureRandom.secureCheckRoll(rollEntry.successChance) ? rollEntry.successResult : rollEntry.failResult;

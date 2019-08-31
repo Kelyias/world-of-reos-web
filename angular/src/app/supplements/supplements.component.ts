@@ -5,6 +5,7 @@ import {COAT_COLOUR_WHEEL, CoatColour} from '../../../../common-models/coat-colo
 import {BODY_TYPES, BodyType} from '../../../../common-models/body';
 import {Species} from '../../../../common-models/species';
 import {Helpers} from "../utils/helpers";
+import {RollerService} from "../services/roller.service";
 
 @Component({
   selector: 'app-supplements',
@@ -22,10 +23,14 @@ export class SupplementsComponent implements OnInit {
   public bodyTypeOptions;
   private toggledSupplements = [];
 
-  constructor() {
+  constructor(private rollerService: RollerService) {
   }
 
   ngOnInit() {
+    this.rollerService.$colourRange.subscribe(value => {
+      this.processNewColourRange(value);
+    });
+
     this.coatColourOptions = COAT_COLOUR_WHEEL.map(value => {
       return {
         label: value.colourName,
@@ -92,18 +97,57 @@ export class SupplementsComponent implements OnInit {
     testSupplements.forEach(value => {
       switch (value.rule) {
         case SupplementRule.TARGET_BODY_TYPE:
-          if (!value.target) valid = false;
+          if (!value.target) {
+            valid = false;
+            this.rollerService.addFeedback('Physique Petites must have a value');
+          }
           break;
         case SupplementRule.TARGET_COAT_COLOUR:
-          if (!value.target) valid = false;
+          if (!value.target) {
+            valid = false;
+            this.rollerService.addFeedback('Chromatic Concoction must have a value');
+          }
           break;
         case SupplementRule.TARGET_GLINT:
-          if (!value.target) valid = false;
+          if (!value.target) {
+            valid = false;
+            this.rollerService.addFeedback('Glint Potion must have a value');
+          }
           break;
       }
     });
 
     return valid;
+  }
+
+  private processNewColourRange(value: Map<string, CoatColour[]>) {
+
+    const flattenedArray: CoatColour[] = [].concat(...Array.from(value.values()));
+    let minIndex = 999;
+    let maxIndex = 0;
+
+    flattenedArray.forEach(colourCoat => {
+      let colourIndex = COAT_COLOUR_WHEEL.findIndex(colour => colour.colourName == colourCoat.colourName);
+
+      minIndex = Math.min(colourIndex, minIndex);
+      maxIndex = Math.max(colourIndex, maxIndex);
+    });
+
+    let colourRange;
+    let rangeLength = Math.abs((maxIndex - minIndex));
+    if (rangeLength <= COAT_COLOUR_WHEEL.length / 2) {
+      colourRange = COAT_COLOUR_WHEEL.filter((colour, index) => index >= minIndex && index <= maxIndex);
+    } else {
+      colourRange = COAT_COLOUR_WHEEL.filter((colour, index) => index <= minIndex || index >= maxIndex);
+    }
+
+    this.coatColourOptions = colourRange.map(value => {
+      return {
+        label: value.colourName,
+        value,
+        icon: ''
+      };
+    });
   }
 }
 

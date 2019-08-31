@@ -41,9 +41,9 @@ export class LitterComponent implements OnInit {
     let text = '';
 
     response.offspring.map(child => this.reoseanToString(child))
-      .forEach((childText, i) => text += `\n\n${i + 1}) ` + childText);
+      .forEach((childText, i) => text += `${i + 1}) ` + childText + '\n');
 
-    text += '\n\n' + response.additionalFeedback;
+    text += '\n' + response.additionalFeedback;
 
     this.setLitterText(text);
   }
@@ -53,7 +53,10 @@ export class LitterComponent implements OnInit {
       `F: ${Helpers.toTitleCase(child.coatType.name)} Coat\n` +
       `T: ${Helpers.toTitleCase(child.earTrait.name)} Ears, ${Helpers.toTitleCase(child.tailTrait.name)} Tail, ${Helpers.toTitleCase(child.earTrait.name)} Eyes\n` +
       `P: ${this.phenotypeToString(child.genotypes)}\n` +
-      `G: ${this.genotypeToString(child.genotypes)}` +
+      `G: ${this.genotypeToString(child.genotypes)}\n` +
+      `${child.nonPassable ? `[ ${child.nonPassable.toLocaleUpperCase()} ]` : ''}` +
+      `${child.magicTrait ? `[ ${child.magicTrait.name.toLocaleUpperCase()} ]` : ''}` +
+      `${child.mutation ? `[ ${child.mutation.toLocaleUpperCase()} ]` : ''}` +
       `${child.skills && child.skills.length > 0 ? '\nSkills: ' + this.skillsToString(child.skills) : ''}`;
   }
 
@@ -61,13 +64,29 @@ export class LitterComponent implements OnInit {
     let text = '';
     genotypes.forEach((genotype, i) => {
       let beforeMarkings = genotype.markings.filter(marking => marking.markingGene.sorting == MarkingSort.BEFORE);
-      let afterMarkings = genotype.markings.filter(marking => marking.markingGene.sorting == MarkingSort.AFTER);
+      let afterMarkings = genotype.markings.filter(marking => marking.markingGene.sorting == MarkingSort.AFTER)
+        .filter(marking => marking.markingGene.phenotype != 'Glint');
+
+      let afterMarkingsArray = afterMarkings.map(value => value.markingGene.phenotype);
+
+      if (afterMarkingsArray.length > 0 && genotype.glint) {
+        afterMarkingsArray.push('And');
+      }
+      if (afterMarkingsArray.length > 1 && !genotype.glint) {
+        afterMarkingsArray.splice(afterMarkingsArray.length - 1, 0, 'And');
+      }
+
+      let phenotypeText = beforeMarkings.map(value => value.markingGene.phenotype);
+      phenotypeText.push(genotype.coatColour.colourName);
+
+      if (afterMarkings.length > 0 || genotype.glint) {
+        phenotypeText.push('With');
+      }
+      phenotypeText = phenotypeText.concat(afterMarkingsArray);
 
       text += `${i > 0 ? ' // ' : ''}` +
-        `${beforeMarkings.map(value => value.markingGene.phenotype).join(' ')} ` +
-        `${genotype.coatColour.colourName} ` +
-        `${afterMarkings.map(value => value.markingGene.phenotype).join(' ')} ` +
-        `${genotype.glint ? genotype.glint.colourName + 'Glint' : ''}`;
+        `${phenotypeText.join(' ')} ` +
+        `${genotype.glint ? genotype.glint.colourName + ' Glint' : ''}`;
     });
     return text;
   }
@@ -75,9 +94,11 @@ export class LitterComponent implements OnInit {
   private genotypeToString(genotypes: Genotype[]): string {
     let text = '';
     genotypes.forEach((genotype, i) => {
+      let markings = genotype.markings.filter(marking => marking.markingGene.phenotype != 'Glint');
+
       text += `${i > 0 ? ' // ' : ''}` +
         `${genotype.coatColour.colourSymbol}+` +
-        `${genotype.markings ? genotype.markings.map(value => this.getGeneSymbol(value)).join('/') : ''}` +
+        `${genotype.markings ? markings.map(value => this.getGeneSymbol(value)).join('/') : ''}` +
         `${genotype.glint ? '/' + this.getGeneSymbol(genotype.markings[genotype.markings.length - 1]) + '-' + genotype.glint.colourSymbol : ''}`;
 
     });

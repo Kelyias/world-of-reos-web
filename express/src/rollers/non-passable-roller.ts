@@ -7,9 +7,7 @@ import {NonPassable} from "../../../common-models/non-passable";
 export class NonPassableRoller {
 
     private static MUTATION_CHANCE = 1 / 800;
-
     private static MAGIC_TRAIT_CHANCE = 1 / 1000;
-
     private static SPECIAL_CHANCE = 1 / 500;
 
     public static rollNonPassables(offspring: Reosean[]) {
@@ -27,13 +25,13 @@ export class NonPassableRoller {
     }
 
     private static rollMutation(child: Reosean) {
-        let range = Object.keys(Mutation).length;
-        child.mutation = Mutation[SecureRandom.secureRangeRoll(0, range - 1)] as Mutation
+        let mutations = Object.keys(Mutation)
+        child.mutation = mutations[SecureRandom.secureRangeRoll(0, mutations.length - 1)] as Mutation
     }
 
     private static rollSpecial(child: Reosean) {
-        let range = Object.keys(NonPassable).length;
-        child.nonPassable = NonPassable[SecureRandom.secureRangeRoll(0, range - 1)] as NonPassable
+        let nonPassables = Object.keys(NonPassable);
+        child.nonPassable = nonPassables[SecureRandom.secureRangeRoll(0, nonPassables.length - 1)] as NonPassable
 
     }
 

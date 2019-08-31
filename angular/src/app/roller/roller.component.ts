@@ -4,8 +4,9 @@ import {LitterComponent} from '../litter/litter.component';
 import {SupplementsComponent} from '../supplements/supplements.component';
 import {RollerOptionsComponent} from '../roller-options/roller-options.component';
 import {RollReoseanRequest} from '../../../../common-models/rest/roll-reosean-request';
-import {RollerService} from '../services/roller.service';
+import {RollerApiService} from '../services/roller-api.service';
 import {v4 as uuid} from 'uuid';
+import {RollerService} from "../services/roller.service";
 
 @Component({
   selector: 'app-roller',
@@ -19,8 +20,9 @@ export class RollerComponent implements OnInit {
   @ViewChild('litterBlock', {static: false}) litterBlock: LitterComponent;
   @ViewChild('supplementsComponent', {static: false}) supplementsComponent: SupplementsComponent;
   @ViewChild('rollerOptionsComponent', {static: false}) rollerOptionsComponent: RollerOptionsComponent;
+  private inProgress: boolean = false;
 
-  constructor(private rollerService: RollerService) {
+  constructor(private rollerApiService: RollerApiService, private rollerService: RollerService) {
     if (!localStorage.getItem('rollerId')) {
       localStorage.setItem('rollerId', uuid());
     }
@@ -30,8 +32,14 @@ export class RollerComponent implements OnInit {
   }
 
   roll() {
-    if (this.sireParent.isValid() && this.dameParent.isValid() && this.supplementsComponent.isValid()) {
+    if (this.inProgress) {
+      return;
+    }
 
+    this.rollerService.resetFeedback();
+    if (this.sireParent.isValid() && this.dameParent.isValid() && this.supplementsComponent.isValid()) {
+      this.inProgress = true;
+      this.litterBlock.setLitterText('Rolling!');
       const request: RollReoseanRequest = {
         dam: this.dameParent.getReosean(),
         sire: this.sireParent.getReosean(),
@@ -40,7 +48,16 @@ export class RollerComponent implements OnInit {
         inbredReason: this.rollerOptionsComponent.getInbredReason(),
         rollerId: localStorage.getItem('rollerId')
       };
-      this.rollerService.rollReosean(request).subscribe(response => this.litterBlock.displayResults(response));
+      this.rollerApiService.rollReosean(request).subscribe(response => {
+          setTimeout(() => this.inProgress = false, 2000);
+          this.litterBlock.displayResults(response);
+        },
+        () => {
+          this.inProgress = false;
+          this.litterBlock.setLitterText('Error happened while rolling!');
+        });
+    } else {
+      this.litterBlock.setLitterText(this.rollerService.getErrorFeedback());
     }
   }
 }
