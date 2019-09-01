@@ -110,7 +110,7 @@ export class TraitsRoller {
             prevPasChance += value.passRate
         });
 
-        let possibleTraits = TRAITS.filter(trait => trait.rarity == rarity && trait.species == child.species && traitType == traitType);
+        let possibleTraits = TRAITS.filter(trait => trait.rarity == rarity && trait.species == child.species && trait.type == traitType);
         return possibleTraits[SecureRandom.secureRangeRoll(0, possibleTraits.length - 1)];
     }
 

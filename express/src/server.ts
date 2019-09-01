@@ -22,8 +22,8 @@ app.get('/health', function (req, res) {
 // generate
 app.post('/api/roll', function (req, res) {
     let request = req.body as RollReoseanRequest;
-    console.log(request);
     let response = offspring.getOffspring(request);
+    console.log(JSON.stringify({request: request, response: response}));
     return res.json(response);
 });
 

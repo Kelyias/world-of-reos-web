@@ -47,6 +47,11 @@ export class ParentBlockComponent implements OnInit {
   private genoRegexp = /(?<coatColour>[a-zA-Z]+)\+(?<markings>([a-zA-Z]+)+(\/[a-zA-Z]*)*)*(\/(?<glintGene>(Gl|GG))-(?<glintColour>[a-zA-Z]+))?$/;
 
   constructor(private fb: FormBuilder, private rollerService: RollerService) {
+    this.rollerService.$restForm.subscribe(() => {
+      this.reoseanForm.reset();
+      this.genotypeTokens = [];
+      this.ngOnInit();
+    });
   }
 
   keepOrder = (a, b) => a;

@@ -8,6 +8,7 @@ import {Marking} from "../../../../common-models/marking";
 import {GeneType} from "../../../../common-models/gene-type";
 import {Skill} from "../../../../common-models/skill";
 import {MarkingSort} from "../../../../common-models/marking-sort";
+import {RollerService} from "../services/roller.service";
 
 @Component({
   selector: 'app-litter',
@@ -19,7 +20,10 @@ export class LitterComponent implements OnInit {
   @Output() trigger = new EventEmitter();
   litterText = '';
 
-  constructor(private clipboardService: ClipboardService) {
+  constructor(private clipboardService: ClipboardService, private rollerService: RollerService) {
+    this.rollerService.$restForm.subscribe(() => {
+      this.litterText = '';
+    });
   }
 
   ngOnInit() {
@@ -51,13 +55,14 @@ export class LitterComponent implements OnInit {
   private reoseanToString(child: Reosean): string {
     return `(${Helpers.toTitleCase(child.gender)} - ${Helpers.toTitleCase(child.species)} - ${Helpers.toTitleCase(child.bodyType.type)} - ${Helpers.toTitleCase(child.healthStatus)})\n` +
       `F: ${Helpers.toTitleCase(child.coatType.name)} Coat\n` +
-      `T: ${Helpers.toTitleCase(child.earTrait.name)} Ears, ${Helpers.toTitleCase(child.tailTrait.name)} Tail, ${Helpers.toTitleCase(child.earTrait.name)} Eyes\n` +
+      `T: ${Helpers.toTitleCase(child.earTrait.name)} Ears, ${Helpers.toTitleCase(child.tailTrait.name)} Tail, ${Helpers.toTitleCase(child.eyeTrait.name)} Eyes\n` +
       `P: ${this.phenotypeToString(child.genotypes)}\n` +
       `G: ${this.genotypeToString(child.genotypes)}\n` +
       `${child.nonPassable ? `[ ${child.nonPassable.toLocaleUpperCase()} ]` : ''}` +
       `${child.magicTrait ? `[ ${child.magicTrait.name.toLocaleUpperCase()} ]` : ''}` +
       `${child.mutation ? `[ ${child.mutation.toLocaleUpperCase()} ]` : ''}` +
-      `${child.skills && child.skills.length > 0 ? '\nSkills: ' + this.skillsToString(child.skills) : ''}`;
+      `${child.mutation || child.magicTrait || child.nonPassable ? `\n` : ''}` +
+      `${child.skills && child.skills.length > 0 ? '<b>Skills:</b> ' + this.skillsToString(child.skills) + '\n' : ''}`;
   }
 
   private phenotypeToString(genotypes: Genotype[]): string {
@@ -95,11 +100,12 @@ export class LitterComponent implements OnInit {
     let text = '';
     genotypes.forEach((genotype, i) => {
       let markings = genotype.markings.filter(marking => marking.markingGene.phenotype != 'Glint');
+      let glint = genotype.markings.find(marking => marking.markingGene.phenotype == 'Glint');
 
       text += `${i > 0 ? ' // ' : ''}` +
         `${genotype.coatColour.colourSymbol}+` +
         `${genotype.markings ? markings.map(value => this.getGeneSymbol(value)).join('/') : ''}` +
-        `${genotype.glint ? '/' + this.getGeneSymbol(genotype.markings[genotype.markings.length - 1]) + '-' + genotype.glint.colourSymbol : ''}`;
+        `${genotype.glint ? '/' + this.getGeneSymbol(glint) + '-' + genotype.glint.colourSymbol : ''}`;
 
     });
     return text;
@@ -113,7 +119,7 @@ export class LitterComponent implements OnInit {
     let text = '';
 
     skills.forEach(skill => {
-      text += `\n- ${skill.name}:\n\t${skill.description}`;
+      text += `\n- <u>${skill.name}:</u>\n\t${skill.description}`;
     });
 
     return text;

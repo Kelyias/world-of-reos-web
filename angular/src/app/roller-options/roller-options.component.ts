@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {RollerService} from "../services/roller.service";
 
 @Component({
   selector: 'app-roller-options',
@@ -9,7 +10,12 @@ export class RollerOptionsComponent implements OnInit {
   inbredChecked: boolean = false;
   inbredReason: string = '';
 
-  constructor() {
+  constructor(private rollerService: RollerService) {
+
+    this.rollerService.$restForm.subscribe(() => {
+      this.inbredChecked = false;
+      this.inbredReason = '';
+    });
   }
 
   ngOnInit() {

@@ -60,4 +60,8 @@ export class RollerComponent implements OnInit {
       this.litterBlock.setLitterText(this.rollerService.getErrorFeedback());
     }
   }
+
+  resetForm() {
+    this.rollerService.resetAll();
+  }
 }

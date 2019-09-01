@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {Supplement, SupplementRule, SUPPLEMENTS} from '../../../../common-models/supplement';
-import {MdbCheckboxChange} from 'ng-uikit-pro-standard';
+import {CheckboxComponent, MdbCheckboxChange} from 'ng-uikit-pro-standard';
 import {COAT_COLOUR_WHEEL, CoatColour} from '../../../../common-models/coat-colour';
 import {BODY_TYPES, BodyType} from '../../../../common-models/body';
 import {Species} from '../../../../common-models/species';
@@ -14,24 +14,44 @@ import {RollerService} from "../services/roller.service";
 })
 export class SupplementsComponent implements OnInit {
 
+  @ViewChildren(CheckboxComponent) checkBoxes !: QueryList<CheckboxComponent>;
+
   public supplements = SUPPLEMENTS;
   public rules = SupplementRule;
   public supplementTargetCoatColour: CoatColour;
   public supplementTargetBodyType: BodyType;
   public supplementTargetGlintColour: CoatColour;
   public coatColourOptions;
+  public glintCoatColourOptions;
   public bodyTypeOptions;
   private toggledSupplements = [];
 
   constructor(private rollerService: RollerService) {
+    this.rollerService.$restForm.subscribe(() => {
+      this.toggledSupplements = [];
+      this.supplementTargetCoatColour = null;
+      this.supplementTargetBodyType = null;
+      this.supplementTargetGlintColour = null;
+      this.checkBoxes.forEach(item => item.writeValue(false));
+      this.ngOnInit();
+    });
   }
 
   ngOnInit() {
+
+
     this.rollerService.$colourRange.subscribe(value => {
       this.processNewColourRange(value);
     });
 
     this.coatColourOptions = COAT_COLOUR_WHEEL.map(value => {
+      return {
+        label: value.colourName,
+        value,
+        icon: ''
+      };
+    });
+    this.glintCoatColourOptions = COAT_COLOUR_WHEEL.map(value => {
       return {
         label: value.colourName,
         value,
