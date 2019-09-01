@@ -100,7 +100,7 @@ export class CoatTypeRoller {
     public static rollCoatType(offspring: Reosean[], sire: Reosean, dam: Reosean) {
 
         offspring.forEach(child => {
-            let raritySet = new Set<Rarity>().add(sire.coatType.rarity).add(sire.coatType.rarity);
+            let raritySet = new Set<Rarity>().add(sire.coatType.rarity).add(dam.coatType.rarity);
             let passRate = this.coatTypePassRates.find(value => this.isSetsEqual(raritySet, value.raritySet))!;
             let roll = SecureRandom.secureRandom();
 

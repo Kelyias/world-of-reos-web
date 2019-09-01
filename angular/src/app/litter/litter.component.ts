@@ -55,7 +55,7 @@ export class LitterComponent implements OnInit {
   private reoseanToString(child: Reosean): string {
     return `(${Helpers.toTitleCase(child.gender)} - ${Helpers.toTitleCase(child.species)} - ${Helpers.toTitleCase(child.bodyType.type)} - ${Helpers.toTitleCase(child.healthStatus)})\n` +
       `F: ${Helpers.toTitleCase(child.coatType.name)} Coat\n` +
-      `T: ${Helpers.toTitleCase(child.earTrait.name)} Ears, ${Helpers.toTitleCase(child.tailTrait.name)} Tail, ${Helpers.toTitleCase(child.eyeTrait.name)} Eyes\n` +
+      `T: ${Helpers.toTitleCase(child.earTrait.name)} Ears, ${Helpers.toTitleCase(child.tailTrait.name)}${child.tailTrait.name.includes('less') ? '' : ' Tail'}, ${Helpers.toTitleCase(child.eyeTrait.name)} Eyes\n` +
       `P: ${this.phenotypeToString(child.genotypes)}\n` +
       `G: ${this.genotypeToString(child.genotypes)}\n` +
       `${child.nonPassable ? `[ ${child.nonPassable.toLocaleUpperCase()} ]` : ''}` +

@@ -50,6 +50,8 @@ export class ParentBlockComponent implements OnInit {
     this.rollerService.$restForm.subscribe(() => {
       this.reoseanForm.reset();
       this.genotypeTokens = [];
+      this.genoError = false;
+      this.geno = null;
       this.ngOnInit();
     });
   }
@@ -81,6 +83,7 @@ export class ParentBlockComponent implements OnInit {
       eyeTrait: ['', Validators.required],
       tailTrait: ['', Validators.required],
       earTrait: ['', Validators.required],
+      genoInput: ['', Validators.required],
       skills: ['', Validators.required]
     });
 
