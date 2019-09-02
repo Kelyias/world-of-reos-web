@@ -1,14 +1,15 @@
 @import '../../fonts';
+@import '../../variables';
 
 .title {
   font-family: $font-gloria;
   color: white;
-  background-image: url("/assets/images/header.png");
+  background-image: url($header-image);
   padding-top: 2.1em;
   height: 129px;
   border: 1px solid black;
   outline-style: outset;
-  outline-color: #384189;
+  outline-color: $outline-color;
 
   h1 {
     font-size: 3em;

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {RollerService} from "../services/roller.service";
+import {RollerService} from '../services/roller.service';
 
 @Component({
   selector: 'app-roller-options',
@@ -7,8 +7,8 @@ import {RollerService} from "../services/roller.service";
   styleUrls: ['./roller-options.component.scss']
 })
 export class RollerOptionsComponent implements OnInit {
-  inbredChecked: boolean = false;
-  inbredReason: string = '';
+  inbredChecked = false;
+  inbredReason = '';
 
   constructor(private rollerService: RollerService) {
 

@@ -3,7 +3,8 @@
   <div class=" text-left">
       <div *ngFor="let supplement of supplements; let i = index" class="row mt-4">
         <div class="col-md-6">
-          <mdb-checkbox (change)="toggleSupplement($event,i)">{{supplement.name}}</mdb-checkbox>
+          <mdb-checkbox (change)="toggleSupplement($event,i)"><span mdbPopover="{{supplement.effect}}" triggers="hover">{{supplement.name}}</span>
+          </mdb-checkbox>
         </div>
         <div [hidden]="!isSupplementToggled(i)" class="col-md-6">
           <mdb-select *ngIf="supplement.rule == rules.TARGET_COAT_COLOUR"

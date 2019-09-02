@@ -1,4 +1,4 @@
-import {Rarity} from "../../../../common-models/rarity";
+import {Rarity} from '../../../../common-models/rarity';
 
 export class ReosOption {
   value: any;

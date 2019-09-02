@@ -19,7 +19,7 @@ export class GlintRoller {
                             : COAT_COLOUR_WHEEL[SecureRandom.secureRangeRoll(0, COAT_COLOUR_WHEEL.length - 1)];
                     glintUsed = true;
                 });
-            })
+            });
 
         if (glintUsed && supplement) {
             additionalFeedback.push(supplement.name + ' was consumed!')

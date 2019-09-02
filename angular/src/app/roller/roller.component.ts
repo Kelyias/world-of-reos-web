@@ -6,7 +6,7 @@ import {RollerOptionsComponent} from '../roller-options/roller-options.component
 import {RollReoseanRequest} from '../../../../common-models/rest/roll-reosean-request';
 import {RollerApiService} from '../services/roller-api.service';
 import {v4 as uuid} from 'uuid';
-import {RollerService} from "../services/roller.service";
+import {RollerService} from '../services/roller.service';
 
 @Component({
   selector: 'app-roller',
@@ -20,7 +20,7 @@ export class RollerComponent implements OnInit {
   @ViewChild('litterBlock', {static: false}) litterBlock: LitterComponent;
   @ViewChild('supplementsComponent', {static: false}) supplementsComponent: SupplementsComponent;
   @ViewChild('rollerOptionsComponent', {static: false}) rollerOptionsComponent: RollerOptionsComponent;
-  private inProgress: boolean = false;
+  private inProgress = false;
 
   constructor(private rollerApiService: RollerApiService, private rollerService: RollerService) {
     if (!localStorage.getItem('rollerId')) {

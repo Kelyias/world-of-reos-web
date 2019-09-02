@@ -2,6 +2,7 @@ import {Reosean} from "../../../common-models/reosean";
 import {Rarity} from "../../../common-models/rarity";
 import {SecureRandom} from "../security/secure-random";
 import {COAT_TYPES} from "../../../common-models/coat-type";
+import {RollerHelpers} from "./roller-helpers";
 
 export class CoatTypeRoller {
 
@@ -101,7 +102,7 @@ export class CoatTypeRoller {
 
         offspring.forEach(child => {
             let raritySet = new Set<Rarity>().add(sire.coatType.rarity).add(dam.coatType.rarity);
-            let passRate = this.coatTypePassRates.find(value => this.isSetsEqual(raritySet, value.raritySet))!;
+            let passRate = this.coatTypePassRates.find(value => RollerHelpers.isSetsEqual(raritySet, value.raritySet))!;
             let roll = SecureRandom.secureRandom();
 
             let prevPasChance = 0.0;
@@ -116,8 +117,6 @@ export class CoatTypeRoller {
             child.coatType = COAT_TYPES.find(trait => trait.rarity == rarity)!;
         });
     }
-
-    private static isSetsEqual = (a, b) => a.size === b.size && [...a].every(value => b.has(value));
 }
 
 interface CoatTypePassRate {

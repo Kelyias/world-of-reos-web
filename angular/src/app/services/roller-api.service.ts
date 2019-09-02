@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {RollReoseanRequest} from "../../../../common-models/rest/roll-reosean-request";
-import {Observable} from "rxjs";
-import {RollReoseanResponse} from "../../../../common-models/rest/roll-reosean-response";
-import {HttpClient} from "@angular/common/http";
+import {RollReoseanRequest} from '../../../../common-models/rest/roll-reosean-request';
+import {Observable} from 'rxjs';
+import {RollReoseanResponse} from '../../../../common-models/rest/roll-reosean-response';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'

@@ -3,6 +3,7 @@ import {Species} from "../../../common-models/species";
 import {BODY_TYPES, BodyType, ReoseanBody} from "../../../common-models/body";
 import {SecureRandom} from "../security/secure-random";
 import {Supplement, SupplementRule} from "../../../common-models/supplement";
+import {RollerHelpers} from "./roller-helpers";
 
 export class BodyTypeRoller {
 
@@ -76,13 +77,11 @@ export class BodyTypeRoller {
 
     private static getSpeciesRollChances(sireBodyType: BodyType, damBodyType: BodyType): SpeciesRollChances {
 
-
         let speciesSet = new Set<BodyType>().add(sireBodyType).add(damBodyType);
         speciesSet.delete(BodyType.EMPYRIAN);
-        return this.speciesRollChanges.find(value => this.isSetsEqual(speciesSet, value.parentsSet))!;
+        return this.speciesRollChanges.find(value => RollerHelpers.isSetsEqual(speciesSet, value.parentsSet))!;
     }
 
-    private static isSetsEqual = (a, b) => a.size === b.size && [...a].every(value => b.has(value));
 }
 
 export interface SpeciesRollChances {

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {CoatColour} from "../../../../common-models/coat-colour";
-import {BehaviorSubject, Observable, Subject} from "rxjs";
+import {CoatColour} from '../../../../common-models/coat-colour';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

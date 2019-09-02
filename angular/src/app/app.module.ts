@@ -8,10 +8,10 @@ import {LitterComponent} from './litter/litter.component';
 import {SupplementsComponent} from './supplements/supplements.component';
 import {RollerOptionsComponent} from './roller-options/roller-options.component';
 import {MDBBootstrapModulesPro, MDBSpinningPreloader} from 'ng-uikit-pro-standard';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {ClipboardModule} from "ngx-clipboard";
-import {HttpClientModule} from "@angular/common/http";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ClipboardModule} from 'ngx-clipboard';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [

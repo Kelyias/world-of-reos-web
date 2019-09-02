@@ -25,7 +25,7 @@ export class NonPassableRoller {
     }
 
     private static rollMutation(child: Reosean) {
-        let mutations = Object.keys(Mutation)
+        let mutations = Object.keys(Mutation);
         child.mutation = mutations[SecureRandom.secureRangeRoll(0, mutations.length - 1)] as Mutation
     }
 

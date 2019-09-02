@@ -113,5 +113,4 @@ export const TRAITS: Trait[] = [
     {name: 'Shaped', species: Species.TYRIAN, type: TraitType.EYE, rarity: Rarity.RARE},
     {name: 'Glowing', species: Species.TYRIAN, type: TraitType.EYE, rarity: Rarity.RARE},
 
-
-]
+];

@@ -18,12 +18,12 @@ export enum SupplementRule {
 export const SUPPLEMENTS: Supplement[] = [
     {
         name: 'Chromatic Concoction',
-        effect: 'Garauntees the litter is all the chosen base color',
+        effect: 'Guarantees the litter is all the chosen base color',
         rule: SupplementRule.TARGET_COAT_COLOUR
     },
     {
         name: 'Physique Petites',
-        effect: 'Garauntees a certain body type (within what the parents can make)',
+        effect: 'Guarantees a certain body type (within what the parents can make)',
         rule: SupplementRule.TARGET_BODY_TYPE
     },
     {

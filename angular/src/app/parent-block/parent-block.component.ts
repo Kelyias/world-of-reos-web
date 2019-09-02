@@ -17,8 +17,8 @@ import {Reosean} from '../../../../common-models/reosean';
 import {GeneType} from '../../../../common-models/gene-type';
 import {SKILLS} from '../../../../common-models/skill';
 import {IOption} from 'ng-uikit-pro-standard';
-import {Genotype} from "../../../../common-models/genotype";
-import {RollerService} from "../services/roller.service";
+import {Genotype} from '../../../../common-models/genotype';
+import {RollerService} from '../services/roller.service';
 
 @Component({
   selector: 'app-parent-block',
@@ -60,20 +60,6 @@ export class ParentBlockComponent implements OnInit {
 
   ngOnInit() {
     this.skillMultiOptions = [];
-    this.getRarityGroup(SKILLS.map(value => Helpers.getReosOption(value, value.name, value.rarity)))
-      .forEach((values, key) => {
-        this.skillMultiOptions.push({
-          label: key,
-          value: '',
-          group: true,
-          icon: ''
-        });
-        values.forEach(value => this.skillMultiOptions.push({
-          label: value.label,
-          value: value.value,
-          icon: ''
-        }));
-      });
 
     this.reoseanForm = this.fb.group({
       species: ['', Validators.required],
@@ -86,6 +72,8 @@ export class ParentBlockComponent implements OnInit {
       genoInput: ['', Validators.required],
       skills: ['', Validators.required]
     });
+
+    this.setupSkillGroups();
 
     this.politicalStatusOptions = Helpers.convertEnumToOptionsArray(PoliticalStatus);
     this.speciesOptions = Helpers.convertEnumToOptionsArray(Species);
@@ -107,7 +95,7 @@ export class ParentBlockComponent implements OnInit {
   }
 
   public isValid(): boolean {
-    let valid = !this.genoError && this.genotypeTokens != null && this.genotypeTokens.length > 0;
+    const valid = !this.genoError && this.genotypeTokens != null && this.genotypeTokens.length > 0;
     if (!valid) {
       this.rollerService.addFeedback(this.title + ' is invalid');
     }
@@ -149,15 +137,10 @@ export class ParentBlockComponent implements OnInit {
       .map(value => Helpers.getReosOption(value, value.name, value.rarity)));
 
 
-    this.reoseanForm.patchValue({
-      bodyType: this.bodyTypeOptions[0].value,
-      earTrait: this.groupedEarTraitsOptionsByRarity.values().next().value[0].value,
-      tailTrait: this.groupedTailTraitOptionsByRarity.values().next().value[0].value,
-      eyeTrait: this.groupedEyeTraitOptionsByRarity.values().next().value[0].value,
-    });
+    this.resetFilteredSelection();
   }
 
-  validateGeno(genoText: string) {
+  validateGenoString(genoText: string) {
     this.rollerService.resetColourRange(this.title);
     this.geno = '';
     this.genotypeTokens = [];
@@ -177,10 +160,36 @@ export class ParentBlockComponent implements OnInit {
     });
   }
 
+  private resetFilteredSelection() {
+    this.reoseanForm.patchValue({
+      bodyType: this.bodyTypeOptions[0].value,
+      earTrait: this.groupedEarTraitsOptionsByRarity.values().next().value[0].value,
+      tailTrait: this.groupedTailTraitOptionsByRarity.values().next().value[0].value,
+      eyeTrait: this.groupedEyeTraitOptionsByRarity.values().next().value[0].value,
+    });
+  }
+
+  private setupSkillGroups() {
+    this.getRarityGroup(SKILLS.map(value => Helpers.getReosOption(value, value.name, value.rarity)))
+      .forEach((values, key) => {
+        this.skillMultiOptions.push({
+          label: key,
+          value: '',
+          group: true,
+          icon: ''
+        });
+        values.forEach(value => this.skillMultiOptions.push({
+          label: value.label,
+          value: value.value,
+          icon: ''
+        }));
+      });
+  }
+
   private getGenotype(): Genotype[] {
-    let genotypes: Genotype[] = [];
+    const genotypes: Genotype[] = [];
     this.genotypeTokens.forEach(token => {
-      let genotype: Genotype = new Genotype();
+      const genotype: Genotype = new Genotype();
       genotype.coatColour = token.coatColour.geno as CoatColour;
 
 

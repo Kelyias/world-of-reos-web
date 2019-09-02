@@ -1,4 +1,4 @@
-import {GenoToken} from "./geno-token";
+import {GenoToken} from './geno-token';
 
 export class GenotypeToken {
   genotypeText: string;

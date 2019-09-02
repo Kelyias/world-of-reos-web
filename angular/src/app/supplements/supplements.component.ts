@@ -4,8 +4,8 @@ import {CheckboxComponent, MdbCheckboxChange} from 'ng-uikit-pro-standard';
 import {COAT_COLOUR_WHEEL, CoatColour} from '../../../../common-models/coat-colour';
 import {BODY_TYPES, BodyType} from '../../../../common-models/body';
 import {Species} from '../../../../common-models/species';
-import {Helpers} from "../utils/helpers";
-import {RollerService} from "../services/roller.service";
+import {Helpers} from '../utils/helpers';
+import {RollerService} from '../services/roller.service';
 
 @Component({
   selector: 'app-supplements',
@@ -109,7 +109,7 @@ export class SupplementsComponent implements OnInit {
   }
 
   private testSupplements(testSupplements: Supplement[]): boolean {
-    let supplementRules = testSupplements.map(value => value.rule);
+    const supplementRules = testSupplements.map(value => value.rule);
     let valid = true;
     if (supplementRules.indexOf(SupplementRule.ALL_FEMALE) >= 0 && supplementRules.indexOf(SupplementRule.ALL_MALE) >= 0) {
       valid = false;
@@ -147,14 +147,14 @@ export class SupplementsComponent implements OnInit {
     let maxIndex = 0;
 
     flattenedArray.forEach(colourCoat => {
-      let colourIndex = COAT_COLOUR_WHEEL.findIndex(colour => colour.colourName == colourCoat.colourName);
+      const colourIndex = COAT_COLOUR_WHEEL.findIndex(colour => colour.colourName == colourCoat.colourName);
 
       minIndex = Math.min(colourIndex, minIndex);
       maxIndex = Math.max(colourIndex, maxIndex);
     });
 
     let colourRange;
-    let rangeLength = Math.abs((maxIndex - minIndex));
+    const rangeLength = Math.abs((maxIndex - minIndex));
     if (rangeLength <= COAT_COLOUR_WHEEL.length / 2) {
       colourRange = COAT_COLOUR_WHEEL.filter((colour, index) => index >= minIndex && index <= maxIndex);
     } else {

@@ -10,13 +10,13 @@ body, html {
 }
 
 body {
-  background-image: url("assets/images/background.png");
+  background-image: url($background-image);
   background-repeat: repeat-y;
   font-family: $font-open-sans;
 }
 
 p, span, h1, h2, h3, h4, h5, h6, div {
-  color: white;
+  color: $text-colour;
 }
 
 .reos-block {
@@ -26,7 +26,7 @@ p, span, h1, h2, h3, h4, h5, h6, div {
 
   .title {
     font-family: $font-abel;
-    border-bottom: 3px outset #405ea6;
+    border-bottom: 3px outset $background-highlight-colour;
   }
 
   .block-content {
@@ -34,11 +34,11 @@ p, span, h1, h2, h3, h4, h5, h6, div {
   }
 
   mdb-select {
-    background-color: #1f2e52;
-    font-family: 'Abel', sans-serif;
-    color: white;
+    background-color: $background-colour;
+    font-family: $font-abel;
+    color: $text-colour;
     width: 100%;
-    border: 1px solid #1f2e52;
+    border: 1px solid $background-colour;
     height: 25px;
     border-radius: 4px;
   }
@@ -57,7 +57,7 @@ p, span, h1, h2, h3, h4, h5, h6, div {
   }
 
   mdb-select > div > div.single > div.value {
-    color: white;
+    color: $text-colour;
     margin-top: -3px;
   }
 
@@ -72,78 +72,78 @@ p, span, h1, h2, h3, h4, h5, h6, div {
   .mdb-select-toggle {
     margin-top: -0.9rem;
     width: 20px;
-    color: white;
+    color: $text-colour;
     font-size: 10px;
   }
 
   .dropdown-content {
-    background-color: #1f2e52;
+    background-color: $background-colour;
 
     li:hover, li.active, .selected {
       span {
 
-        color: #1f2e52 !important;
+        color: $background-colour !important;
       }
     }
 
     li > span, li.disabled > span {
-      color: white;
+      color: $text-colour;
     }
 
     li.optgroup > span {
-      color: white !important;
+      color: $text-colour !important;
     }
   }
 
   select {
-    background-color: #1f2e52;
-    font-family: 'Abel', sans-serif;
-    color: white;
+    background-color: $background-colour;
+    font-family: $font-abel;
+    color: $text-colour;
     width: 100%;
-    border: 1px solid #1f2e52;
+    border: 1px solid $background-colour;
     height: 25px;
     border-radius: 4px;
   }
 
   input {
-    background-color: #1f2e52;
-    font-family: 'Abel', sans-serif;
-    color: white;
+    background-color: $background-colour;
+    font-family: $font-abel;
+    color: $text-colour;
     width: 100%;
-    border: 1px solid #1f2e52;
+    border: 1px solid $background-colour;
     height: 25px;
     border-radius: 4px;
     padding: 0.9em;
   }
 
   .md-form label {
-    color: white;
+    color: $text-colour;
   }
 
 }
 
-select > [label="Common"] {
-  background-color: #9bbb76;
-  font-family: 'Abel', sans-serif;
+select > [label="Common"], select > [label="Common"] option {
+  background-color: $common-colour;
+  font-family: $font-abel;
   font-size: 1.1em;
 }
 
-select > [label="Uncommon"] {
-  background-color: #5e78cc;
-  font-family: 'Abel', sans-serif;
+select > [label="Uncommon"], select > [label="Uncommon"] option {
+  background-color: $uncommon-colour;
+  font-family: $font-abel;
   font-size: 1.1em;
 }
 
-select > [label="Rare"] {
-  background-color: #b2667f;
-  font-family: 'Abel', sans-serif;
+select > [label="Rare"], select > [label="Rare"] option {
+  background-color: $rare-colour;
+  font-family: $font-abel;
   font-size: 1.1em;
 }
 
-select > [label="Very Rare"] {
-  background-color: #e9d779;
+select > [label="Very Rare"], select > [label="Very Rare"] option {
+  background-color: $very-rare-colour;
   color: black;
-  font-family: 'Abel', sans-serif;
+  font-family: $font-abel;
   font-size: 1.1em;
 }
 
@@ -153,7 +153,7 @@ select > [label="Very Rare"] {
 
 .reo-button {
   font-family: $font-abel;
-  background: #485c8d !important;
+  background: $button-colour !important;
   padding: 5px 10px !important;
   vertical-align: middle;
   letter-spacing: 0.03em;
@@ -162,7 +162,7 @@ select > [label="Very Rare"] {
 }
 
 .reo-button:hover {
-  background: #313e60;
+  background: $button-highlight-colour;
   transition: background-color 0.2s;
 }
 

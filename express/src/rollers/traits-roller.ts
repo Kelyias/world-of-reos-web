@@ -3,6 +3,7 @@ import {Rarity} from "../../../common-models/rarity";
 import {Trait, TRAITS} from "../../../common-models/trait";
 import {SecureRandom} from "../security/secure-random";
 import {TraitType} from "../../../common-models/trait-type";
+import {RollerHelpers} from "./roller-helpers";
 
 export class TraitsRoller {
 
@@ -98,7 +99,7 @@ export class TraitsRoller {
 
     private static rollTrait(child: Reosean, sireTrait: Trait, damTrait: Trait, traitType: TraitType): Trait {
         let traitRaritySet = new Set<Rarity>().add(sireTrait.rarity).add(damTrait.rarity);
-        let traitPassRate = this.traitPassRates.find(value => this.isSetsEqual(traitRaritySet, value.raritySet))!;
+        let traitPassRate = this.traitPassRates.find(value => RollerHelpers.isSetsEqual(traitRaritySet, value.raritySet))!;
         let roll = SecureRandom.secureRandom();
 
         let prevPasChance = 0.0;
@@ -114,7 +115,6 @@ export class TraitsRoller {
         return possibleTraits[SecureRandom.secureRangeRoll(0, possibleTraits.length - 1)];
     }
 
-    private static isSetsEqual = (a, b) => a.size === b.size && [...a].every(value => b.has(value));
 
 }
 

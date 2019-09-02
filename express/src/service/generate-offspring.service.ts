@@ -27,7 +27,7 @@ export class GenerateOffspringService {
             return rollReoseanResponse;
         }
         let additionalFeedback: string[] = [];
-        this.filterChimeraGenotype(sire, dam);
+        this.selectChimeraGenotype(sire, dam);
         let offspring: Reosean[] = SpeciesRoller.generateLitterBySpecies(sire, dam, request.supplements, additionalFeedback);
 
         GenderRoller.rollGender(offspring, request.supplements, additionalFeedback);
@@ -47,7 +47,7 @@ export class GenerateOffspringService {
     }
 
 
-    private filterChimeraGenotype(sire: Reosean, dam: Reosean) {
+    private selectChimeraGenotype(sire: Reosean, dam: Reosean) {
         sire.genotypes = [sire.genotypes[SecureRandom.secureRangeRoll(0, sire.genotypes.length - 1)]];
         dam.genotypes = [dam.genotypes[SecureRandom.secureRangeRoll(0, dam.genotypes.length - 1)]];
     }
