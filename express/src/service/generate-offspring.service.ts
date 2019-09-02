@@ -23,7 +23,7 @@ export class GenerateOffspringService {
         let dam = request.dam;
         if (!PoliticalStatusRoller.checkPoliticalStatus(sire, dam)) {
             rollReoseanResponse.offspring = [];
-            rollReoseanResponse.additionalFeedback = 'Empty litter';
+            rollReoseanResponse.additionalFeedback = 'This breeding resulted in an empty litter.';
             return rollReoseanResponse;
         }
         let additionalFeedback: string[] = [];

@@ -44,7 +44,7 @@ export class ParentBlockComponent implements OnInit {
   public genoError = false;
   public genotypeTokens: GenotypeToken[] = [];
   skillMultiOptions: Array<IOption>;
-  private genoRegexp = /(?<coatColour>[a-zA-Z]+)\+(?<markings>([a-zA-Z]+)+(\/[a-zA-Z]*)*)*(\/(?<glintGene>(Gl|GG))-(?<glintColour>[a-zA-Z]+))?$/;
+  private genoRegexp = /([a-zA-Z]+)\+(([a-zA-Z]+)+(\/[a-zA-Z]*)*)*(\/((Gl|GG))-([a-zA-Z]+))?$/;
 
   constructor(private fb: FormBuilder, private rollerService: RollerService) {
     this.rollerService.$restForm.subscribe(() => {
@@ -219,14 +219,14 @@ export class ParentBlockComponent implements OnInit {
       return;
     }
 
-    genotypeToken.coatColour = new GenoToken(matchArray.groups.coatColour);
-    if (matchArray.groups.markings) {
-      genotypeToken.markings = matchArray.groups.markings.split('/').map(value => new GenoToken(value));
+    genotypeToken.coatColour = new GenoToken(matchArray[1]);
+    if (matchArray[2]) {
+      genotypeToken.markings = matchArray[2].split('/').map(value => new GenoToken(value));
     }
 
-    if (matchArray.groups.glintGene) {
-      genotypeToken.glintGene = new GenoToken(matchArray.groups.glintGene);
-      genotypeToken.glintColour = new GenoToken(matchArray.groups.glintColour);
+    if (matchArray[6]) {
+      genotypeToken.glintGene = new GenoToken(matchArray[6]);
+      genotypeToken.glintColour = new GenoToken(matchArray[8]);
     }
 
     this.validateCoatColour([genotypeToken.coatColour, genotypeToken.glintColour]);
