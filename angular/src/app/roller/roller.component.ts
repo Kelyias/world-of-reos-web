@@ -49,7 +49,7 @@ export class RollerComponent implements OnInit {
         rollerId: localStorage.getItem('rollerId')
       };
       this.rollerApiService.rollReosean(request).subscribe(response => {
-          setTimeout(() => this.inProgress = false, 2000);
+          setTimeout(() => this.inProgress = false, 1000);
           this.litterBlock.displayResults(response);
         },
         () => {

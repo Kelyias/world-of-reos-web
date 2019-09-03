@@ -220,7 +220,10 @@ export class ParentBlockComponent implements OnInit {
     const genotypeToken = new GenotypeToken(geno);
     this.genotypeTokens.push(genotypeToken);
 
-    const matchArray = geno.match(this.genoRegexp);
+    const matchArray = geno
+      .replace('+Gl', '+/Gl')
+      .replace('+GG', '+/GG')
+      .match(this.genoRegexp);
 
     if (!matchArray) {
       this.genoError = true;
