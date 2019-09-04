@@ -16,7 +16,7 @@ export class HealthStatusRoller {
             child.healthStatus = !inbred ? HealthStatus.HEALTHY : HealthStatusRoller.rollInbred();
         });
         if (inbred) {
-            additionalFeedback.push('Inbreed reason: ' + inbredReason);
+            additionalFeedback.push('Inbred via: ' + inbredReason);
         }
     }
 

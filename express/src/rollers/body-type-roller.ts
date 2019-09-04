@@ -35,8 +35,8 @@ export class BodyTypeRoller {
         {
             parentsSet: new Set<BodyType>().add(BodyType.CHASER).add(BodyType.PULLER),
             successChance: 0.6,
-            successResult: BodyType.CHASER,
-            failResult: BodyType.RUNNER
+            successResult: BodyType.PULLER,
+            failResult: BodyType.CHASER
         },
         {
             parentsSet: new Set<BodyType>().add(BodyType.PULLER).add(BodyType.PULLER),
