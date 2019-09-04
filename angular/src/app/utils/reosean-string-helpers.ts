@@ -61,7 +61,7 @@ export class ReoseanStringHelpers {
       text += `${i > 0 ? ' // ' : ''}` +
         `${genotype.coatColour.colourSymbol}+` +
         `${genotype.markings ? markings.map(value => this.getGeneSymbol(value)).join('/') : ''}` +
-        `${genotype.markings && genotype.markings.length == 1 && genotype.glint || genotype.markings.length == 0 ? '' : '/'}` +
+        `${genotype.glint && genotype.markings && genotype.markings.length > 1 ? '/' : ''}` +
         `${genotype.glint ? this.getGeneSymbol(glint) + '-' + genotype.glint.colourSymbol : ''}`;
 
     });

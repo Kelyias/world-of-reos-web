@@ -1,6 +1,6 @@
 {
   "name": "world-of-reos",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "scripts": {
     "ng": "ng",
     "start": "concurrently --kill-others \"npm run dev-angular\" \"npm run dev-express\"",

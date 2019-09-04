@@ -40,9 +40,27 @@ export class BodyTypeRoller {
         },
         {
             parentsSet: new Set<BodyType>().add(BodyType.PULLER).add(BodyType.PULLER),
-            successChance: .1,
+            successChance: .9,
             successResult: BodyType.PULLER,
             failResult: BodyType.RUNNER
+        },
+        {
+            parentsSet: new Set<BodyType>().add(BodyType.CHASER).add(BodyType.EMPYRIAN),
+            successChance: 1,
+            successResult: BodyType.CHASER,
+            failResult: BodyType.CHASER
+        },
+        {
+            parentsSet: new Set<BodyType>().add(BodyType.RUNNER).add(BodyType.EMPYRIAN),
+            successChance: 1,
+            successResult: BodyType.RUNNER,
+            failResult: BodyType.RUNNER
+        },
+        {
+            parentsSet: new Set<BodyType>().add(BodyType.PULLER).add(BodyType.EMPYRIAN),
+            successChance: 1,
+            successResult: BodyType.PULLER,
+            failResult: BodyType.PULLER
         },
     ];
 
@@ -78,7 +96,6 @@ export class BodyTypeRoller {
     private static getSpeciesRollChances(sireBodyType: BodyType, damBodyType: BodyType): SpeciesRollChances {
 
         let speciesSet = new Set<BodyType>().add(sireBodyType).add(damBodyType);
-        speciesSet.delete(BodyType.EMPYRIAN);
         return this.speciesRollChanges.find(value => RollerHelpers.isSetsEqual(speciesSet, value.parentsSet))!;
     }
 
