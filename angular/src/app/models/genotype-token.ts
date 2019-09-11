@@ -5,7 +5,7 @@ export class GenotypeToken {
   coatColour: GenoToken;
   markings: GenoToken[] = [];
   glintGene: GenoToken;
-  glintColour: GenoToken;
+  glintColours: GenoToken[] = [];
 
 
   constructor(genotypeText: string) {

@@ -4,6 +4,6 @@ import {Marking} from "./marking";
 export class Genotype {
     markings: Marking[];
     coatColour: CoatColour;
-    glint?: CoatColour;
+    glint?: CoatColour[];
 
 }

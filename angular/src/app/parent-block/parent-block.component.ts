@@ -44,7 +44,7 @@ export class ParentBlockComponent implements OnInit {
   public genoError = false;
   public genotypeTokens: GenotypeToken[] = [];
   skillMultiOptions: Array<IOption>;
-  private genoRegexp = /([a-zA-Z]+)\+(([a-zA-Z]+)+(\/[a-zA-Z]*)*)*(\/((Gl|GG))-([a-zA-Z]+))?$/;
+  private genoRegexp = /([a-zA-Z]+)\+(([a-zA-Z]+)+(\/[a-zA-Z]*)*)*(\/((Gl|GG))-([a-zA-Z]+(\/[a-zA-Z]+)*))?$/;
 
   constructor(private fb: FormBuilder, private rollerService: RollerService) {
     this.rollerService.$restForm.subscribe(() => {
@@ -207,7 +207,7 @@ export class ParentBlockComponent implements OnInit {
         marking.geneType = (token.glintGene.genoText == marking.markingGene.dominateSymbol ? GeneType.DOMINATE : GeneType.RECESSIVE);
 
         genotype.markings.push(marking);
-        genotype.glint = token.glintColour.geno as CoatColour;
+        genotype.glint = token.glintColours.map(value => value.geno as CoatColour);
       }
 
       genotypes.push(genotype);
@@ -231,17 +231,22 @@ export class ParentBlockComponent implements OnInit {
       return;
     }
 
-    genotypeToken.coatColour = new GenoToken(matchArray[1]);
-    if (matchArray[2]) {
-      genotypeToken.markings = matchArray[2].split('/').map(value => new GenoToken(value));
+    let coatColourRegex = matchArray[1];
+    let markingsRegex = matchArray[2];
+    let glintGeneRegex = matchArray[6];
+    let glintColourRegex = matchArray[8];
+
+    genotypeToken.coatColour = new GenoToken(coatColourRegex);
+    if (markingsRegex) {
+      genotypeToken.markings = markingsRegex.split('/').map(value => new GenoToken(value));
     }
 
-    if (matchArray[6]) {
-      genotypeToken.glintGene = new GenoToken(matchArray[6]);
-      genotypeToken.glintColour = new GenoToken(matchArray[8]);
+    if (glintGeneRegex) {
+      genotypeToken.glintGene = new GenoToken(glintGeneRegex);
+      genotypeToken.glintColours = glintColourRegex.split('/').map(glintColour => new GenoToken(glintColour));
     }
 
-    this.validateCoatColour([genotypeToken.coatColour, genotypeToken.glintColour]);
+    this.validateCoatColour([genotypeToken.coatColour, ...genotypeToken.glintColours]);
     let markings = [genotypeToken.glintGene];
     if (genotypeToken.markings) {
       markings = markings.concat([...genotypeToken.markings]);
@@ -253,7 +258,7 @@ export class ParentBlockComponent implements OnInit {
     this.geno += `${i > 0 ? ' // ' : ''}
       ${genotypeToken.coatColour.genoText}+` +
       `${genotypeToken.markings ? genotypeToken.markings.map(value => value.genoText).join('/') : ''}` +
-      `${genotypeToken.glintGene ? '/' + genotypeToken.glintGene.genoText + '-' + genotypeToken.glintColour.genoText : ''}`;
+      `${genotypeToken.glintGene ? '/' + genotypeToken.glintGene.genoText + '-' + genotypeToken.glintColours.map(value => value.genoText).join('/') : ''}`;
   }
 
   private getRarityGroup(reosOptions: ReosOption[]): Map<Rarity, ReosOption[]> {

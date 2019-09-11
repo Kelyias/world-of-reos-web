@@ -47,7 +47,7 @@ export class ReoseanStringHelpers {
 
       text += `${i > 0 ? ' // ' : ''}` +
         `${phenotypeText.join(' ')} ` +
-        `${genotype.glint ? genotype.glint.colourName + ' Glint' : ''}`;
+        `${genotype.glint ? genotype.glint.map(value => value.colourName).join('/') + ' Glint' : ''}`;
     });
     return text;
   }
@@ -62,7 +62,7 @@ export class ReoseanStringHelpers {
         `${genotype.coatColour.colourSymbol}+` +
         `${genotype.markings ? markings.map(value => this.getGeneSymbol(value)).join('/') : ''}` +
         `${genotype.glint && genotype.markings && genotype.markings.length > 1 ? '/' : ''}` +
-        `${genotype.glint ? this.getGeneSymbol(glint) + '-' + genotype.glint.colourSymbol : ''}`;
+        `${genotype.glint ? this.getGeneSymbol(glint) + '-' + genotype.glint.map(value => value.colourSymbol).join('/') : ''}`;
 
     });
     return text;
