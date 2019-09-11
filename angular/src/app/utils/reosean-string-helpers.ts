@@ -31,17 +31,17 @@ export class ReoseanStringHelpers {
       let afterMarkingsArray = afterMarkings.map(value => value.markingGene.phenotype);
 
       if (afterMarkingsArray.length > 0 && genotype.glint) {
-        afterMarkingsArray.push('And');
+        afterMarkingsArray.push('and');
       }
       if (afterMarkingsArray.length > 1 && !genotype.glint) {
-        afterMarkingsArray.splice(afterMarkingsArray.length - 1, 0, 'And');
+        afterMarkingsArray.splice(afterMarkingsArray.length - 1, 0, 'and');
       }
 
       let phenotypeText = beforeMarkings.map(value => value.markingGene.phenotype);
       phenotypeText.push(genotype.coatColour.colourName);
 
       if (afterMarkings.length > 0 || genotype.glint) {
-        phenotypeText.push('With');
+        phenotypeText.push('with');
       }
       phenotypeText = phenotypeText.concat(afterMarkingsArray);
 

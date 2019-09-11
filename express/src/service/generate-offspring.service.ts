@@ -39,7 +39,7 @@ export class GenerateOffspringService {
         CoatColourRoller.rollCoatColour(offspring, sire, dam, request.supplements, additionalFeedback);
         GlintRoller.rollGlint(offspring, request.supplements, additionalFeedback);
         TraitsRoller.rollTraits(offspring, sire, dam);
-        SkillsRoller.rollSkills(offspring, sire, dam);
+        SkillsRoller.rollSkills(offspring, sire, dam, additionalFeedback);
 
         rollReoseanResponse.offspring = offspring;
         rollReoseanResponse.additionalFeedback = additionalFeedback.join('\n');

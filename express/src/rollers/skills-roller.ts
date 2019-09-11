@@ -9,8 +9,13 @@ export class SkillsRoller {
         {rarity: Rarity.RARE, passRate: 0.10},
     ];
 
-    public static rollSkills(offspring: Reosean[], sire: Reosean, dam: Reosean) {
+    public static rollSkills(offspring: Reosean[], sire: Reosean, dam: Reosean, additionalFeedback: string[]) {
         offspring.forEach(child => this.rollSkillForChild(child, sire, dam));
+
+        if ((sire.skills.length > 0 || dam.skills.length > 0)
+            && offspring.filter(child => child.skills.length > 0).length == 0) {
+            additionalFeedback.push('<i>No skills have passed down</i>')
+        }
     }
 
     private static rollSkillForChild(child: Reosean, sire: Reosean, dam: Reosean) {
@@ -23,7 +28,7 @@ export class SkillsRoller {
             if (SecureRandom.secureCheckRoll(passRates)) {
                 child.skills.push(skill);
             }
-        })
+        });
     }
 }
 
