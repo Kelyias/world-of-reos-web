@@ -11,7 +11,7 @@ body, html {
 
 body {
   background-image: url($background-image);
-  background-repeat: repeat-y;
+  background-repeat: repeat;
   font-family: $font-open-sans;
 }
 
@@ -30,6 +30,10 @@ p, span, h1, h2, h3, h4, h5, h6, div {
   }
 
   .block-content {
+    font-size: 0.8em;
+  }
+
+  .geno-content label {
     font-size: 0.8em;
   }
 
