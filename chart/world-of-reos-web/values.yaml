@@ -8,11 +8,14 @@ web:
     pullPolicy: Always
   ingress:
     issuer: letsencrypt-prod
-    domain: worldofreos.fusionhs.com
     path: /
     hosts:
+      - worldofreos.com
       - worldofreos.fusionhs.com
     tls:
+      - secretName: worldofreos-tls
+        hosts:
+          - worldofreos.com
       - secretName: worldofreos-fusionhs-tls
         hosts:
           - worldofreos.fusionhs.com

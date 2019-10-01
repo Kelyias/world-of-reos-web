@@ -12,6 +12,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ClipboardModule} from 'ngx-clipboard';
 import {HttpClientModule} from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
+import { MenuPageComponent } from './menu-page/menu-page.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import {HttpClientModule} from '@angular/common/http';
     ParentBlockComponent,
     LitterComponent,
     SupplementsComponent,
-    RollerOptionsComponent
+    RollerOptionsComponent,
+    MenuPageComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +33,7 @@ import {HttpClientModule} from '@angular/common/http';
     HttpClientModule,
     ReactiveFormsModule,
     MDBBootstrapModulesPro.forRoot(),
+    AppRoutingModule,
   ],
   providers: [
     MDBSpinningPreloader

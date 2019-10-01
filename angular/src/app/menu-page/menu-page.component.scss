@@ -1,0 +1,11 @@
+@import '../../variables';
+
+.reos-links {
+  a {
+    background-color: $button-colour;
+  }
+
+  a:hover {
+    background-color: $button-highlight-colour;
+  }
+}
