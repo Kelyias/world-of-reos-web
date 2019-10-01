@@ -24,9 +24,15 @@
           <div class="col-md-4 px-4">
             <app-roller-options #rollerOptionsComponent></app-roller-options>
             <div class="reos-block px-5 mt-3 py-1">
-              <div class=""><a (click)="resetForm()" class="reo-button" mdbBtn mdbWavesEffect type="button">
-                Reset Form
-              </a>
+              <div class="">
+                <a (click)="resetForm()" class="reo-button" mdbBtn mdbWavesEffect type="button">
+                  Reset Form
+                </a>
+              </div>
+              <div class="">
+                <a class="reo-button" mdbBtn mdbWavesEffect routerLink="/" type="button">
+                  Main Page
+                </a>
               </div>
             </div>
           </div>
