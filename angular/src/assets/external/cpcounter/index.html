@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <title>World of Reos - CP Calculator</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <!-- Bootstrap Core CSS -->
+  <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+  <link href="http://i.imgur.com/mDXvBKC.png" rel="icon"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="countercode.js"></script>
+</head>
+
+<body>
+<!-- Navigation -->
+
+<!-- CONTENT -->
+<div id="title">Citizen Point Calculator</div>
+<a href="/">
+  <button type="submit">HOME</button>
+</a>
+<div class="credit">
+  This tool may not be distributed without permission.<br>
+  <a href="http://livard.com">Livard Arts</a> All Rights Reserved 2019<br>
+  <a href="https://app.termly.io/document/terms-of-use-for-website/d6782dcf-ed11-464b-8623-cb82e53d5907" target="_blank">Terms of Use</a> | <a
+  href="http://www.livard.com/privacy.html" target="_blank">Privacy Policy</a> | <a href="http://www.livard.com/contact.html" target="_blank">Contact</a></div>
+<div id="all">
+  <center>
+
+    <table style="display:inline-block" width="75%">
+      <td style="vertical-align:top">
+        <form id="cpcount">
+          <div class="boxed box3 side">
+            <div id="smalltitle">Thumbnail Code</div>
+            <br>
+            <input id="thumb" placeholder=":thumbxxxx:" type="text">
+            <p></p>
+          </div>
+          <div class="boxed box3 side">
+            <div id="smalltitle">Basic Points</div>
+            Check the boxes that apply to your piece, and watch the points add up on the right!<br><br>
+            <input id="art" type="checkbox"><label class="wide" for="art">Art</label><br>
+            <fieldset id="artamount">
+              <center>
+                <input checked id="drawn" name="arttype" type="radio"><label for="drawn">Drawn</label>
+                <input id="sculpt" name="arttype" type="radio"><label for="sculpt">Sculpted</label>
+                <br>
+                <input id="head" name="artamount" type="radio"><label for="head">Headshot</label>
+                <input id="fullbody" name="artamount" type="radio"><label for="fullbody">Fullbody</label><br>
+                <fieldset id="quality">
+                  <input id="col" type="checkbox"><label class="wide" for="col">Colored</label><br>
+                  <input id="shaded" type="checkbox"><label class="wide" for="shaded">Shaded</label><br><br>
+                  <input id="chibi" type="checkbox"><label class="wide" for="chibi">Chibi</label><br>
+                  <input id="recol" type="checkbox"><label class="wide" for="recol">Recolored</label><br><br>
+                  <input id="bg" type="checkbox"><label class="wide" for="bg">Finished Background</label>
+                  <input id="sketchbg" type="checkbox"><label class="wide" for="sketchbg">Sketch Background</label><br>
+                  <input id="landbg" type="checkbox"><label class="wide" for="landbg">Land Bonus</label><br>
+                </fieldset>
+                <br></center>
+            </fieldset>
+            <input id="lit" type="checkbox"><label class="wide" for="lit">Literature</label><br><br>
+            <fieldset id="words">
+              <label for="wc">What's the <a href="http://www.wordcounter.net/">Wordcount</a>? </label><br>
+              <input id="wc" name="wc" type="tel">
+            </fieldset>
+          </div>
+
+      </td>
+      <td style="vertical-align:top">
+        <div class="boxed box3 center">
+          <div id="smalltitle">Final Count</div>
+          Copy this text into your CP tracker!<br>
+          <textarea cols="39" id="points" onClick="this.select();" rows="15"></textarea><br><br>
+          <a class="button" onclick="reset()">Reset</a>
+          <p>
+
+          </p>
+        </div>
+      </td>
+      <td style="vertical-align:top">
+        <div class="boxed box3 side">
+          <fieldset id="bonuses">
+
+            <div id="smalltitle">Bonus Points</div>
+            The bonuses below only apply to original, non-reused artwork. <br>
+
+            <input id="personal" type="checkbox"><label class="wide" for="personal">Personal Art </label><br>
+            <input id="rider" type="checkbox"><label class="wide" for="rider">Companion </label><br>
+            <input id="bonded" type="checkbox"><label class="wide" for="bonded">Bonded Bonus</label><br>
+            <input id="arpg" type="checkbox"><label class="wide" for="arpg">Other ARPG Bonus</label><br>
+            <input id="extra" type="checkbox"><label class="wide" for="extra">Added Member's Reos/Starter</label><br>
+            <input id="guildm" type="checkbox"><label class="wide" for="guildm">Guild Member's Vayron</label><br>
+            <input id="ingin" type="checkbox"><label class="wide" for="ingin">Ingin Present </label><br>
+            <input id="ma" type="checkbox"><label class="wide" for="ma">Magic Awakening </label><br>
+            <input id="magimagic" type="checkbox"><label class="wide" for="magimagic">Magic Present [Magi]</label><br>
+            <input id="spellmaster" type="checkbox"><label class="wide" for="spellmaster">Magic Present [Spellmaster]</label><br>
+            <input id="quest" type="checkbox"><label class="wide" for="quest">Questing</label><br>
+            <fieldset id="questtype">
+              <input checked id="icq" name="questtype" type="radio"><label class="short" for="icq">Initial Class Quest</label><br>
+              <input id="mq" name="questtype" type="radio"><label class="short" for="mq">Magical Quest</label><br>
+              <input id="lcq" name="questtype" type="radio"><label class="short" for="lcq">Low Class Quests</label><br>
+              <input id="hcq" name="questtype" type="radio"><label class="short" for="hcq">High Class Quests</label><br>
+            </fieldset>
+            <input id="activity" type="checkbox"><label class="wide" for="activity">Activity</label><br>
+            <fieldset id="activitytype">
+              <input checked id="hunt" name="activitytype" type="radio"><label class="short" for="hunt">Hunting</label><br>
+              <input id="train" name="activitytype" type="radio"><label class="short" for="train">Training</label><br>
+              <input id="bonding" name="activitytype" type="radio"><label class="short" for="bonding">Bonding Stage</label><br>
+              <input id="trial" name="activitytype" type="radio"><label class="short" for="trial">Purity Trial</label><br>
+              <input id="rfh" name="activitytype" type="radio"><label class="short" for="rfh">Red Flag Hunt</label><br>
+              <input id="sq" name="activitytype" type="radio"><label class="short" for="sq">Storyline Quest</label><br>
+              <input id="month" name="activitytype" type="radio"><label class="short" for="month">Monthly Prompt</label>
+            </fieldset>
+            <span id="animhold">
+				<input id="anim" type="checkbox"><label class="wide" for="anim">Animated</label><br>
+				<fieldset id="animlevel">
+					<input checked id="simple" name="animlevel" type="radio"><label for="simple">Simple (blinking, glow, etc)</label><br><br>
+					<input id="average" name="animlevel" type="radio"><label for="average">Average (head turning, etc)</label><br><br>
+					<input id="complex" name="animlevel" type="radio"><label for="complex">Complex (walking/running cycles, etc)</label><br>
+				</fieldset>
+			</span><br><br>
+          </fieldset>
+          </form>
+        </div>
+      </td>
+
+
+    </table>
+  </center>
+</div>
+<br><br>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>World of Reos - Adoption Payout</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <!-- Bootstrap Core CSS -->
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="http://i.imgur.com/mDXvBKC.png" rel="icon"/>
+    <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+</head>
+
+<body>
+<!-- Navigation -->
+
+<!-- CONTENT -->
+<div id="title">Adoption Center Payout Calculator</div>
+<a href="/">
+    <button type="submit">HOME</button>
+</a>
+<div class="credit">
+    Liv Schneider<br>
+    2019 (c) All Rights Reserved.<br>
+    <a href="/contact.html">Contact Us</a> | <a href="/tos.html">Terms of Service</a>
+    World of Reos (c) Pudingi 2019<br></div>
+<div id="all">
+    <center>
+        <table style="display:inline-block" width="75%">
+            <td style="vertical-align:top">
+                <form id="payout">
+                    <div class="boxed box3 side">
+                        <div id="smalltitle">Information</div>
+                        <br>
+                        <textarea cols="20" id="geno" placeholder="paste the entire geno here" rows="5"></textarea>
+                        <br><br>
+                        <input id="link" placeholder="place link to geno here" type="text">
+                        <p></p>
+                        <fieldset id="whatdo">
+                            <input checked id="releasing" name="whatdo" type="radio"><label for="releasing">Releasing</label>
+                            <input id="donating" name="whatdo" type="radio"><label for="donating">Donating</label>
+                        </fieldset>
+                    </div>
+                    <div class="boxed box3 side">
+                        <div id="smalltitle">Base Points</div>
+
+                        <b>Body Type</b><br>
+                        <fieldset id="bodytype">
+                            <center>
+                                <input checked id="runner" name="bodytype" type="radio"><label for="runner">Runner</label>
+                                <input id="puller" name="bodytype" type="radio"><label for="puller">Puller</label>
+                                <input id="chaser" name="bodytype" type="radio"><label for="chaser">Chaser</label>
+                                <input id="tyrian" name="bodytype" type="radio"><label for="tyrian">Tyrian</label>
+                        </fieldset>
+                        <br>
+                        <div class="gallery">
+                            <b>Eye Trait</b>
+                            <a data-caption="All eye types. (c) Pudingi/Castanetta." data-fancybox="gallery" href="/images/eyetraits.png">(?)</a>
+                        </div>
+                        <fieldset id="eye trait">
+                            <input checked id="comeye" name="eyetype" type="radio"><label for="comeye">Common</label>
+                            <input id="uncomeye" name="eyetype" type="radio"><label for="uncomeye">Uncommon</label>
+                            <input id="rareye" name="eyetype" type="radio"><label for="rareye">Rare</label>
+                            <input id="vrareye" name="eyetype" type="radio"><label for="vrareye">Very Rare</label>
+                        </fieldset>
+                        <br>
+                        <div class="gallery">
+                            <b>Ear Trait</b>
+                            <a data-caption="All ear types. (c) Pudingi/Castanetta." data-fancybox="gallery" href="/images/eartypes.png">(?)</a>
+                        </div>
+                        <fieldset id="eartrait">
+                            <input checked id="comear" name="eartype" type="radio"><label for="comear">Common</label>
+                            <input id="uncomear" name="eartype" type="radio"><label for="uncomear">Uncommon</label>
+                            <input id="rarear" name="eartype" type="radio"><label for="rarear">Rare</label>
+                            <input id="vrarear" name="eartype" type="radio"><label for="vrarear">Very Rare</label>
+                        </fieldset>
+                        <br>
+                        <div class="gallery">
+                            <b>Tail Trait</b>
+                            <a data-caption="All Tail types. (c) Pudingi/Castanetta." data-fancybox="gallery" href="/images/tailtraits.png">(?)</a>
+                        </div>
+                        <fieldset id="tailtrait">
+                            <input checked id="comtail" name="tailtype" type="radio"><label for="comtail">Common</label>
+                            <input id="uncomtail" name="tailtype" type="radio"><label for="uncomtail">Uncommon</label>
+                            <input id="rartail" name="tailtype" type="radio"><label for="rartail">Rare</label>
+                            <input id="vrartail" name="tailtype" type="radio"><label for="vrartail">Very Rare</label>
+                        </fieldset>
+                        <br>
+                        <b>Coat Type</b><br>
+                        <fieldset id="coattype">
+                            <input checked id="lisse" name="coattype" type="radio"><label for="lisse">Lisse</label>
+                            <input id="friese" name="coattype" type="radio"><label for="friese">Friese</label>
+                            <input id="duveteux" name="coattype" type="radio"><label for="duveteux">Duveteux</label>
+                            <input id="angora" name="coattype" type="radio"><label for="angora">Angora</label>
+                        </fieldset>
+                        <br>
+                        <br><b>Mutations</b><br>
+                        <fieldset id="fancy">
+                            <input id="magical" name="fancy" type="checkbox"><label for="magical">Magical</label>
+                            <input id="mutation" name="fancy" type="checkbox"><label for="mutation">Mutation</label></ingput>
+                        </fieldset>
+    </center>
+
+
+</div>
+</td>
+<td style="vertical-align:top">
+    <div class="boxed box3 center">
+
+        <div id="smalltitle">Markings and Extras</div>
+        Select marking type and enter number of that type present in geno.<br>
+
+        <fieldset id="markings">
+            <input id="commmark" name="markbox" type="checkbox"><label for="commmark">Common Markings</label>
+            <input id="domcomm" name="markbox" type="checkbox"><label for="domcomm">Dominant Common</label><br><br>
+            <input id="comnum" name="markbox" style="width: 30%" type="text"> <input id="domcomnum" name="markbox" style="width: 30%" type="text">
+            <br><br>
+            <input id="uncommmark" name="uncommmark" type="checkbox"><label for="uncommmark">Uncommon Markings</label>
+            <input id="domuncommmark" name="domuncommmark" type="checkbox"><label for="domuncommmark">Dominant Uncommon</label><br><br>
+            <input id="uncomnum" name="uncomnum" style="width: 30%" type="text"> <input id="domuncomnum" name="domuncomnum" style="width: 30%" type="text">
+            <br><br>
+            <input id="raremark" name="raremark" type="checkbox"><label for="raremark">Rare Markings</label>
+            <input id="domraremark" name="domraremark" type="checkbox"><label for="domraremark">Dominant Rare</label><br><br>
+            <input id="rarnum" name="rarnum" style="width: 30%" type="tel"> <input id="domrarnum" name="domrarnum" style="width: 30%" type="text">
+            <br><br>
+            <input id="passmod" name="passmod" type="checkbox"><label for="passmod">Passable Modifier</label>
+            <input id="dompassmod" name="dompassmod" type="checkbox"><label for="dompassmod">Dominant Passable Mod</label><br><br>
+            <input id="passnum" name="passnum" style="width: 30%" type="tel"> <input id="dompassnum" name="dompassnum" style="width: 30%" type="text">
+            <br><br>
+            <input id="nonpassmod" name="nonpassmod" type="checkbox"><label for="nonpassmod">Non-Passable Modifier</label><br><br>
+            <input id="nonpassnum" name="nonpassnum" style="width: 50%" type="tel">
+        </fieldset>
+
+    </div>
+    <div class="boxed box3 center">
+        <div id="smalltitle">Skills</div>
+        Select the skill rarity and enter the number of skills of that type.
+        <div class="gallery">
+            <b>Skill Rarity</b>
+            <a data-caption="All Skills. (c) Pudingi/Castanetta." data-fancybox="gallery" href="/images/skilltraits.png">(?)</a>
+        </div>
+        <fieldset id="skills">
+            <input id="comskill" name="comskill" type="checkbox"><label for="comskill">Common Skill</label>
+            <input id="uncomskill" name="uncomskill" type="checkbox"><label for="uncomskill">Uncommon Skill</label>
+            <input id="rareskill" name="rareskill" type="checkbox"><label for="rareskill">Rare Skill</label><br><br>
+            <input id="comskillnum" name="comskillnum" style="width: 20%" type="tel"> <input id="uncomskillnum" name="uncomskillnum" style="width: 20%"
+                                                                                             type="tel"> <input id="rareskillnum" name="rareskillnum"
+                                                                                                                style="width: 20%" type="tel">
+
+        </fieldset>
+
+    </div>
+</td>
+</form>
+
+<td style="vertical-align:top">
+    <div class="boxed box3 side">
+        <div id="smalltitle">Payout</div>
+        <br>
+        <textarea cols="39" id="krones" onClick="this.select();" rows="15"></textarea><br><br>
+        <a class="button" onclick="reset()">Reset</a>
+        <p>
+
+        </p>
+    </div>
+    <center><br><a class="button" href="/CPCounterTest.html">CP Counter</a><br></center>
+</td>
+
+
+</table>
+</center>
+</div>
+<br><br>
+</body>
+<script src="accode.js"></script>
+<link href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.2/dist/jquery.fancybox.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.2/dist/jquery.fancybox.min.js"></script>
+</html>
